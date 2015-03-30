@@ -1,0 +1,184 @@
+/*-------------------------------*/
+/*------------POSTS--------------*/
+/*-------------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.post{
+	background:url(../images/bg_body_1.jpg) repeat-x center top;
+}
+
+body.post #flash-player{
+	margin: 0 auto;
+	display: table;
+	border: #9B9B9B solid 1px;
+}
+
+body.post h2{
+	margin-bottom: 3px;
+}
+
+body.post h2 span{
+	font-size: 0.55em;
+	color: #5b5b5b;
+	margin: 0 0 15px 0;
+	display: block;
+}
+
+body.post div#conteudo_post{
+	float: right;
+	width: 465px;
+	padding: 20px 0 0 0;
+}
+
+body.post div#conteudo_post h3 a{
+	font-size: 0.875em;
+	color: #4A6407;
+}
+
+body.post div#conteudo_post h4,
+body.post div#conteudo_post h5{
+	display: block;
+	margin-bottom: 20px;
+}
+
+body.post div#conteudo_extra_post{
+	float: left;
+	width: 442px;
+	padding: 20px 0 0 0;
+}
+
+body.post div#conteudo_post ul{
+	display: table;
+	text-align: center;
+	margin: 20px auto;
+}
+
+body.post div#conteudo_post p a{
+	width: 465px;
+	text-decoration: underline;
+}
+
+body.post div#conteudo_post p a:hover{
+	color: #4A6407;
+}
+
+body.post div#conteudo_post ul li{
+	float: left;
+	margin: 0 5px;
+}
+
+body.post div#conteudo_extra_post img{
+	padding: 5px;
+	border: 1px solid #999;
+}
+
+body.post div#conteudo_extra_post img.foto_principal{
+	width: 428px;
+	height: 320px;
+}
+
+body.post div#conteudo_extra_post ul.fotos li img{
+	width: 126px;
+	height: 90px;
+	cursor: pointer;
+}
+
+body.post div#conteudo_extra_post ul.fotos li img:hover{
+	border: 1px solid #000;
+}
+
+body.post div#conteudo_extra_post ul.fotos{
+	margin: 15px 0 40px 0;
+	padding: 20px 0 0 0;
+	background:url(../images/espacador_horizontal_2.png) repeat-x top left;
+	display: table;
+}
+
+body.post div#conteudo_extra_post ul.fotos li{
+	display:block;
+	float:left;
+	margin: 4px;
+}
+
+body.post div#conteudo_extra_post div#downloads{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+}
+
+body.post div#conteudo_extra_post div#downloads ul{
+	margin: 17px 0 0 0;
+}
+
+body.post div#conteudo_extra_post div#downloads ul li{
+	padding: 0 0 0 13px;
+	background:url(../images/bullet.jpg) no-repeat center left;
+}
+
+body.post div#conteudo_extra_post div#downloads ul li a:hover,
+body.post div#conteudo_extra_post div#downloads ul li a:focus{
+	text-decoration: underline;
+	color: #4A6407;
+}
+
+body.post div#outros_posts{
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+	margin: 30px 0;
+}
+
+body.post div#outros_posts ul{
+	margin: 15px 0 0 0;
+}
+
+body.post div#outros_posts ul li{
+	padding: 0 0 0 13px;
+	background:url(../images/bullet.jpg) no-repeat center left;
+}
+
+body.post div#outros_posts ul li a span{
+	color: #64850B;	
+}
+
+body.post div#outros_posts ul li a:hover,
+body.post div#outros_posts ul li a:focus{
+	text-decoration: underline;
+	color: #4A6407;
+}
+
+body.post ol li a{
+	color: #4A6407;	
+}
+
+body.post ol li a:hover{
+	text-decoration: underline;	
+}
+
+body.post ol{
+	margin: 20px 0 30px 0;
+}
+
+body.post ol .ls{
+	margin: 10px 0 20px 40px;
+}
+
+body.post ol li a{
+    padding: 0 0 0 13px;
+    background:url(../images/bullet.jpg) no-repeat center left;
+    color: #5b5b5b;
+}
+
+body.post ol li{
+	list-style: none;
+}
+
+body.post .controle-evento{
+	font-size: 0em;
+}
+
+body.post a.expandir{
+	display: block;
+	height: 0px;
+	text-indent: -20000px;
+	font-size: 0em;
+}

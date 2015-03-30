@@ -1,0 +1,419 @@
+/*------------------------*/
+/*--------CSS-RESET-------*/
+/*------------------------*/
+*{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	padding:0;
+	margin:0;
+	color:#333;
+}
+
+html{
+	background-color: #FFF;
+}
+
+body{
+	background-color: #FFF;
+	font-size: 16px;
+}
+
+a{
+	outline:none;
+	text-decoration: none;
+}
+
+img{
+	border:none;
+}
+
+li{
+	list-style: none;
+	font-size: 0.875em;
+}
+
+h2{
+	font-size: 1.6em;
+	font-weight: lighter;
+	color: #4a6407;
+	margin: 0 0 10px 0;
+}
+
+h3{
+	font-size: 1.4em;
+	font-weight: lighter;
+	color: #64860b;
+	margin: 5px 0 10px 0;
+}
+
+p{
+	font-size: 0.875em;
+	color: #5b5b5b;
+	margin: 0 0 15px 0;
+}
+
+#principal{
+	width:980px;
+	margin:0 auto;
+}
+
+a.hidden{
+	text-indent: -20000px;
+	display: block;
+	font-size: 0em;
+}
+
+a.veja_mais{
+	width: 202px;
+	padding: 11px 0 0 0;
+	height: 30px;
+	text-align: center;
+	display: block;
+	color: #525252;
+	font-size:0.875em;
+	background:url(../images/backgViewMore.png) no-repeat center center;
+}
+
+a.veja_mais_2{
+	width: 301px;
+	padding: 11px 0 0 0;
+	height: 30px;
+	text-align: center;
+	display: block;
+	color: #525252;
+	font-size:0.875em;
+	background:url(../images/backgViewMoreGd.png) no-repeat center center;
+}
+
+a.veja_mais_3{
+	width: 108px;
+	padding: 11px 0 0 0;
+	height: 30px;
+	text-align: center;
+	display: block;
+	color: #525252;
+	font-size:0.875em;
+	background:url(../images/backgViewMorePq.png) no-repeat center center;
+}
+
+a.veja_mais:hover,
+a.veja_mais:focus,
+a.veja_mais_2:hover,
+a.veja_mais_2:focus,
+a.veja_mais_3:hover,
+a.veja_mais_3:focus{
+	color: #000 !important;
+}
+
+/*-----------------------*/
+/*----------TOPO---------*/
+/*-----------------------*/
+
+#topo h1 a{
+	text-indent: -20000px;
+	font-size: 0em;
+	display: block;
+	width:508px;
+	height:137px;
+	background:url(../images/logo.png) no-repeat center center;
+	margin: 50px 0 70px 20px;
+}
+
+#topo h1 span{
+	text-indent: -20000px;
+	font-size: 0em;
+}
+
+#breadCrumb{
+	background: #4A6407;
+	font-size: 0.75em;
+	color: #fff;
+	padding: 6px 20px;
+	width: 900px;
+	position: absolute;
+	top: 282px;
+}
+
+#breadCrumb a{
+	color: #fff;
+	text-decoration: none;
+}
+
+#breadCrumb a:hover,
+#breadCrumb a:focus
+{
+	text-decoration: underline;
+}
+
+div#content{
+	padding: 40px 20px 0 20px;
+	margin: 0 0 20px 0;
+}
+
+/*-----------------------*/
+/*----------MENU---------*/
+/*-----------------------*/
+
+ul#menu{
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding: 12px 0 7px 0;
+}
+
+ul#menu li{
+	display: inline-block;
+	background:url(../images/espacador_menu.png) no-repeat center right;
+}
+
+ul#menu li.sem_background{
+	background: none;
+}
+
+ul#menu li a{
+	text-decoration: none;
+	color: #545454;
+	padding: 13px 16px 13px 16px;
+	display: block;
+}
+
+ul#menu li a:hover,
+ul#menu li a:focus{
+	color: #64850e;
+}
+
+ul#menu li .expandir{
+	background:url(../images/menu-cursor.jpg) no-repeat center center;
+	width: 13px;
+	height: 13px;
+	
+	text-indent: -5000px;
+	
+	margin: -28px 0 0 0;
+	padding: 0;
+	
+	float: right;
+}
+
+ul.topnav li ul.subnav {
+	position:absolute;
+	background-color: #F2F2F2;
+	border:#E4E4E4 solid 1px;
+    width: 230px;
+    display: none;
+    padding: 10px;
+}
+
+ul.topnav li ul.subnav li{
+    background:url(../images/div-submenu.jpg) repeat-x bottom center !important;
+    width:90%;
+    
+    text-align:left;
+    clear: both;
+    
+    margin: 10px 0 0 0;
+    padding: 0 0 5px 0;
+}
+
+html ul.topnav li ul.subnav li a {  
+	padding:0 !important;
+    margin:0 !important;
+}  
+
+/*-----------------------*/
+/*---------RODAPE--------*/
+/*-----------------------*/
+
+div#rodape{
+	height: 80px;
+	background:url(../images/bg_rodape.png) repeat-x top left;
+}
+
+div#rodape p{
+	float: left;
+	font-size: 0.75em;
+	margin: 25px 0 0 15px;
+}
+
+div#rodape .selos{
+	float: right;
+	color: #374a04;
+	font-size: 0.95em;
+	margin: 23px 15px 0 0;
+}
+
+a#voltar_topo{
+	text-align: center;
+	color: #fff;
+	font-size: 0.75em;
+	background:url(../images/bg_voltar_topo.png) no-repeat top center;
+	width: 144px;
+	height: 15px;
+	padding: 3px;
+	margin: 0 auto;
+	display: block;
+}
+
+a#voltar_topo:hover,
+a#voltar_topo:focus{
+	text-decoration: underline;
+}
+
+/*----------------------------------*/
+/*--------BARRA-ACESSIBILIDADE------*/
+/*----------------------------------*/
+
+a.menu_access_ref {
+	display: block;
+	height: 0px;
+	text-indent: -20000px;
+	font-size: 0em;
+}
+
+#menu_accessibility{
+	position:absolute;	
+	margin:80px 0 0 700px;
+}
+
+#menu_accessibility li{
+	display:block;
+	float:left;
+	margin:0 10px;
+}
+
+#menu_accessibility li a{
+	color:#FFFFFF;
+	text-decoration:none;	
+}
+
+#menu_accessibility li a:hover, #menu_accessibility li a:focus{
+	text-decoration:underline;	
+}
+
+#accessibility{
+	height: 50px;
+	float: left;
+}
+#accessibility li{
+	width: 51px;
+	float: left;
+}
+#accessibility li a{
+	display: block;
+	text-indent: -20000px;
+	height: 48px;
+}
+#accessibility li.decreaseFont a{
+	background: transparent url(../images/decreaseFont.jpg) no-repeat left top;
+}
+#accessibility li.decreaseFont a:hover, 
+#accessibility li.decreaseFont a:focus{
+	background: transparent url(../images/decreaseFontHover.jpg) no-repeat left top;
+}
+#accessibility li.normalFont a{
+	background: transparent url(../images/normalFont.jpg) no-repeat left top;
+}
+#accessibility li.normalFont a:hover,
+#accessibility li.normalFont a:focus{
+	background: transparent url(../images/normalFontHover.jpg) no-repeat left top;
+}
+#accessibility li.increaseFont a{
+	background: transparent url(../images/increaseFont.jpg) no-repeat left top;
+}
+#accessibility li.increaseFont a:hover,
+#accessibility li.increaseFont a:focus{
+	background: transparent url(../images/increaseFontHover.jpg) no-repeat left top;
+}
+#accessibility li.highContrast a{
+	background: transparent url(../images/highContrast.jpg) no-repeat left top;
+}
+#accessibility li.highContrast a:hover,
+#accessibility li.highContrast a:focus{
+	background: transparent url(../images/highContrastHover.jpg) no-repeat left top;
+}
+#accessibility li.siteMap a{
+	background: transparent url(../images/siteMap.jpg) no-repeat left top;
+}
+#accessibility li.siteMap a:hover,
+#accessibility li.siteMap a:focus{
+	background: transparent url(../images/siteMapHover.jpg) no-repeat left top;
+}
+#accessibility li.accessibilityPage a{
+	background: transparent url(../images/accessibilityPage.jpg) no-repeat left top;
+	width: 52px;
+}
+#accessibility li.accessibilityPage a:hover,
+#accessibility li.accessibilityPage a:focus{
+	background: transparent url(../images/accessibilityPageHover.jpg) no-repeat left top;
+}
+#accessibility li.screenReader a{
+	background: transparent url(../images/screenReader.jpg) no-repeat left top;
+	width: 52px;
+}
+#accessibility li.screenReader a:hover,
+#accessibility li.screenReader a:focus{
+	background: transparent url(../images/screenReaderHover.jpg) no-repeat left top;
+}
+
+#controle-flv-player li a{
+	height: 0px;
+	text-indent: -20000px;
+	font-size: 0em;
+}
+
+/*--------------------*/
+/*--------BUSCA-------*/
+/*--------------------*/
+
+.search{
+	float: right;
+	margin-top: 8px;
+}
+.search input[type="text"]{
+	background: transparent url(../images/backgTxtSearch.jpg) no-repeat left top;
+	width: 203px;
+	height: 34px;
+	float: left;
+	border: 0 none;
+	padding: 0 0 0 30px;
+	/*
+	 * Colocar padding-top:8px no IE
+	 */
+}
+.search input[type="submit"]{
+	background: transparent url(../images/backgBtnSearch.jpg) no-repeat left top;
+	width: 61px;
+	height: 33px;
+	float: left;
+	border: 0 none;
+	color:#FFF;
+}
+.search label{
+	display: block;
+	text-indent: -20000px;
+	font-size: 0;	
+}
+
+ol{
+	margin: 20px 0 40px 40px;
+}
+
+ol li{
+	list-style: decimal;
+}
+
+/*:focus{
+	border: 1px solid red;
+}*/
+
+/*--------------------------*/
+/*--------BUG-FIREFOX-------*/
+/*--------------------------*/
+
+div:after{
+	content:".";
+	display:block;
+	clear:both;
+	visibility:hidden;
+	height:0;
+	overflow:hidden;
+}

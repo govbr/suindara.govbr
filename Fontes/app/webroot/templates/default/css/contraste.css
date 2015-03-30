@@ -1,0 +1,308 @@
+.contraste{
+	background:url(../images/bg_body_contraste.jpg) repeat-x center top #000 !important;
+	background-color: #000 !important;
+}
+
+.contraste a.veja_mais_3{
+	background:#000 !important;
+	border: 1px solid #FFFE01 !important;
+}
+.contraste a.veja_mais:hover,
+.contraste a.veja_mais:focus,
+.contraste a.veja_mais_2:hover,
+.contraste a.veja_mais_2:focus,
+.contraste a.veja_mais_3:hover,
+.contraste a.veja_mais_3:focus{
+	color: #FFF !important;
+}
+
+.contraste p{
+	color: white !important;
+}
+
+.contraste h2{
+	color: #FFFE01 !important;
+}
+
+.contraste h2 span{
+	color: white !important;
+}
+
+.contraste h3{
+	color: #FFFE01 !important;
+}
+
+.contraste h4{
+	color: #FFFE01 !important;
+}
+
+.contraste h4 span{
+	color: white !important;
+}
+
+.contraste li{
+	color: white !important;
+}
+
+.contraste a{
+	color: #FFFE01 !important;
+}
+
+.contraste #noticia_destaque{
+    background: black !important;
+}
+
+.contraste.posts div#noticia_destaque div img{
+	border: 1px solid #FFFE01 !important;
+}
+.contraste.home div#noticia_destaque img{
+	border: 1px solid #FFFE01 !important;
+}
+.contraste.quem_somos #content span{
+	color: #FFFE01 !important;
+} 
+
+.contraste ul li a span{
+	color: white !important;
+}
+
+.contraste address{
+	color: white !important;
+}
+
+.contraste form label{
+	color: white !important;
+}
+
+.contraste.contato #contato textarea, .contraste input{
+	border: 1px solid #FFFE01 !important;
+	background-image: none !important;
+	background-color: black !important;
+	color: white !important;
+}
+
+.contraste.contato #contato #enviar{
+	color: #FFFE01 !important;
+}
+
+.contraste a.veja_mais_2, .contraste a.veja_mais{
+	border: 1px solid #FFFE01 !important;
+	background-image: none !important;
+	background-color: black !important;
+}
+
+/*.contraste .search #txtBuscar {
+	border: 1px solid white !important;
+	background-image: none !important;
+	background-color: black !important;
+	color: white !important;
+}*/
+
+.contraste .search input[type="submit"]{
+	color: #FFFE01 !important;	
+}
+
+.contraste #breadCrumb{
+	background-color: #000 !important;
+	border-bottom: 1px solid #FFF !important;
+}
+
+.contraste .search input[type="text"] {
+	height: 31px !important;
+}
+
+.contraste div#banner_curso a{
+	background:url(../images/banner-curso_contraste.jpg) no-repeat center center !important;
+}
+
+.contraste div#banner_download_site_modelo a{
+	background:url(../images/banner-download-site-modelo_contraste.jpg) no-repeat center center !important;
+}
+
+.contraste div#banners_home ul li a.banner01{
+	background:url(../images/banner-canal-youtube_contraste.jpg) repeat-x center center !important;
+}
+
+.contraste div#banners_home ul li a.banner02{
+	background:url(../images/banner-blog_contraste.jpg) repeat-x center center !important;
+}
+
+.contraste div#banners_home ul li a.banner03{
+	background:url(../images/banner-objetos-de-aprendizagem_contraste.jpg) repeat-x center center !important;
+}
+
+.contraste #accessibility li.decreaseFont a{
+	background: transparent url(../images/decreaseFont_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.decreaseFont a:hover, 
+.contraste #accessibility li.decreaseFont a:focus{
+	background: transparent url(../images/decreaseFontHover_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.normalFont a{
+	background: transparent url(../images/normalFont_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.normalFont a:hover,
+.contraste #accessibility li.normalFont a:focus{
+	background: transparent url(../images/normalFontHover_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.increaseFont a{
+	background: transparent url(../images/increaseFont_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.increaseFont a:hover,
+.contraste #accessibility li.increaseFont a:focus{
+	background: transparent url(../images/increaseFontHover_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.highContrast a{
+	background: transparent url(../images/highContrast_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.highContrast a:hover,
+.contraste #accessibility li.highContrast a:focus{
+	background: transparent url(../images/highContrastHover_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.siteMap a{
+	background: transparent url(../images/siteMap_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.siteMap a:hover,
+.contraste #accessibility li.siteMap a:focus{
+	background: transparent url(../images/siteMapHover_contraste.jpg) no-repeat left top !important;
+}
+.contraste #accessibility li.accessibilityPage a{
+	background: transparent url(../images/accessibilityPage_contraste.jpg) no-repeat left top !important;
+}
+.contraste  #accessibility li.accessibilityPage a:hover, 
+.contraste  #accessibility li.accessibilityPage a:focus{
+	background: transparent url(../images/accessibilityPageHover_contraste.jpg) no-repeat left top !important;
+}
+.contraste  #accessibility li.screenReader a{
+	background: transparent url(../images/screenReader_contraste.jpg) no-repeat left top !important;
+	width: 52px;
+}
+.contraste  #accessibility li.screenReader a:hover,
+.contraste  #accessibility li.screenReader a:focus{
+	background: transparent url(../images/screenReaderHover_contraste.jpg) no-repeat left top !important;
+}
+
+.contraste ul#menu li .expandir{
+	background:url(../images/menu-cursor-hover_contraste.jpg) no-repeat center center !important;
+}
+.contraste ul.topnav li ul.subnav {
+	background-color: #000 !important;
+	border-top:#000 solid 1px !important;
+}
+.contraste a#voltar_topo{
+	background:url(../images/bg_voltar_topo_contraste.png) no-repeat top center !important;
+}
+.contraste div#rodape{
+	background:url(../images/bg_rodape_contraste.png) repeat-x top left !important;
+}
+.contraste a#voltar_topo{
+	color:#000 !important;
+}
+.contraste.post div#conteudo_extra_post div#downloads ul li{
+	background:url(../images/bullet_cont.jpg) no-repeat center left !important;
+}
+.contraste.post div#outros_posts ul li{
+	background:url(../images/bullet_cont.jpg) no-repeat center left !important;
+}
+.contraste.post ol li{
+    background:url(../images/bullet_cont.jpg) no-repeat center left !important;
+}
+.contraste.home div#eventos_home p.data{
+	background:url(../images/bg_data_cont.png) no-repeat center center !important;
+}
+.contraste.eventos ul.lista p.data{
+	background:url(../images/bg_data_cont.png) no-repeat center center !important;
+}
+.contraste.eventos ul.lista p.data span{
+	color:#000 !important;
+}
+.contraste.home div#eventos_home p.data span{
+	color:#000 !important;
+}
+.contraste.acessibilidade_web div#direita #ultimas_noticias ul li{
+	border-top: 4px solid #FFFE01 !important;
+}
+.contraste.lista_noticias ul.lista li{
+	border-top: 4px solid #FFFE01 !important;
+}
+.contraste.posts ul.ultimos_posts_categoria li{
+	border-top: 4px solid #FFFE01 !important;
+}
+.contraste.home div#ultimas_noticias ul li{
+	border-top: 4px solid #FFFE01 !important;
+}
+.contraste.acessibilidade_web div#esquerda ul li{
+	background:url(../images/icon_arquivo_contraste.png) no-repeat center left !important;
+}
+.contraste.home div#ultimos_manuais ul li{
+	background:url(../images/icon_arquivo_contraste.png) no-repeat center left !important;
+}
+.contraste.conteudo ul.lista li{
+	background:url(../images/icone-dicas-manuais_contraste.jpg) no-repeat left center !important;
+}
+.contraste.acessibilidade_web div#dicas ul li,
+.contraste.acessibilidade_web div#manuais ul li{
+	background:url(../images/icone-dicas-manuais_contraste.jpg) no-repeat left center !important;
+}
+
+.contraste.eventos h3{
+	background:url(../images/espacador_horizontal_2_cont.png) repeat-x bottom left !important;
+}
+.contraste.eventos h4{
+	background:url(../images/espacador_horizontal_2_cont.png) repeat-x bottom left !important;
+}
+.contraste.acessibilidade_web div#dicas,
+.contraste.acessibilidade_web div#manuais{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.acessibilidade_web div#direita{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.acessibilidade_web div#esquerda{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.conteudo h3{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.home div#banners_home{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.home div#eventos_home{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.home div#ultimas_noticias{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.home div#ultimos_manuais{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.posts div#direita h3{
+	background:url(../images/espacador_horizontal_2_cont.png) repeat-x bottom left !important;
+}
+.contraste.posts div#outros_posts{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.lista_noticias h3{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.contato div#direita{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.contato div#esquerda{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.quem_somos h3{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x bottom left !important;
+}
+.contraste.post div#outros_posts{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}
+.contraste.post div#conteudo_extra_post div#downloads{
+	background:url(../images/espacador_horizontal_cont.png) repeat-x top left !important;
+}
+.contraste.post div#conteudo_extra_post ul.fotos{
+	background:url(../images/espacador_horizontal_2_cont.png) repeat-x top left !important;
+}
+.contraste.dicas h3{
+	background:url(../images/espacador_horizontal_3_cont.png) repeat-x top left !important;
+}

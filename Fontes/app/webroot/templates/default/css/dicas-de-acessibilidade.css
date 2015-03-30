@@ -1,0 +1,66 @@
+/*------------------------------*/
+/*-------------DICAS------------*/
+/*------------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.dicas{
+	background:url(../images/bg_body_3.jpg) repeat-x top left;
+}
+
+body.dicas div#content{
+	padding-top: 30px;
+}
+
+body.dicas h3{
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+	height: 55px;
+	margin-top: 20px;
+}
+
+body.dicas h3 a{
+	color:#64860B;
+}
+
+body.dicas h4{
+	margin: 10px 0 4px 0;
+}
+
+body.dicas .controle-evento{
+	font-size: 0em;
+}
+
+body.dicas div#content div{
+	/*margin:60px 0 30px 0;*/
+}
+
+body.dicas div#conteudo_post{
+	margin-top: 60px;
+	margin-bottom: -40px;
+}
+
+body.dicas div#conteudo_post h3{
+	background: none !important;
+	margin-bottom: -10px !important;
+}
+
+body.dicas .infoCurso h3{
+	font-size: 1em !important;
+}
+
+body.dicas .infoCurso ol li{
+	margin-bottom: 5px !important;
+	list-style: disc !important;
+}
+
+body.dicas .dicas-de-acessibilidade,
+body.dicas .leitor-de-telas{
+	margin-top: 60px;	
+}
+
+.leitor-de-telas div,
+.dicas-de-acessibilidade div{
+	margin: 0 !important;
+}

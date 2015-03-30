@@ -1,0 +1,178 @@
+/*------------------------------*/
+/*--------LISTA-NOTICIAS--------*/
+/*------------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.lista_noticias{
+	background:url(../images/bg_body_3.jpg) repeat-x top left;
+}
+
+body.lista_noticias div#content{
+	padding-top: 30px;
+}
+
+body.lista_noticias h3{
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+	height: 55px;
+	margin-top: 60px;
+}
+
+body.lista_noticias ul.lista{
+	display: table;
+	margin-bottom: 30px;
+}
+
+body.lista_noticias ul.lista li{
+	width: 165px;
+	border-top: 4px solid #74971a;
+	display: block;
+	padding: 5px 0 0 0;
+	text-align: center;
+	margin: 5px 10px 20px 10px;
+	float: left;
+	height: 200px;
+}
+
+body.lista_noticias ul.lista li h4 span{
+	font-size: 1em;
+	color: #4a6406;
+	margin: 5px 0;
+	display: block;
+}
+
+body.lista_noticias ul.lista li h4{
+	font-size: 1em;
+	color: #595959;
+	font-weight: normal;
+}
+
+body.lista_noticias ul.lista li h4 a:focus,
+body.lista_noticias ul.lista li h4 a:hover{
+	text-decoration: underline;
+}
+
+/*-------------------------*/
+/*---------NOTICIA---------*/
+/*-------------------------*/
+
+body.posts{
+	background:url(../images/bg_body_3.jpg) repeat-x top left;
+}
+
+body.posts div#content{
+	padding-top: 30px;
+}
+
+body.posts div#esquerda{
+	width: 500px;
+	float: left;
+	margin: 40px 0 50px 0;
+}
+
+body.posts div#direita{
+	width: 375px;
+	float: right;
+	margin: 40px 0 50px 0;
+}
+
+body.posts div#noticia_destaque div img{
+	float: left;
+	margin: 0 15px 0 0;
+	padding: 4px;
+	border: 1px solid #999;
+	width: 165px;
+	height: 120px;
+}
+
+body.posts div#noticia_destaque div h4 a span,
+body.posts div#noticia_destaque div h4 a{
+	float: left;
+	width: 220px;
+	color: #64850b;
+	font-weight: normal;
+	font-size: 1.125em;
+}
+
+body.posts div#noticia_destaque div h4 a:hover,
+body.posts div#noticia_destaque div h4 a:focus{
+	text-decoration: underline;
+}
+
+body.posts div#noticia_destaque div h4 a span{
+	margin: 20px 0 0 0;
+	font-size: 0.8em;
+	color: #5b5b5b;
+}
+
+body.posts div#noticia_destaque p{
+	margin: 15px 0 20px 0;
+}
+
+body.posts div#outros_posts{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+	margin: 50px 0 0 0;
+}
+
+body.posts div#outros_posts ul{
+	margin: 20px 0 0 0;
+}
+
+body.posts div#outros_posts ul li{
+	padding: 0 0 0 13px;
+	background:url(../images/bullet.jpg) no-repeat center left;
+}
+
+body.posts div#outros_posts ul li a span{
+	color: #64850B;	
+}
+
+body.posts div#outros_posts ul li a:hover,
+body.posts div#outros_posts ul li a:focus{
+	text-decoration: underline;
+	color: #4A6407;
+}
+
+body.posts div#direita h3{
+	font-size: 1.125em;
+	background:url(../images/espacador_horizontal_2.png) repeat-x bottom left;
+	height: 30px;
+}
+
+body.posts ul.ultimos_posts_categoria li{
+	width: 165px;
+	border-top: 4px solid #74971a;
+	display: block;
+	padding: 5px 0 0 0;
+	text-align: center;
+	margin: 5px 10px 20px 10px;
+	float: left;
+}
+
+body.posts ul.ultimos_posts_categoria h4 span{
+	font-size: 1em;
+	color: #4a6406;
+	margin: 5px 0;
+	display: block;
+}
+
+body.posts ul.ultimos_posts_categoria h4{
+	font-size: 0.95em;
+	color: #595959;
+	font-weight: lighter;
+}
+
+body.posts ul.ultimos_posts_categoria h4 a:hover,
+body.posts ul.ultimos_posts_categoria h4 a:focus{
+	text-decoration: underline;
+}
+
+body.posts div.categoria{
+	margin-bottom: 25px;
+}
+
+body.posts div.categoria a.veja_mais_2{
+	float: right;
+}

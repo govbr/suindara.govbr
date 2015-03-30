@@ -1,0 +1,191 @@
+/*-----------------------------------*/
+/*---------ACESSIBILIDADE-WEB--------*/
+/*-----------------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.acessibilidade_web{
+	background:url(../images/bg_body_4.jpg) repeat-x center top;
+}
+
+.objeto{
+	font-size: 0em;
+}
+
+body.acessibilidade_web div#banner_curso{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+	width: 100%;
+	clear: both;
+	display:table;
+}
+
+body.acessibilidade_web div#banner_curso{
+	margin: 0 0 60px 0;
+}
+
+body.acessibilidade_web div#banner_curso a{
+	background:url(../images/banner-curso.jpg) no-repeat center center;
+	width:926px;
+	height:123px;
+	display: block;
+	margin: 60px 0 0 0;
+	text-indent: -10000px;
+}
+
+body.acessibilidade_web div#content{
+	padding-top: 30px;
+}
+
+body.acessibilidade_web div#esquerda{
+	float: left;
+	width: 375px;
+	margin: 40px 0 30px 0;
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+}
+
+body.acessibilidade_web div#direita{
+	float: right;
+	width: 525px;
+	margin: 40px 0 30px 0;
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+}
+
+body.acessibilidade_web div#esquerda h3{
+	margin-bottom: 25px;
+}
+
+body.acessibilidade_web div#esquerda ul li{
+	background:url(../images/icon_arquivo.png) no-repeat center left;
+	margin: 20px 0 20px 0;
+	display: block;
+}
+
+body.acessibilidade_web div#esquerda ul.lista ul{
+	margin-top: 10px;
+}
+
+body.acessibilidade_web div#esquerda ul.lista ul li{
+	margin: 0;
+	background: none;
+}
+
+body.acessibilidade_web div#esquerda ul.lista a{
+	margin: 0 0 0 80px;
+	display: block;
+	height: 20px;
+}
+
+body.acessibilidade_web div#esquerda ul.lista a:hover,
+body.acessibilidade_web div#esquerda ul.lista a:focus{
+	text-decoration: underline;
+}
+
+body.acessibilidade_web div#esquerda ul li p,
+body.acessibilidade_web div#esquerda ul li h4{
+	margin-left: 80px;
+	display: block;	
+}
+
+body.acessibilidade_web div#esquerda ul li h4 a:hover,
+body.acessibilidade_web div#esquerda ul li h4 a:focus{
+	text-decoration: underline;
+}
+
+
+body.acessibilidade_web div#direita #ultimas_noticias ul{
+	margin: 30px 0 0 0;
+	display: block;
+	clear: both;
+}
+
+body.acessibilidade_web div#direita #ultimas_noticias ul li{
+	display: inline;
+	width: 160px;
+	text-align: center;
+	border-top: 4px solid #74971a;
+	padding: 7px 0 27px 0;
+	margin: 5px;
+	float: left;
+	height: 200px;
+}
+
+body.acessibilidade_web div#direita #ultimas_noticias ul li img{
+	width: 160px;
+}
+
+body.acessibilidade_web div#direita #ultimas_noticias ul li h4 a:hover,
+body.acessibilidade_web div#direita #ultimas_noticias ul li h4 a:focus{
+	text-decoration:  underline;
+}
+
+body.acessibilidade_web div#direita #ultimas_noticias ul li h4 a span{
+	font-size: 1em;
+	color: #4a6406;
+	margin: 5px 0;
+	display: block;
+}
+
+body.acessibilidade_web div#direita #ultimas_noticias ul li h4 a{
+	font-size: 1em;
+	color: #595959;
+	font-weight: normal;
+}
+
+body.acessibilidade_web div#direita a.veja_mais{
+	float: right;
+}
+
+body.acessibilidade_web div#dicas,
+body.acessibilidade_web div#manuais{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+	width: 100%;
+	clear: both;
+	display:table;
+	margin-bottom: 30px;
+}
+
+body.acessibilidade_web div#dicas h3,
+body.acessibilidade_web div#manuais h3{
+	margin-bottom: 25px;
+}
+
+body.acessibilidade_web div#dicas ul,
+body.acessibilidade_web div#manuais ul{
+	display: table;
+	margin-bottom: 30px;
+}
+
+body.acessibilidade_web div#dicas ul li,
+body.acessibilidade_web div#manuais ul li{
+	background:url(../images/icone-dicas-manuais.jpg) no-repeat left center;
+	width: 300px;
+	margin: 0 10px 0 0;
+	float: left;
+}
+
+body.acessibilidade_web div#dicas ul li p,
+body.acessibilidade_web div#manuais ul li p{
+	font-size: 1em;
+	color: #595959;
+	font-weight: normal;
+	width: 80%;
+	margin-left: 75px;
+}
+
+body.acessibilidade_web div#dicas ul li h4,
+body.acessibilidade_web div#manuais ul li h4{
+	width: 80%;
+	margin-left: 75px;
+}
+
+body.acessibilidade_web div#dicas ul li a:hover,
+body.acessibilidade_web div#dicas ul li a:focus{
+	text-decoration: underline;
+}
+
+body.acessibilidade_web div#manuais ul li a:hover,
+body.acessibilidade_web div#manuais ul li a:focus{
+	text-decoration: underline;
+}

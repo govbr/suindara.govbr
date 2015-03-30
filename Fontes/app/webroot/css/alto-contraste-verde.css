@@ -1,0 +1,97 @@
+body.verde *
+{
+	background:#020 !important;
+}
+
+body.verde p, body.verde li, body.verde label, body.verde input, body.verde select, body.verde textarea, body.verde span, body.verde legend, body.verde caption
+{
+	color:#FFF !important;
+}
+
+body.verde legend{
+	border-bottom:1px solid #FF0 !important;
+}
+
+body.verde input[type="submit"],
+body.verde .add,
+body.verde #resetar_config
+{
+	border:1px solid #FF0 !important;
+}
+
+body.verde #busca_simples form input[type="submit"]
+{
+	background: url(../img/icon_pesquisa.png) no-repeat center center !important;
+}
+
+body.verde #exp_busca span
+{
+	background: url(../img/bullet_2.png) no-repeat center top !important;
+}
+
+body.verde a
+{
+	color:#FF0 !important;
+	font-weight:bold;
+}
+
+body.verde img
+{
+	border:1px solid #FF0 !important;
+}
+
+body.verde h1, body.verde h3, body.verde h4, body.verde h2 span, body.verde h3 span
+{
+	color:#999 !important;
+}
+
+body.verde h2
+{
+ 	color: #fff !important;
+}
+
+body.verde h1,
+body.verde h1 a
+{
+	background: url(../img/logo.png) no-repeat center center !important;
+}
+
+body.verde #topo form select,
+body.verde #topo #usuario
+{
+	border:1px solid #FF0 !important;
+}
+
+body.verde #topo #usuario a
+{
+	background: url(../img/icon_user.png) no-repeat center left !important;
+}
+
+body.verde #ajuda a
+{
+	background: url(../img/bg_ajuda.png) no-repeat center center !important;
+}
+
+body.verde #closeMessage
+{
+	background: url(../img/icon-desativar.png) no-repeat center top !important;
+}
+
+body.verde table thead th,
+body.verde caption
+{
+	border-bottom: 1px solid #FF0 !important;
+	color:#999 !important;
+}
+
+div#topo #opcoes_acessibilidade a span{
+	background: url(../img/menu_bullet_contrast.png) no-repeat center center !important;
+}
+
+body.verde .principalOn{
+	background: url(../img/icon-principal-verde.png) no-repeat center bottom !important;
+}
+
+body.verde .principalOff{
+	background: url(../img/icon-principal-verde.png) no-repeat center top !important;
+}

@@ -1,0 +1,78 @@
+<?php 
+
+	App::uses('CmsWrapper', 'View/Helper/Din');
+
+	class CmsVideo extends CmsWrapper {
+		public function __construct(array $video, View $view) {
+			parent::__construct($video, $view);
+		}
+		
+		public function getPath() {
+			return $this->_view->CmsTemplate->raizSite() . '/' . 'files' . '/' . 'video' . '/' . 'flv' . '/' . $this->arquivo;
+		}
+		
+		public function htmlVideo(array $options = array()) {
+			$playerPath = $this->_view->CmsTemplate->raiz() . '/' . 'swf' . '/' . 'flv-player.swf?v=6';
+			$bigHtml =<<<EOD
+				
+						
+							<script type="text/javascript">
+							$(document).ready(function() {
+								var flashvars = {video: '{$this->getPath()}'};
+								var params = {wmode: "transparent", scale: "noScale", menu: "false", allowFullScreen: "true"};
+								var attributes = { id: "flv-player", name: "flv-player", swLiveConnect: "true" };
+								
+								swfobject.embedSWF("{$playerPath}", "flv-player", "420", "280", "10.0.0", "expressInstall.swf", flashvars, params, attributes);
+							
+								// -- controle -- //
+								
+								var movieName = "flv-player";
+								function thisMovie(movieName) {
+								  if (navigator.appName.indexOf ("Microsoft") !=-1) {
+								    return window[movieName]
+								  } else {
+								    return document[movieName]
+								  }
+								}
+								
+								
+									$("#reproduzir").click(function() {
+										thisMovie(movieName).TGotoFrame('controleJavascript', 1);
+										return false
+									});
+									
+									$("#pausar").click(function() {
+										thisMovie(movieName).TGotoFrame('controleJavascript', 2);
+										return false
+									});
+									
+									$("#diminuirVolume").click(function() {
+										thisMovie(movieName).TGotoFrame('controleJavascript', 3);
+										return false
+									});
+									
+									$("#AumentarVolume").click(function() {
+										thisMovie(movieName).TGotoFrame('controleJavascript', 4);
+										return false
+									});
+							});
+							</script>
+							<noscript><p>Seu browser n&atilde; possui suporte a Javascript!</p></noscript>
+						
+					<div>
+						{$this->_view->Html->tag('div',null, $options)}</div>
+						<ul id="controle-flv-player">
+							<li><a href="#" id="reproduzir">Reproduzir v&iacute;deo</a></li>
+							<li><a href="#" id="pausar">Pausar v&iacute;deo</a></li>
+							<li><a href="#" id="diminuirVolume">Diminuir volume</a></li>
+							<li><a href="#" id="AumentarVolume">Aumentar volume</a></li>
+						</ul>
+					</div>		
+EOD;
+
+
+	return $bigHtml;
+
+		}
+	}
+

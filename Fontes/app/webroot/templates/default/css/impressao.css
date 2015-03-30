@@ -1,0 +1,52 @@
+*{
+	margin:5px 0;
+	padding:0;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+#content{
+	text-align:left;
+}
+input{
+	margin:10px 0;
+}
+h2, h3, h4, h5{
+	clear:both;
+}
+h3{
+	font-size:1.3em;
+}
+h5{
+	font-weight:normal;
+	font-style:italic;
+}
+p{
+	margin:10px 0;
+}
+ul{
+	margin:15px 0;
+}
+li{
+	margin-left:10px;
+}
+a{
+	color:#000;
+}
+
+#imprimir, #menu_accessibility, #accessibility, .search, #menu_ref, 
+#menu, #finaldomenu, #conteudo_ref, .navigation, #finalconteudo_ref, 
+#outros_posts, .fotos, #downloads, #rodape, .veja_mais_3, #topo p {
+	display:none;
+}
+
+li{
+	list-style: none;
+}
+
+
+
+
+
+
+

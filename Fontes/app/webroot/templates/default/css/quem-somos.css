@@ -1,0 +1,64 @@
+/*---------------------------*/
+/*---------QUEM-SOMOS--------*/
+/*---------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.quem_somos{
+	background:url(../images/bg_body_2.jpg) repeat-x center top;
+}
+
+body.quem_somos div#content{
+	padding-top: 30px;
+}
+
+body.quem_somos div#esquerda{
+	float: left;
+	width: 440px;
+	margin: 17px 0 30px 0;
+}
+
+body.quem_somos div#direita{
+	float: right;
+	width: 440px;
+	margin: 17px 0 30px 0;
+}
+
+body.quem_somos h3{
+	font-size: 1.125em;
+	background:url(../images/espacador_horizontal_3.png) repeat-x bottom left;
+	height: 30px;
+	margin-top: 30px;
+}
+
+body.quem_somos div#content span{
+	font-size: 1em;
+	font-weight: bold;
+	color: #666;
+}
+
+body.quem_somos p.semmargim{
+	margin: 0;
+}
+
+body.quem_somos div#content ul{
+	margin: 3px 0 15px 10px;
+}
+
+body.quem_somos div#content ul li{
+	padding: 0 0 0 13px;
+	background:url(../images/bullet.jpg) no-repeat center left;
+	color: #5b5b5b;
+}
+
+body.quem_somos div#content ul li a span,
+body.quem_somos div#content p span.oculto{
+	font-size: 0em;
+}
+
+body.quem_somos div#content ul li a:hover,
+body.quem_somos div#content ul li a:focus{
+	text-decoration: underline;
+}

@@ -1,0 +1,80 @@
+/*------------------------------*/
+/*--------LISTA-NOTICIAS--------*/
+/*------------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+.objeto{
+	font-size: 0em;
+}
+
+body.conteudo{
+	background:url(../images/bg_body_1.jpg) repeat-x top left;
+}
+
+body.conteudo div#content{
+	padding-top: 30px;
+}
+
+body.conteudo h3{
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+	height: 55px;
+	margin-top: 60px;
+}
+
+body.conteudo ul.lista{
+	display: table;
+	margin-bottom: 30px;
+}
+
+body.conteudo ul.lista ul li{
+	margin: 0 !important;
+	height: auto !important;
+	width: auto !important;
+	background: none;
+	display: block;
+	clear: both;
+}
+
+body.conteudo ul.lista li{
+	background:url(../images/icone-dicas-manuais.jpg) no-repeat left center;
+	width: 47%;
+	margin: 40px 20px 20px 0;
+	float: left;
+	height: 60px;
+}
+
+body.conteudo ul.lista li h4{
+	font-size: 1em;
+	color: #4a6406;
+	margin: 5px 0;
+	display: block;
+	font-weight: normal;
+	margin-left: 80px;
+	width: 80%;
+}
+
+body.conteudo ul.lista li h4 a span{
+	color: #4a6406;
+}
+
+body.conteudo ul.lista li p{
+	margin: 0 0 0 80px;
+}
+
+body.conteudo ul.lista li a,
+body.conteudo ul.lista li h4 a{
+	display: block;
+}
+
+body.conteudo ul.lista li a.objeto_span, 
+body.acessibilidade_web ul.lista li a.objeto_span{
+	margin: 0 0 0 80px;
+}
+
+body.conteudo ul.lista li a:focus,
+body.conteudo ul.lista li a:hover{
+	text-decoration: underline;
+}

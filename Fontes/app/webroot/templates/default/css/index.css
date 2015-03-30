@@ -1,0 +1,326 @@
+/*-------------------------------*/
+/*----------CONTEUDO-HOME--------*/
+/*-------------------------------*/
+
+html{
+	background:url(../images/bg_html_home.jpg) repeat-x center bottom;
+}
+
+body.home{
+	background:url(../images/bg_body_1.jpg) repeat-x center top;
+}
+
+body.home div.esquerda{
+	width: 380px;
+	float: left;
+	margin: 0 0 30px 0;
+}
+
+body.home div.direita{
+	width: 520px;
+	float: right;
+	margin: 0 0 30px 0;
+}
+
+body.home div#bemvindo ul li{
+	color: #555;
+	margin: 0 0 10px 20px;
+	list-style-type: square;
+}
+
+body.home div#quem_somos_home{
+	display: block;
+	clear: both;
+}
+
+/*-------------------------------*/
+/*-------------------------------*/
+
+body.home div#ultimos_manuais{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+}
+
+body.home div#ultimos_manuais h3{
+	margin-bottom: 25px;
+}
+
+body.home div#ultimos_manuais ul li{
+	background:url(../images/icon_arquivo.png) no-repeat center left;
+	margin: 20px 0 20px 0;
+	display: block;
+}
+
+body.home div#ultimos_manuais ul li h4{
+	margin-bottom: 8px;
+	margin-left: 80px;
+}
+
+body.home div#ultimos_manuais ul li a:hover,
+body.home div#ultimos_manuais ul li a:focus{
+	text-decoration: underline;
+}
+
+body.home div#ultimos_manuais ul li h4 a{
+	display: block;	
+}
+
+body.home div#ultimos_manuais ul li p{
+	margin: 0 0 0 80px;
+}
+
+
+/*-------------------------------*/
+/*-------------------------------*/
+
+body.home div#noticia_destaque{
+	background: #f9f9f9;
+	padding: 0 20px 20px 20px;
+}
+
+body.home div#noticia_destaque img{
+	float: left;
+	margin: 0 20px 10px 0;
+	padding: 4px;
+	border: 1px solid #999;
+}
+
+body.home div#noticia_destaque h4 a span,
+body.home div#noticia_destaque h4 a{
+	float: left;
+	width: 270px;
+	margin: 10px 0 0 0;
+	font-size: 1em;
+}
+
+body.home div#noticia_destaque h4 a{
+	color: #64850b;
+	font-size: 1.125em;
+	font-weight: lighter;
+}
+body.home div#noticia_destaque h4 a:hover,
+body.home div#noticia_destaque h4 a:focus{
+	text-decoration: underline;
+}
+
+body.home div#noticia_destaque p{
+	clear: both;
+}
+
+body.home div#noticia_destaque a{
+	float: right;
+}
+
+/*-------------------------------*/
+/*-------------------------------*/
+
+body.home div#ultimas_noticias{
+	margin: 35px 0 0 0;
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+}
+
+body.home div#ultimas_noticias ul{
+	margin: 30px 0 30px 0;
+	display: block;
+	clear: both;
+}
+
+body.home div#ultimas_noticias ul li{
+	display: inline-table;
+	width: 160px;
+	text-align: center;
+	border-top: 4px solid #74971a;
+	padding: 7px 0 0 0;
+	margin: 5px;
+	float: left;
+}
+
+body.home div#ultimas_noticias ul li img{
+	width: 160px;
+}
+
+body.home div#ultimas_noticias ul li h4 a{
+	font-size: 1em;
+	color: #595959;
+	font-weight: normal;
+}
+
+body.home div#ultimas_noticias ul li h4 a:hover,
+body.home div#ultimas_noticias ul li h4 a:focus{
+	text-decoration:  underline;
+}
+
+body.home div#ultimas_noticias ul li h4 a span{
+	font-size: 1em;
+	color: #4a6406;
+	margin: 5px 0;
+	display: block;
+}
+
+body.home div#ultimas_noticias a.veja_mais{
+	float: right;
+}
+
+/*-------------------------------*/
+/*-------------------------------*/
+
+body.home div#eventos_home{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+	width: 100%;
+	clear: both;
+	display:table;
+}
+
+body.home div#eventos_home h3{
+	margin-bottom: 25px;
+}
+
+body.home div#eventos_home ul{
+	display: table;
+	margin-bottom: 30px;
+}
+
+body.home div#eventos_home ul li{
+	width: 300px;
+	margin: 0 10px 0 0;
+	float: left;
+}
+
+body.home div#eventos_home ul li p a{
+	font-size: 1em;
+	color: #595959;
+	font-weight: normal;
+}
+
+body.home div#eventos_home ul li p a:hover,
+body.home div#eventos_home ul li p a:focus{
+	text-decoration: underline;
+}
+
+body.home div#eventos_home p.data{
+	width: 65px;
+	height: 55px;
+	background:url(../images/bg_data.png) no-repeat center center;
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+body.home div#eventos_home p.data span{
+	text-align: center;
+	display: block;
+	color: #fff;
+}
+
+body.home div#eventos_home p.data span.dia{
+	font-size: 1.5em;
+	margin: 8px 0 0 0;
+	font-weight: lighter;
+	line-height: 22px;
+}
+
+body.home div#eventos_home p.data span.mes{
+	font-size: 0.875em;
+}
+
+/*-------------------------------*/
+/*-------------------------------*/
+
+body.home div#banners_home,
+body.home div#banner_download_site_modelo{
+	background:url(../images/espacador_horizontal.png) repeat-x top left;
+	width: 100%;
+	clear: both;
+	display:table;
+}
+
+body.home div#banner_download_site_modelo{
+	margin: 0 0 60px 0;
+}
+
+body.home div#banner_download_site_modelo a{
+	background:url(../images/banner-download-site-modelo.jpg) no-repeat center center;
+	width:926px;
+	height:123px;
+	display: block;
+	margin: 60px 0 0 0;
+	text-indent: -10000px;
+}
+
+body.home div#banners_home ul{
+	display: block;
+	margin: 60px 0 0 0;
+}
+
+body.home div#banners_home ul li{
+	float: left;
+}
+
+body.home div#banners_home ul li a.banner01{
+	background:url(../images/banner-canal-youtube.jpg) repeat-x center center;
+	width: 292px;
+	height: 122px;
+	display: block;
+	text-indent: -5000px;
+}
+
+body.home div#banners_home ul li a.banner02{
+	background:url(../images/banner-blog.jpg) repeat-x center center;
+	width: 292px;
+	height: 122px;
+	display: block;
+	text-indent: -5000px;
+	
+	margin: 0 30px 0 30px;
+}
+
+body.home div#banners_home ul li a.banner03{
+	background:url(../images/banner-objetos-de-aprendizagem.jpg) repeat-x center center;
+	width: 292px;
+	height: 122px;
+	display: block;
+	text-indent: -5000px;
+}
+
+/*-------------------------------*/
+/*-------------------------------*/
+
+body.home div#quem_somos_home{
+	margin: 0 0 50px 0;
+	display: block;
+	clear: both;
+	float: none;
+}
+
+body.home div#quem_somos_home div#texto{
+	width: 460px;
+	float: left;
+}
+
+body.home div#quem_somos_home div#video_institucional{
+	width: 430px;
+	float: right;
+}
+
+body.home div#quem_somos_home div#video_institucional h3{
+	font-size: 1.125em;
+	margin: 10px 0 15px 0;
+}
+
+body.home div#quem_somos_home a,
+body.home div#quem_somos_home p{
+	color: #555;
+}
+
+body.home div#quem_somos_home div#texto a{
+	margin-top: 22px;
+}
+
+body.home div#quem_somos_home div#texto ul li{
+	color: #555;
+	margin: 0 0 10px 20px;
+	list-style-type: square;
+}
+
+body.home div#quem_somos_home div#video_institucional a{
+	float: left;
+	margin: 7px 6px 0 6px;
+}

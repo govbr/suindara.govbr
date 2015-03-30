@@ -1,0 +1,32 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	div#topo #opcoes_acessibilidade a span{
+		margin-top: -10px !important;
+	}
+
+	form.cadastroMidia{
+		display: table !important;
+	}
+
+	form.cadastroMidia *{
+		margin: 0px !important;
+		float: left !important; 
+		width: auto !important;
+		padding: 4px !important;
+	}
+
+	form.cadastroMidia label, 
+	form.cadastroMidia input[type="submit"]{
+		display: block !important;
+		width: auto !important;
+		margin: 10px !important;
+	}
+
+	form.cadastroMidia input[type="submit"]{
+		margin: 10px !important;
+		width: auto !important;
+	}
+
+	form.cadastroMidia input[type="file"]{
+		margin-top: 10px !important;
+	}
+}

@@ -1,0 +1,228 @@
+	/* ============================= */
+	/* ! Layout for 1024 version   */
+	/* ============================= */
+
+	@media handheld, only screen and (max-width: 1024px) {
+		div#topo #opcoes_usuario li.threecol a{
+			max-width: 180px;
+			height: 16px;
+		}
+
+		#topo form select{
+			width: 60% !important;
+		}
+
+		#menu_acessibilidade form select{
+			width: 25% !important;
+		}
+
+		.content #busca_simples{
+			width: 62% !important;
+		}
+
+		.content #busca_simples form{
+			float: right;
+		}
+
+		.content #busca_simples form input[type="text"]{
+			margin: 0 !important;
+			text-indent: 80px !important;
+		}
+
+		.content #busca_simples form label{
+			margin: 28px 0 0 5px!important;
+			text-indent: 0 !important;
+		}
+
+		.content .add{
+			width: 25% !important;
+		}
+
+		div.content form#itens_pag{
+			margin-right: 40px !important;
+		}
+
+		div.login{
+			width:50% !important;
+		}
+
+		table.row *
+		{
+			width: auto !important;
+		}
+
+		#menu_acessibilidade form{
+			width: 60% !important;
+			padding: 0 !important;
+			margin: 0 !important;  
+		}
+
+		#menu_acessibilidade form select{
+			margin: 2px !important;  
+		}
+
+		#menu_acessibilidade #atalhos{
+			width: 40% !important;
+		}
+
+		#menu_acessibilidade #atalhos li{
+			padding: 0 !important;
+			margin: 2px !important;  
+		}
+	}
+
+	/* ============================= */
+	/* ! Layout for 800 version   */
+	/* ============================= */
+
+	@media handheld, only screen and (max-width: 800px) {
+		div#topo #opcoes_usuario li.threecol a{
+			max-width: 140px;
+			height: 16px;
+		}
+
+		div.login{
+			width:50% !important;
+		}
+
+		#topo #ajuda{
+			margin: 0 !important;
+		}
+
+		#busca_simples{
+			clear: both !important;
+			margin-top: 10px;
+		}
+
+		#busca_simples form{
+			float: left !important;
+			margin-left: 20px;
+		}
+
+		#exp_busca{
+			clear: both;
+			float: left !important;
+			margin-left: 310px;
+		}
+
+		#busca_avancada{
+			width: 70% !important;
+		}
+
+		#configPaginator{
+			width: 100% !important;
+			min-width: 400px !important;
+		}
+
+		table.row,
+		p.noInfo{
+			width: 95% !important;
+			min-width: 400px !important;	
+		}
+
+		ul#passos_noticia,
+		ul#passos_pagina{
+			background: none !important;
+			margin: 10px 20px 0 20px !important;
+		}
+
+		ul#passos_noticia li,
+		ul#passos_pagina li
+		{
+			margin: 0 !important;
+			clear: both !important;
+		}
+
+		#menu_acessibilidade form select,
+		ul#atalhos li {
+			 clear: both !important;
+			 display: block !important;
+			 float: none !important;
+			 width: 90% !important;
+			 margin-bottom: 5px !important;
+			 margin-left: 15px;
+		}
+
+		#menu_acessibilidade form input{
+			float: right;
+			margin-right: 44px;
+		}
+	}
+
+	/* ============================= */
+	/* ! Layout for mobile version   */
+	/* ============================= */
+
+	@media handheld, only screen and (max-width: 640px) {
+		div#topo #opcoes_usuario li.threecol a{
+			max-width: 400px;
+			height: 24px;
+		}
+
+		div.login{
+			width:90% !important;
+		}
+
+		#opcoes_acessibilidade{
+			display: none;
+		}
+
+		#topo #menu_acessibilidade #atalhos{
+			clear: both !important;
+			float: none !important;
+			margin: 5px 0 !important;
+			width: 90%;
+			display: table !important;
+		}
+
+		#topo #menu_acessibilidade #atalhos li{
+			float: left !important;
+		}
+
+		#topo #ajuda{
+			padding: 3px !important;
+		}
+
+		#UsuarioAdminDisplayForm,
+		#UsuarioAdminIndexForm,
+		#UsuarioAdminDadosCadastraisForm{
+			clear: both !important;
+			float: none !important;
+			position: absolute;
+
+			margin-top: 220px;
+			left: 50%;
+			margin-left: -200px;
+			width: 400px;
+		}
+
+		#menu{
+			margin-top: 100px;
+		}
+
+		a.add{
+			width: 90% !important;
+			min-width: 500px !important;
+			display: block !important;
+			clear: both !important;
+		}
+
+		#busca_simples{
+			display: none;
+		}
+
+		div.controlist{
+			padding-bottom: 30px;
+		}
+
+	}
+
+
+	/* ========================================== */
+	/* ! Provide higher res assets for iPhone 4   */
+	/* ========================================== */
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+
+
+	}

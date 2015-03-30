@@ -1,0 +1,97 @@
+body.preto *
+{
+	background:#000 !important;
+}
+
+body.preto p, body.preto li, body.preto label, body.preto input, body.preto select, body.preto textarea, body.preto span, body.preto legend, body.preto caption
+{
+	color:#FFF !important;
+}
+
+body.preto legend{
+	border-bottom:1px solid #FFF !important;
+}
+
+body.preto input[type="submit"],
+body.preto .add,
+body.preto #resetar_config
+{
+	border:1px solid #FFF !important;
+}
+
+body.preto #busca_simples form input[type="submit"]
+{
+	background: url(../img/icon_pesquisa.png) no-repeat center center !important;
+}
+
+body.preto #exp_busca span
+{
+	background: url(../img/bullet_2.png) no-repeat center top !important;
+}
+
+body.preto a
+{
+	color:#9F0 !important;
+	font-weight:bold;
+}
+
+body.preto img
+{
+	border:1px solid #FFF !important;
+}
+
+body.preto h1, body.preto h3, body.preto h4, body.preto h2 span, body.preto h3 span
+{
+	color:#090 !important;
+}
+
+body.preto h2
+{
+ 	color: #fff !important;
+}
+
+body.preto h1,
+body.preto h1 a
+{
+	background: url(../img/logo.png) no-repeat center center !important;
+}
+
+body.preto #topo form select,
+body.preto #topo #usuario
+{
+	border:1px solid #FFF !important;
+}
+
+body.preto #topo #usuario a
+{
+	background: url(../img/icon_user.png) no-repeat center left !important;
+}
+
+body.preto #ajuda a
+{
+	background: url(../img/bg_ajuda.png) no-repeat center center !important;
+}
+
+body.preto #closeMessage
+{
+	background: url(../img/icon-desativar.png) no-repeat center top !important;
+}
+
+body.preto table thead th,
+body.preto caption
+{
+	border-bottom: 1px solid #FFF !important;
+	color:#090 !important;
+}
+
+div#topo #opcoes_acessibilidade a span{
+	background: url(../img/menu_bullet_contrast.png) no-repeat center center !important;
+}
+
+body.preto .principalOn{
+	background: url(../img/icon-principal-preto.png) no-repeat center bottom !important;
+}
+
+body.preto .principalOff{
+	background: url(../img/icon-principal-preto.png) no-repeat center top !important;
+}

@@ -1,0 +1,163 @@
+/*---------------------------*/
+/*---------CONTATO--------*/
+/*---------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.contato{
+	background:url(../images/bg_body_3.jpg) repeat-x top left;
+}
+
+body.contato div#content{
+	padding-top: 30px;
+}
+
+body.contato h3{
+	font-size: 1.25em;
+}
+
+body.contato div#direita h3{
+	margin-bottom: 30px;
+}
+
+body.contato h4{
+	font-size: 0.95em;
+}
+
+body.contato div#esquerda{
+	width: 440px;
+	float: left;
+	margin: 40px 0 80px 0;
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+}
+
+body.contato div#direita{
+	width: 440px;
+	float: right;
+	background:url(../images/espacador_horizontal_3.png) repeat-x top left;
+	margin: 40px 0 80px 0;
+}
+
+body.contato form#contato{
+	margin: 30px 0 0 0;
+}
+
+body.contato div#direita address{
+	font-size: 0.875em;
+	color: #5b5b5b;
+	margin: 0 0 15px 0;
+	font-style: normal;
+}
+
+body.contato form#contato label{
+	display: block;
+	color: #5a5a5a;
+	font-size: 0.875em;
+	margin: 15px 0 4px 0;
+}
+
+body.contato form#contato label span{
+	background:url(../images/bullet.jpg) no-repeat center center;
+	display: block;
+	text-indent: -5000px;
+	width: 4px;
+	height: 16px;
+	float: left;
+	margin-right: 8px;
+}
+
+body.contato form#contato input#nome{
+	background:url(../images/bg_input_nome.png) no-repeat center top;
+	width: 371px;
+	height: 24px;
+	border: none;
+	padding: 0 5px;
+}
+
+body.contato form#contato input#nome:focus
+{
+	background:url(../images/bg_input_nome_hover.png) no-repeat center top;
+}
+
+body.contato form#contato input#email{
+	background:url(../images/bg_input_email.png) no-repeat center top;
+	width: 274px;
+	height: 24px;
+	border: none;
+	padding: 0 5px;
+}
+
+body.contato form#contato input#email:focus
+{
+	background:url(../images/bg_input_email_hover.png) no-repeat center top;
+}
+
+body.contato form#contato input#telefone{
+	background:url(../images/bg_input_telefone.png) no-repeat center top;
+	width: 152px;
+	height: 24px;
+	border: none;
+	padding: 0 5px;
+}
+
+body.contato form#contato input#telefone:focus
+{
+	background:url(../images/bg_input_telefone_hover.png) no-repeat center top;
+}
+
+body.contato form#contato textarea{
+	background:url(../images/bg_textarea.png) no-repeat center top;
+	width: 371px;
+	height: 208px;
+	
+	min-width:371px;
+	min-height:208px;
+	
+	max-width:371px;
+	max-height:208px;
+	
+	border: none;
+	padding: 3px 5px;
+	
+	overflow: auto;
+}
+
+body.contato form#contato textarea:focus
+{
+	background:url(../images/bg_textarea_hover.png) no-repeat center top;
+}
+
+body.contato form#contato input#enviar{
+	background:url(../images/bg_submit.png) no-repeat center center;
+	width: 97px;
+	height: 41px;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+}
+
+body.contato form#contato input#reset{
+	background:url(../images/bg_reset.png) no-repeat center center;
+	width: 97px;
+	height: 41px;
+	border: none;
+	color: #525252;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+body.contato form#contato fieldset{
+	text-align: right;
+	border: none;
+	width: 381px;
+	padding: 15px 0 0 0;
+}
+
+body.contato form#contato em{
+	color: #D21416;
+	font-size: 0.75em;
+	display: block;
+	margin: 4px 0 4px 0;
+}

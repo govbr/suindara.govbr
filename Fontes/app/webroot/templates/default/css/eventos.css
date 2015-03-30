@@ -1,0 +1,91 @@
+/*------------------------*/
+/*---------EVENTOS--------*/
+/*------------------------*/
+
+html{
+	background:url(../images/bg_html_interna.jpg) repeat-x center bottom;
+}
+
+body.eventos{
+	background:url(../images/bg_body_3.jpg) repeat-x top left;
+}
+
+body.eventos div#content{
+	padding-top: 30px;
+}
+
+body.eventos div#esquerda{
+	width: 440px;
+	float: left;
+	margin: 40px 0 40px 0;
+}
+
+body.eventos div#direita{
+	width: 440px;
+	float: right;
+	margin: 40px 0 40px 0;
+}
+
+body.eventos h3{
+	font-size: 1.125em;
+	background:url(../images/espacador_horizontal_2.png) repeat-x bottom left;
+	height: 40px;
+	margin-bottom: 25px;
+	margin-top: 20px;
+}
+
+body.eventos h4{
+	background:url(../images/espacador_horizontal_2.png) repeat-x bottom left;
+	height: 35px;
+	margin: 0 0 20px 0;
+}
+
+body.eventos h4 a{
+	color: #64860B;
+}
+
+body.eventos ul.lista li{
+	display: block;
+	height: 60px;
+	margin: 0 0 12px 0;
+}
+
+body.eventos .titulo-evento,
+body.eventos .controle-evento{
+	font-size: 0em;
+}
+
+body.eventos ul.lista li p.desc_evento a:hover,
+body.eventos ul.lista li p.desc_evento a:focus{
+	text-decoration: underline;
+}
+
+body.eventos ul.lista p.data{
+	width: 65px;
+	height: 55px;
+	background:url(../images/bg_data.png) no-repeat center center;
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+body.eventos ul.lista p.data span{
+	text-align: center;
+	display: block;
+	color: #fff;
+}
+
+body.eventos ul.lista p.data span.dia{
+	font-size: 1.5em;
+	margin: 8px 0 0 0;
+	font-weight: lighter;
+	line-height: 22px;
+}
+
+body.eventos ul.lista p.data span.mes{
+	font-size: 0.875em;
+}
+
+body.eventos ul.lista p.desc_evento{
+	margin: 0;
+	font-size: 1em;
+}

@@ -1,0 +1,31 @@
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+	*{
+		font-family: "Trebuchet MS", "OpenDyslexic-Regular", Arial, Verdana, Helvetica, sans-serif;
+		padding:0;
+		margin:0;
+		color:#6b6b6b;
+		font-size: 13px;
+	}
+
+	h1{
+		color: #990000;
+		text-align: center;
+	}
+
+	a{
+		color: #990000;
+	}
+
+	a:hover{
+		color: #990000;
+	}
+
+	.container{
+		margin-top: 20px;
+	}
+
+	.input-group{
+		margin-bottom: 20px;
+	}
