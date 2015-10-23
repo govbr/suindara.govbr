@@ -147,13 +147,16 @@ class MidiasController extends MidiasAppController {
 		$this->set('tipos', $this->Midia->Tipo->find('list'));
 	}
 
-	public function admin_arquivos($tipo_conteudo=null,$id_conteudo=null) {
+	public function admin_arquivos($tipo_conteudo = null,$id_conteudo = null) {
+
+		//pr($this->request->data);
 
 		if(!isset($tipo_conteudo)||!isset($id_conteudo)) {
             $this->Session->setFlash('Endereço inválido');
             $this->redirect($this->referer());
         }
-		if($this->request->is('post')) {
+
+		if($this->request->is('post') || isset($this->request->data['enviar_arquivos'])) {
 			$midia0 = false;
 			if(!isset($this->data['midias']))
 				$midia0 = $this->request->data['midias'][0];
@@ -205,29 +208,46 @@ class MidiasController extends MidiasAppController {
 		return $this->_midias_preview($tipo_conteudo, $id_conteudo, ARQUIVO);
 	}
 
-	private function _midias_preview($tipo_conteudo=null,$id_conteudo=null, $tipos=null) {
+	private function _midias_preview($tipo_conteudo = null, $id_conteudo = null, $tipos = null) {
 		$conditions = array(
 			'Midia.tipo_id' => $tipos
 		);
-		if($tipo_conteudo == 'noticia') {
-			$conditions['MidiasConteudo.noticia_id'] = $id_conteudo;
-		} else {
-			$conditions['MidiasConteudo.pagina_id'] = $id_conteudo;
+
+		switch ($tipo_conteudo) {
+			case 'noticia':
+					$conditions['MidiasConteudo.noticia_id'] = $id_conteudo;
+					break;
+
+			case 'pagina':
+					$conditions['MidiasConteudo.pagina_id'] = $id_conteudo;
+					break;
+
+			case 'curso':
+					$conditions['MidiasConteudo.curso_id'] = $id_conteudo;
+					break;
+
+			case 'edital':
+					$conditions['MidiasConteudo.edital_id'] = $id_conteudo;
+					break;
 		}
+
 		$midiasConteudo = $this->Midia->MidiasConteudo->find('all', array(
 			'fields' => array('Midia.*', 'MidiasConteudo.*'),
 			'order' => 'posicao asc',
 			'conditions' => $conditions
 			)
 		);
+
 		return $midiasConteudo;
 	}
 
-	public function admin_delete($tipo_conteudo=null,$id_conteudo=null,$id_midia=null) {
+	public function admin_delete($tipo_conteudo = null, $id_conteudo = null, $id_midia = null) {
+		
 		if(!isset($tipo_conteudo)||!isset($id_conteudo)||!isset($id_midia)) {
             $this->Session->setFlash('Endereço inválido');
             $this->redirect($this->referer());
         }
+
         $this->Midia->id = $id_midia;
 		if($this->Midia->exists()){
 			$midiaTemp = $this->Midia->read();
@@ -237,19 +257,20 @@ class MidiasController extends MidiasAppController {
 		if($midiaTemp['Tipo']['nome'] == 'Imagem')
 		{
 			$tipo = 'Mídia';
-			$mensagem = ($tipo . ' ' . $midiaTemp['Midia']['nome_original'] . ' deletada com sucesso' );
+			$mensagem = ($tipo . ' ' . $midiaTemp['Midia']['titulo'] . ' deletada com sucesso' );
 		}
 		elseif ($midiaTemp['Tipo']['nome'] == 'Arquivo')
 		{
 			$tipo = 'Documento';
-			$mensagem = ($tipo . ' ' . $midiaTemp['Midia']['nome_original'] . ' deletado com sucesso' );
+			$mensagem = ($tipo . ' ' . $midiaTemp['Midia']['titulo'] . ' deletado com sucesso' );
 		}
 
 		if($this->Midia->delete($id_midia)) {
-				$this->Session->setFlash($mensagem, 'success');
+			$this->Session->setFlash($mensagem, 'success');
 		} else {
 			$this->Session->setFlash('Erro ao deletar ' . $tipo);
 		}
+
 		$this->redirect($this->referer());
 	}
 
@@ -279,7 +300,7 @@ class MidiasController extends MidiasAppController {
 						$this->data['Midia']['crop_x2'],$this->data['Midia']['crop_y2'],
 						$this->data['Midia']['crop_w'],$this->data['Midia']['crop_h']);
 				}
-				$this->Session->setFlash('Mídia ' . $this->data['Midia']['nome_original'] . ' alterada com sucesso', 'success');
+				$this->Session->setFlash('Mídia ' . $this->data['Midia']['titulo'] . ' alterada com sucesso', 'success');
 				$this->redirect(array('plugin' => 'midias', 'controller' => 'midias', 'tipo_conteudo' => $tipo_conteudo, 'id_conteudo' => $id_conteudo, 'action' => 'midias'));
 				
 			} else {
@@ -333,6 +354,7 @@ class MidiasController extends MidiasAppController {
     }
 
     private function _add($tipos, $banco_imagens, $id_conteudo = null, $tipo_conteudo = null) {
+
 		$this->Midia->validator()->getField('arquivo')->getRule('mime')->rule[1] = $tipos;
 		$fileSize = ini_get('upload_max_filesize');
         if(preg_match('/B$/', $fileSize))
@@ -362,14 +384,34 @@ class MidiasController extends MidiasAppController {
 			$new['Midia']['nome_original'] = $arqName;
 
 			$this->Midia->arq = $new['Midia']['arquivo'];
-			//pr ($this->Midia->arq); die;
+			
 			if($this->Midia->save($new)) {
 				if($id_conteudo) {
-					if($tipo_conteudo == 'noticia') {
-						$midiaConteudo['MidiasConteudo']['noticia_id'] = $id_conteudo;
-					} else {
-						$midiaConteudo['MidiasConteudo']['pagina_id'] = $id_conteudo;
+					
+					switch ($tipo_conteudo) {
+						case 'noticia':
+								$midiaConteudo['MidiasConteudo']['noticia_id'] = $id_conteudo;
+							break;
+
+						case 'pagina':
+								$midiaConteudo['MidiasConteudo']['pagina_id'] = $id_conteudo;
+							break;
+
+						case 'curso':
+								$midiaConteudo['MidiasConteudo']['curso_id'] = $id_conteudo;
+							break;
+
+						case 'edital':
+								$midiaConteudo['MidiasConteudo']['edital_id'] = $id_conteudo;
+							break;
 					}
+
+					// if($tipo_conteudo == 'noticia') {
+					// 	$midiaConteudo['MidiasConteudo']['noticia_id'] = $id_conteudo;
+					// } else {
+					// 	$midiaConteudo['MidiasConteudo']['pagina_id'] = $id_conteudo;
+					// }
+
 					$midiaConteudo['MidiasConteudo']['midia_id'] = $this->Midia->id;
 					$newMidiaConteudo = $this->Midia->MidiasConteudo->create($midiaConteudo);
 					$this->Midia->MidiasConteudo->save($newMidiaConteudo);
@@ -388,7 +430,6 @@ class MidiasController extends MidiasAppController {
 	}
 
     private function _edit($tipo_conteudo=null,$id_conteudo=null,$id_midia=null) {
-    	
     	//$action = ($this->action == 'admin_arquivo') ? 'arquivos' : 'midias';
     	if($this->action == 'admin_arquivo')
     	{
@@ -401,12 +442,37 @@ class MidiasController extends MidiasAppController {
     		$tipoConteudo = 'Mídia';
     	}
 
+
+
 		if($this->request->isPut()) {
+			
 			$this->request->data['Midia']['ativa'] = 1;
 			if($this->Midia->save($this->data)) {
 				$this->Session->setFlash($tipoConteudo . ' ' . $this->request->data['Midia']['titulo'] . ' alterado com sucesso.', 'success');
 
-				$this->redirect(array('plugin' => 'midias', 'controller' => 'midias', 'tipo_conteudo' => $tipo_conteudo, 'id_conteudo' => $id_conteudo, 'action' => $action));
+				switch ($tipo_conteudo) {
+					case 'curso':
+						$request = $this->Session->read('tipo_request');
+						$this->redirect(array('plugin' => 'cursos', 'controller' => 'cursos', 'action' => 'edit', $id_conteudo));
+						break;
+
+					case 'edital':
+						$request = $this->Session->read('tipo_request');
+						$this->redirect(array('plugin' => 'editais', 'controller' => 'editais', 'action' => 'edit', $id_conteudo));
+						break;
+
+					default:
+						$this->redirect(array('plugin' => 'midias', 'controller' => 'midias', 'tipo_conteudo' => $tipo_conteudo, 'id_conteudo' => $id_conteudo, 'action' => $action));
+						break;
+				}
+
+				// if($tipo_conteudo == 'curso'){
+				// 	$request = $this->Session->read('tipo_request');
+				// 	$this->redirect(array('plugin' => 'cursos', 'controller' => 'cursos', 'action' => 'edit', $id_conteudo));
+				// }else{
+				// 	$this->redirect(array('plugin' => 'midias', 'controller' => 'midias', 'tipo_conteudo' => $tipo_conteudo, 'id_conteudo' => $id_conteudo, 'action' => $action));
+				// }
+
 			} else {
 				$array = array($this->Midia->validationErrors, $this->modelClass);  //ModelClass = name model
 				$this->Session->setFlash( $array, 'flash_form_error' );
@@ -422,6 +488,30 @@ class MidiasController extends MidiasAppController {
 				$this->redirect(array('plugin' => 'midias', 'controller' => 'midias', 'tipo_conteudo' => $tipo_conteudo, 'id_conteudo' => $id_conteudo, 'action' => $action));
 			}
 		}
+	}
+	
+	public function admin_ra_addArquivo($tipo_conteudo = null, $id_conteudo = null, $data){
+		$this->request->data = unserialize($data);
+		$this->request->data = $this->recursive_array_replace('-', '/' , $this->request->data);
+		
+		$this->admin_arquivos($tipo_conteudo, $id_conteudo);
+	}
+
+	//Colocar no Helper do cms (Igual do Cursos->Controller)
+	private function recursive_array_replace($find, $replace, $array){
+		if (!is_array($array)) {
+			return str_replace($find, $replace, $array);
+		}
+
+		$newArray = array();
+		foreach ($array as $key => $value) {
+			$newArray[$key] = $this->recursive_array_replace($find, $replace , $value);
+		}
+		return $newArray;
+	}
+
+	public function admin_ra_getMidias($tipo_conteudo = null, $id_conteudo = null){
+		return $this->_midias_preview($tipo_conteudo, $id_conteudo, ARQUIVO);
 	}
 
 	public function beforeFilter() {

@@ -37,7 +37,7 @@
         
         <!-- TITLE -->
 		<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-            <title>CMS Suindara <?php echo ($this->params['action'] == 'admin_display' && $this->params['controller'] == 'pages' ) ? "- Pagina inicial" : $title_for_layout ?></title>
+            <!-- <title>CMS Suindara <?php echo ($this->params['action'] == 'admin_display' && $this->params['controller'] == 'pages' ) ? "- Pagina inicial" : $title_for_layout ?></title> -->
 		<?php
 			echo $this->Html->meta('icon');
 

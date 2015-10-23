@@ -58,7 +58,7 @@ class Grupo extends BannersAppModel{
 			),
 
             'maxLength' => array(
-            	'rule' => array('maxLength', '45'),
+            	'rule' => array('maxLength', '44'),
         		'message' => 'Campo nome não pode ter mais que 45 caracteres.'
         	)
 		)

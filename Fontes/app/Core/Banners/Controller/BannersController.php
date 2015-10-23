@@ -151,7 +151,6 @@ class BannersController extends BannersAppController {
 	}
 
 	public function admin_add($grupoPai_id = null){
-		
 		if(!empty($this->request->data) ){
 			$this->set('opcao', $this->request->data['Banner']['bm_tipo_id']);
 		}

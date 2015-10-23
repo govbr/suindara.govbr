@@ -47,7 +47,7 @@ class CategoriasController extends CategoriasAppController {
 	public $name = 'Categorias';
 
 	public function admin_index(){
-		$this->numerar($this->site_id);
+		$this->numerar($this->site_id);	
 
 		$options = array(
             'fields' 	 => array('Categoria.id', 'Categoria.titulo', 'Categoria.descricao', 'Categoria.identificador'),
@@ -151,7 +151,14 @@ class CategoriasController extends CategoriasAppController {
 
 		$this->set('titulo_modulo', 'Cadastro');
 
-		$this->set('parents', $this->Categoria->generateTreeList(array('Categoria.site_id =' => $this->site_id), null, '{n}.Categoria.titulo', null));
+		$result = $this->Categoria->find('all', array( 'fields' => array('Categoria.id', 'Categoria.titulo', 'Categoria.lft', 'Categoria.rght'),
+													   'conditions' => array('Categoria.site_id' => $this->site_id)	
+													 ));
+
+		$this->set('parents', $this->numeracao($result, true));
+
+		$perfis = $this->Categoria->Perfil->find('list', array('fields'=>array('nome')));
+        $this->set(compact('perfis'));
 	}
 
 	public function admin_edit($id = null) {
@@ -218,6 +225,7 @@ class CategoriasController extends CategoriasAppController {
 				$this->Session->setFlash('Categoria não foi deletada');
 			}
 		}
+
 		$this->redirect(array('controller' => 'categorias', 'action' => 'index', 'admin' => true));
 	}
 
@@ -239,8 +247,27 @@ class CategoriasController extends CategoriasAppController {
 		$this->set('categoria_pai', $this->Categoria->findById($categoria['Categoria']['parent_id']));
 	}
 
-	private function numerar($site_id){
+	private function allToList($all){
+		$array_list = null;
 
+		if($all){
+			foreach ($all as $key => $item) {
+				$array_list[$item['Categoria']['id']] = ($item['Categoria']['numero'] . ' - ' .  $item['Categoria']['titulo']);
+			}
+		}
+
+		return $array_list;
+	}
+
+	// private function numerar($site_id){
+	// 	static $entrou = false;
+
+	// 	if($entrou){
+	// 		$this->findNumerar($site_id);
+	// 	}
+	// }
+
+	private function numerar($site_id){
     	$results = $this->Categoria->find('all',
                         array(
                             'conditions' => array('Categoria.site_id LIKE' => $site_id),
@@ -250,7 +277,11 @@ class CategoriasController extends CategoriasAppController {
                         )
                     );
 
-        $stack = array();
+        $this->set('numeracao', $this->numeracao($results));
+    }
+
+    private function numeracao($results, $convert = false){
+    	$stack = array();
         $lastArray = array();
         $arrayCount = array();
         $contagem = 1;
@@ -300,7 +331,12 @@ class CategoriasController extends CategoriasAppController {
             $stack[] = $result['Categoria']['rght'];
             $contagem++;
         }
-        $this->set('numeracao', $results);
+
+        if($convert){
+        	$results = $this->allToList($results);
+        }
+        
+        return $results;
     }
 
 	private function _formAddPerfil(){
@@ -316,18 +352,32 @@ class CategoriasController extends CategoriasAppController {
 		sort($this->request->data['CategoriaPerfil']);
 	}
 
+	private function clearFormDelete(){
+		unset($this->request->data['CategoriaPerfil']);
+	}
+
 	public function beforeFilter(){
     	parent::beforeFilter();
 		$this->set('title_for_layout', $this->stringAction($this->action, 'categoria') );
 	}
 
-	public function ra_query($type = 'all', $options = array()) {
+	public function ra_query($type = 'all', $options = array(), $basicRules = true) {
 		if (!empty($this->request->params['requested'])) {
+			$siteAtual = Configure::read('Site.Atual');
+
 			if ($options) {
 				$opt = json_decode(urldecode($options), true);
+				if ($basicRules) {
+					if (isset($opt['conditions'])) {
+						$opt['conditions']['Categoria.site_id'] = $siteAtual['id'];
+					}else{
+						$opt['conditions'] = array('Noticia.site_id' => $siteAtual['id']);
+					}
+				}
 				return $this->Categoria->find($type, $opt);
 			} else {
-				return $this->Categoria->find($type);
+				return $this->Categoria->find($type, array('condiditions' => array('Categoria.site_id' => $siteAtual['id']
+																				)));
 			}		
 		}
 	}
@@ -337,7 +387,11 @@ class CategoriasController extends CategoriasAppController {
 			return null;
 		}
 
-		return $this->Categoria->find('list', array( 'fields' => array('Categoria.id', 'Categoria.titulo')));
+		$result = $this->Categoria->find('all', array( 'recursive' => 1,
+														'fields' => array('Categoria.id', 'Categoria.titulo', 'Categoria.parent_id', 'Categoria.lft', 'Categoria.rght'),
+														'order' => 'Categoria.lft ASC'
+													  ));
+		return $this->numeracao($result, true);
 	}
 
 	public function isAuthorized($user) {

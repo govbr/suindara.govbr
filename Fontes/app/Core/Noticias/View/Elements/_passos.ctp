@@ -55,7 +55,7 @@
 		<li <?php echo atual($class,'passo1'); ?>>
 
 			<?php if ($this->Session->read('tipo_request') == 'cadastro') {?>
-				<?php echo $this->Html->link(spamAtual($class,'passo1').'Conteúdo textual', array(
+				<?php echo $this->Html->link(spamAtual($class,'passo1').'Conte&uacute;do textual', array(
 					'plugin'=> Inflector::pluralize($conteudo),
 					'controller'=>Inflector::pluralize($conteudo),
 					'action'=>'add', $conteudo_id,
@@ -64,7 +64,7 @@
 					array('escape' => false)
 				); ?>
 			<?php } else { ?>
-				<?php echo $this->Html->link(spamAtual($class,'passo1').'Conteúdo textual', array(
+				<?php echo $this->Html->link(spamAtual($class,'passo1').'Conte&uacute;do textual', array(
 					'plugin'=> Inflector::pluralize($conteudo),
 					'controller'=>Inflector::pluralize($conteudo),
 					'action'=>'edit', $conteudo_id,
@@ -75,7 +75,7 @@
 			<?php } ?> 
 		</li>
 		<li <?php echo atual($class,'passo2'); ?>>
-			<?php echo $this->Html->link(spamAtual($class,'passo2').'Mídias', array(
+			<?php echo $this->Html->link(spamAtual($class,'passo2').'M&iacute;dias', array(
 				'plugin' => 'midias',
 				'controller' => 'midias',
 				'tipo_conteudo' => $conteudo,
@@ -126,7 +126,7 @@
 
 		<?php } else { ?>
 			<li <?php echo atual($class,'passo4'); ?>>
-				<?php echo $this->Html->link(spamAtual($class,'passo4').'Visualização', array(
+				<?php echo $this->Html->link(spamAtual($class,'passo4').'Visualiza&ccedil;&atilde;o', array(
 					'plugin'=> Inflector::pluralize($conteudo),
 					'controller'=>Inflector::pluralize($conteudo),
 					'action'=>'view', $conteudo_id,
@@ -143,7 +143,7 @@
 				<?php 
 					if($this->Session->read('tipo_request') == 'edit'){
 				?>
-					<?php echo $this->Html->link(spamAtual($class,'passo5').'Publicação', array(
+					<?php echo $this->Html->link(spamAtual($class,'passo5').'Publica&ccedil;&atilde;o', array(
 						'plugin'=>Inflector::pluralize($conteudo), 
 						'controller'=>Inflector::pluralize($conteudo),
 						'action'=>'edit', $conteudo_id, 'publicar',
@@ -153,7 +153,7 @@
 				<?php
 					}else{
 				?>
-						<?php echo $this->Html->link(spamAtual($class,'passo5').'Publicação', array(
+						<?php echo $this->Html->link(spamAtual($class,'passo5').'Publica&ccedil;&atilde;o', array(
 						'plugin'=>Inflector::pluralize($conteudo), 
 						'controller'=>Inflector::pluralize($conteudo),
 						'action'=>'add', $conteudo_id, 'publicar',
@@ -166,7 +166,7 @@
 			</li>			  
 		<?php } else { ?>
 				<li <?php echo atual($class,'passo5'); ?>>
-				<?php echo $this->Html->link(spamAtual($class,'passo5').'Visualização', array(
+				<?php echo $this->Html->link(spamAtual($class,'passo5').'Visualiza&ccedil;&atilde;o', array(
 					'plugin'=>Inflector::pluralize($conteudo), 
 					'controller'=>Inflector::pluralize($conteudo),
 					'action'=>'view', $conteudo_id,

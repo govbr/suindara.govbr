@@ -56,9 +56,9 @@
 
 			<?php foreach($sitePaginate as $site): ?>
 				<tr>
-					<td><?php echo $site['Site']['titulo']; ?></td>
-					<td><?php echo $site['Site']['dominio']; ?></td>
-					<td><?php echo $site['Site']['instituicao']; ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($site['Site']['titulo'], 20, " ..."); ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($site['Site']['dominio'], 20, " ..."); ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($site['Site']['instituicao'], 20, " ..."); ?></td>
 					<td>
 						<?php 
 						if($site['Site']['site_principal']) {

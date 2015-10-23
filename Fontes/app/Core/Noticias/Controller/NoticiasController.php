@@ -81,7 +81,6 @@ class NoticiasController extends NoticiasAppController {
 	}
 
 	public function ra_query($type = 'all', $options = array(), $basicRules = true) {
-
 		if (!empty($this->request->params['requested'])) {
 			$siteAtual = Configure::read('Site.Atual');
 			if ($options) {
@@ -200,22 +199,20 @@ class NoticiasController extends NoticiasAppController {
 			}
 		}
 		
-
-		if ($emptySearches)
-		{
+		if ($emptySearches){
 			$this->params['paging'] = array
                 (
                     'Noticia' => array
                         (
-                            'page' => 1,
-                            'current' => 0,
-                            'count' => 0,
-                            'prevPage' => null,
-                            'nextPage' => null,
+                            'page'      => 1,
+                            'current'   => 0,
+                            'count'     => 0,
+                            'prevPage'  => null,
+                            'nextPage'  => null,
                             'pageCount' => 0,
-                            //'order' => 
-                            'limit' => 1,
-                            'options' => array(),
+                            //'order'   => 
+                            'limit'     => 1,
+                            'options'   => array(),
                             'paramType' => 'named'
                         )
 
@@ -223,24 +220,19 @@ class NoticiasController extends NoticiasAppController {
 
             $this->paginate('Noticia');
 	    	$this->set('noticias', array());
-		}
-		else
-		{
+		}else{
 			$data = $this->paginate('Noticia', $conditions);
 			$this->set('noticias', $data);	
 		}
 		
-		
-
 		$this->set('agendadoOpts', array('Todos', 'Agendado', 'Não agendado'));
 		//$lista_categorias = $this->requestAction('/admin/categorias/ra_getCategorias');
-		$lista_categorias = $this->requestAction(array('plugin' => 'categorias', 
+		$lista_categorias = $this->requestAction(array('plugin'     => 'categorias', 
 													   'controller' => 'categorias',
-													   'action' => 'ra_getCategorias', 
-													   'admin' => true));
+													   'action'     => 'ra_getCategorias', 
+													   'admin'      => true));
 		$lista_categorias = array('Todas') + $lista_categorias;
 		$this->set(compact('lista_categorias'));
-		
 	}
 	
 	function admin_view($id = null) {

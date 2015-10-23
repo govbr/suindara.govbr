@@ -45,12 +45,11 @@ $this->Html->addCrumb('Listagem de Not&iacute;cias',  array('plugin' => 'noticia
         </p>
     <?php } ?>
 
-
     <table class="row" summary="Tabela de listagem de not&iacute;cias">
         <thead>
         <tr>
-            
             <th><?php echo $this->Paginator->sort('titulo', '<span class="bullet">Ordenar por </span><span class="texto">T&iacute;tulo</span>', array('escape' => false)); ?></th>
+            <th><?php echo $this->Paginator->sort('categoria', '<span class="bullet">Ordenar por </span><span class="texto">Categoria</span>', array('escape' => false)); ?></th>
             <th><?php echo $this->Paginator->sort('status_id', '<span class="bullet">Ordenar por </span><span class="texto">Status</span>', array('escape' => false)); ?></th>
             <th>A&ccedil;&otilde;es</th>
         </tr>
@@ -59,7 +58,19 @@ $this->Html->addCrumb('Listagem de Not&iacute;cias',  array('plugin' => 'noticia
         <tbody>     
         <tr>
             
-            <td><?php echo $noticia['Noticia']['titulo'] ?> </td>
+            <td><?php echo $this->CmsUtil->limitarTexto($noticia['Noticia']['titulo'], 40, " ..."); ?> </td>
+
+            <td>
+                <?php 
+                    foreach ($lista_categorias as $key => $value) {
+                        if(strpos($value, $noticia['Categoria']['titulo']) !== false){
+                            echo $this->CmsUtil->limitarTexto( $lista_categorias[$key], 40, " ...");
+                        } 
+                     } 
+
+                ?>
+            </td>
+
             <td>
                 <?php
                     $spanClass = ($noticia['Status']['nome'] == 'Rascunho') ? 'rascunho' : 'publico';

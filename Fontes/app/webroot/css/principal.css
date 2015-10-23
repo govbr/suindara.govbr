@@ -1598,12 +1598,13 @@
 	}
 	form input[type='text'],
 	form input[type='email'],
+	form input[type='number'],
 	form input[type='password']{
 		-webkit-border-radius: 5px;
 		-moz-border-radius: 5px;
 		border-radius: 5px;
 		padding: 1% 1.5%;
-		border: 1px solid #cfc8bc;
+		border: 1px solid #cfc8bc !important;
 		color: #797979;
 		margin: 5px 0 15px 0;
 	}
@@ -1916,6 +1917,10 @@
 		border: none;
 		padding: 0;
 		margin-top: 10px;
+	}
+	div.form form fieldset.checkbox legend{
+		margin: 0 0 5px 0 !important;
+		color: #444;
 	}
 	div.form form legend span{
 		font-size: 1.125em;

@@ -63,8 +63,6 @@
 			$day = explode(' ', $this->_dataPublicaBuffer[2]);
 			$day = $day[0];
 			$this->_dataPublicaBuffer[2] = $day;
-			//pr($this->_dataPublicaBuffer);
-			
 		}
 		
 		public function getDiaPublicacao() {
@@ -79,10 +77,30 @@
 			return $this->_dataPublicaBuffer[0];
 		}
 		
-		
 		public function getPath() {
 			return $this->_view->CmsTemplate->raizNoticias() . '/' . 'visualizar' . '/' . $this->id;
-			//return '/' . 'noticias' . '/' . 'visualizar' . '/' . $this->id;
+		}
+
+		public function createPath($plugin, $action = null, $noticia = null){
+			$url = '';
+
+			if($plugin != null){
+				$url = '/' . strtolower($plugin);
+			}
+
+			$url .= '/';
+
+			if($action != null){
+				$url .= strtolower($action) . '/';
+			}
+
+			if($noticia == null){
+				$url .= $this->id;
+			}else{
+				$url .= $noticia;
+			}
+
+			return Router::url($url, true);
 		}
 		
 		/**
@@ -199,6 +217,10 @@
 		public function getArquivos() {
 			return $this->_view->CmsMidias->getArquivos($this->id, TC_NOTICIA);
 		}
-		
+
+		public function getCategoria(){
+			$categoria = $this->_view->CmsCategorias->getCategoria($this->categoria_id);
+			return $categoria;
+		}
 		
 	} 

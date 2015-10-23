@@ -68,10 +68,10 @@
 					} 
 				?>
 				<tr>
-					<td><?php echo $categoria['Categoria']['virtualField'] ?></td>
-					<td><?php echo $categoria['Categoria']['titulo']; ?></td>
-					<td><?php echo $categoria['Categoria']['descricao']; ?></td>
-					<td><?php echo $categoria['Categoria']['identificador']; ?></td>
+					<td><?php echo $categoria['Categoria']['virtualField']; ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($categoria['Categoria']['titulo'], 20, null); ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($categoria['Categoria']['descricao'], 20, null); ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($categoria['Categoria']['identificador'], 19, ' ...'); ?></td>
 					<td>
 						<ul>
 							<li><?php echo $this->Html->link('Visualizar <span class="oculto">categoria: ' . $categoria['Categoria']['titulo'] . '</span>', 

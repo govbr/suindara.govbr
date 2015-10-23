@@ -53,8 +53,8 @@
 		<tbody>
 			<?php foreach($perfilPaginate as $perfil): ?>
 				<tr>
-					<td><?php echo $perfil['Perfil']['nome']; ?></td>
-					<td><?php echo $perfil['Perfil']['descricao']; ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($perfil['Perfil']['nome'], 32, " ..."); ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($perfil['Perfil']['descricao'], 32, " ..."); ?></td>
 					<td>
 						<ul>
 							<li><?php echo $this->Html->link('Visualizar <span class="oculto">perfil: ' . $perfil['Perfil']['id'] . '</span>', 

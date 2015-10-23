@@ -223,7 +223,9 @@ class CmsMenuHelper extends AppHelper {
 		if (!empty($menu)) {
 			return $menu[0];
 		} else {
-			throw new Exception("Nenhum menu com identificador '{$id_titulo}' encontrado.");
+			return null;
+			// menu não encontrado - gerar msg de erro
+			//throw new Exception("Nenhum menu com identificador '{$id_titulo}' encontrado.");
 		}		
 	}
 	

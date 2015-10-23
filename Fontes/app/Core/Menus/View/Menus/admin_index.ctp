@@ -55,8 +55,8 @@
 
 			<?php foreach($menuPaginate as $menu): ?>
 				<tr>
-					<td><?php echo $menu['Menu']['nome']; ?></td>
-					<td><?php echo $menu['Menu']['identificador']; ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($menu['Menu']['nome'], 32, " ..."); ?></td>
+					<td><?php echo $this->CmsUtil->limitarTexto($menu['Menu']['identificador'], 32, " ..."); ?></td>
 					<td>
 						<ul>
 							<li><?php echo $this->Html->link('Itens do Menu <span class="oculto">menu: ' . $menu['Menu']['nome'] . '</span>', 

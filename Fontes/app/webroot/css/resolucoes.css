@@ -8,6 +8,17 @@
 			height: 16px;
 		}
 
+		div#topo #opcoes_usuario li#usuario a{
+			background: none;
+			margin: 0 !important;
+			text-indent: 0 !important;
+			padding: 5px 5px 11px 5px !important;
+		}
+
+		#exp_busca{
+			display: none !important;
+		}
+
 		#topo form select{
 			width: 60% !important;
 		}
@@ -76,9 +87,17 @@
 	/* ============================= */
 
 	@media handheld, only screen and (max-width: 800px) {
+
 		div#topo #opcoes_usuario li.threecol a{
 			max-width: 140px;
 			height: 16px;
+		}
+
+		div#topo #opcoes_usuario li#usuario a{
+			background: none;
+			margin: 0 !important;
+			text-indent: 0 !important;
+			padding: 5px 5px 11px 5px !important;
 		}
 
 		div.login{
@@ -146,6 +165,10 @@
 		#menu_acessibilidade form input{
 			float: right;
 			margin-right: 44px;
+		}
+
+		#exp_busca{
+			margin-left: 325px !important;
 		}
 	}
 

@@ -104,10 +104,11 @@ class Usuario extends UsuariosAppModel {
             return null;
         }
 
-        if($this->data['Usuario']['nome'] = 'admin'){
+        if($this->data['Usuario']['nome'] == 'admin'){
             return true;
         }else{
-            $qunt = count($this->data['Perfil']);
+            $qunt = count($this->data['Usuario']['Perfil']);
+            pr($qunt);
             if( $qunt >= 1 ){
                 return true;
             }else{

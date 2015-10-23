@@ -91,6 +91,26 @@ Router::connect(
 	)
 );
 
+
+
+Router::connect(
+	'/admin/:tipo_conteudo/:id_conteudo/:data/:action', 
+	array(
+		'plugin' => 'midias',
+		'controller' => 'midias',
+		'admin' => true
+	),
+	array(
+		'id_conteudo' => '[0-9]+',
+		'tipo_conteudo' => '[a-z]+',
+		'pass' => array('tipo_conteudo', 'id_conteudo', 'data')
+	)
+);
+
+
+
+
+
 Router::connect('/admin/mimes', array('plugin' => 'midias', 'controller' => 'mimes', 'action' => 'index', 'admin' => true));
 Router::connect('/admin/mimes/index/*', array('plugin' => 'midias', 'controller' => 'mimes', 'action' => 'index', 'admin' => true));
 Router::connect('/admin/mimes/add/*', array('plugin' => 'midias', 'controller' => 'mimes', 'action' => 'add', 'admin' => true));

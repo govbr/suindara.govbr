@@ -1,0 +1,61 @@
+body.contraste *
+{
+	background:#000 !important;
+}
+
+body.contraste p, body.contraste li, body.contraste label, body.contraste input, body.contraste select, body.contraste textarea, body.contraste span, body.contraste legend, body.contraste caption
+{
+	color:#FFF !important;
+}
+
+body.contraste legend{
+	border-bottom:1px solid #FFF !important;
+}
+
+body.contraste input[type="submit"],
+body.contraste .add,
+body.contraste #resetar_config
+{
+	border:1px solid #FFF !important;
+}
+
+body.contraste a
+{
+	color:#9F0 !important;
+	font-weight:bold;
+}
+
+body.contraste img
+{
+	border:1px solid #FFF !important;
+}
+
+body.contraste h1, body.contraste h3, body.contraste h4, body.contraste h2 span, body.contraste h3 span
+{
+	color:#090 !important;
+}
+
+body.contraste h2
+{
+ 	color: #fff !important;
+}
+
+body.contraste h1,
+body.contraste h1 a
+{
+	background: url(../images/logo.png) no-repeat center center !important;
+}
+body.contraste table thead th,
+body.contraste caption
+{
+	border-bottom: 1px solid #FFF !important;
+	color:#090 !important;
+}
+body.contraste footer *{
+	color: #fff;
+}
+
+body.contraste .date-1,
+body.contraste .name-author{
+	color: #fff;
+}

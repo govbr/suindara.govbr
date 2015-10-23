@@ -94,8 +94,7 @@
 		 * @return array Noticias  
 		 */
 		public function getNoticias(array $options = array(), $regrasBasicas = true) {
-
-
+			//pr($options);
 			$opt = urlencode(json_encode($options));
 			$noticias = $this->requestAction(array('ra' => true, 
 												'plugin' => 'noticias', 
@@ -123,14 +122,11 @@
 										    'order' => array('Noticia.id DESC') ));
 
 			
-			foreach ($result as $key => $value) {
-				pr($value->titulo);
-			}
+			// foreach ($result as $key => $value) {
+			// 	pr($value->titulo);
+			// }
 
 			return $result;
-			// return $this->getNoticias(array('limit' => $limite_noticias, 
-			// 							    'order' => array('Noticia.id DESC'), 
-			// 							    'conditions' => array('Noticia.status_id' => 2) )); //colocar parametro: status_id == 1
 		}
 
 		public function getNoticiasRecentesSemDestaque($limite_noticias = 2) {
@@ -143,6 +139,70 @@
 			array_shift($result);
 
 			return $result;
+		}
+
+		public function createPath($plugin, $action = null, $noticia = null){
+			$url = '';
+
+			if($plugin != null){
+				$url = '/' . strtolower($plugin);
+			}
+
+			$url .= '/';
+
+			if($action != null){
+				$url .= strtolower($action) . '/';
+			}
+
+			if($noticia != null){
+				$url .= $noticia;
+			}
+
+			return Router::url($url, true);
+		}
+
+		public function getListDate($limite_meses = 12, $noticia_id = array()){
+
+			// SELECT  
+			//    YEAR(datahora_prog_pub), MONTH(datahora_prog_pub),
+			//    COUNT(*) totalPost
+			// FROM    
+			//    noticias
+			// GROUP BY
+			//    YEAR(datahora_prog_pub), MONTH(datahora_prog_pub)
+
+			$opt = array(
+			    'fields' => array('YEAR(Noticia.datahora_prog_pub) AS ano', 'MONTH(Noticia.datahora_prog_pub) AS mes', 'COUNT(*) AS count_noticias'),
+			    'order' => array('YEAR(Noticia.datahora_prog_pub) DESC', 'MONTH(Noticia.datahora_prog_pub) DESC'),
+			    'group' => array('YEAR(Noticia.datahora_prog_pub)', 'MONTH(Noticia.datahora_prog_pub)'), //fields to GROUP BY
+			    'limit' => $limite_meses
+			);			
+
+			if($noticia_id){
+				$opt['conditions'] = array('Noticia.categoria_id' => $noticia_id);
+			}
+
+			$opt = urlencode(json_encode($opt));
+
+			$result = $this->requestAction(array('ra' => true, 
+									   'plugin' => 'noticias', 
+			      				       'controller' => 'noticias', 
+			      				       'action' => 'ra_query', 'all', $opt, false));
+
+			return array_map('array_filter', $result);
+		}
+
+		public function validateMesAno($mes, $ano){
+			if((!$mes) || (!$ano)){
+				return false;
+			}
+
+			$date = $mes . '_' . $ano;
+			if(preg_match ("/^([0-9]{2})_([0-9]{4})$/", $date, $parts)){
+				return true;
+			}else{
+				return false;
+			} 
 		}
 		
 		

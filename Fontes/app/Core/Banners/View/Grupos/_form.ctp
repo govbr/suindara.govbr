@@ -11,7 +11,7 @@
 		<legend class="oculto">Dados cadastrais</legend>
 		<?php
 			echo $this->Form->input('nome', array('label' => 'Título', 
-											  'class' => 'w97') ); 
+											      'class' => 'w97') ); 
 		?>
 	<br />
 	<span class="oculto obrigatorio">Obrigatório</span> Campos com esta marca são obrigatórios.

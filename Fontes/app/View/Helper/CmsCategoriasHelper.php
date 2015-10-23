@@ -78,10 +78,10 @@
 			 */
 			public function getCategoria($id_titulo) {
 				$categoria = null;
-				if (is_numeric($id_titulo)) {
-					$categoria = $this->getCategorias(array('conditions' => array('Categoria.id' => $id_titulo)));
-				} else {
 
+				if (is_numeric($id_titulo)) {
+					$categoria = $this->getCategorias( array('conditions' => array('Categoria.id' => $id_titulo)) );
+				} else {
 					$categoria = $this->getCategorias(array('conditions' => array('Categoria.identificador' => $id_titulo)));
 				
 				}
@@ -89,6 +89,7 @@
 				if (!empty($categoria)) {
 					return $categoria[0];
 				} else {
+					// categoria não encontrada - gerar msg de erro
 					return null;
 				}
 			}

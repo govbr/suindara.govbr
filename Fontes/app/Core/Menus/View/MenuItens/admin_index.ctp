@@ -71,8 +71,8 @@
 				?>
 				<tr>
 					<td> <?php echo $menuItem['MenuItem']['virtualField']; ?> </td>
-					<td> <?php echo $menuItem['MenuItem']['nome']; ?> </td>
-					<td><?php echo $menuItem['MenuItem']['identificador']; ?> </td>
+					<td> <?php echo $this->CmsUtil->limitarTexto($menuItem['MenuItem']['nome'], 32, " ..."); ?> </td>
+					<td> <?php echo $this->CmsUtil->limitarTexto($menuItem['MenuItem']['identificador'], 32, " ..."); ?> </td>
 					<td> <?php echo $menuItem['BmTipo']['nome']; ?> </td>
 					<td>
 						<ul>

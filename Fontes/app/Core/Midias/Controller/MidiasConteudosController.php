@@ -68,7 +68,7 @@ class MidiasConteudosController extends MidiasAppController {
             }
 			if($this->MidiasConteudo->save($new)) {
                 $midia = $this->MidiasConteudo->findByMidiaId($id_midia);
-                $this->Session->setFlash('Mídia ' . $midia['Midia']['nome_original'] . ' adicionada ao conteúdo com sucesso', 'success');
+                $this->Session->setFlash('Mídia ' . $midia['Midia']['titulo'] . ' adicionada ao conteúdo com sucesso', 'success');
 			}
 		} else {
             $this->Session->setFlash('Mídia não encontrada');
@@ -83,7 +83,7 @@ class MidiasConteudosController extends MidiasAppController {
         foreach ($midiasList as $key => $value) {
             if($value['Midia']['id'] == $midiaTemp['MidiasConteudo']['midia_id'])
             {
-                $name = $value['Midia']['nome_original'];
+                $name = $value['Midia']['titulo'];
                 break;
             }
         }

@@ -215,6 +215,8 @@ class Midia extends MidiasAppModel {
     }
 
 	public function mime($data, $tipo_id) {
+//        pr($this->arq); die;
+
         $mime = null;
         $extension = null;
         $img = new Gd();
@@ -226,8 +228,10 @@ class Midia extends MidiasAppModel {
             $extension = $img->retornaExt($this->arq['name']);
         }
 
+
         //die($mime . ' - ' . $extension);
-		$find = $this->Mime->find('first', array('conditions' => array('tipo_id' => $tipo_id, 'mime' => $mime, 'ativo' => true, 'extensao' => $extension)));
+		$find = $this->Mime->find('first', array('conditions' => array('tipo_id' => $tipo_id, 
+            'or' => array('mime LIKE' => "%$extension%", 'mime LIKE' => "%$mime%"), 'ativo' => true, 'extensao LIKE' => "%$extension%")));
         //$find = $this->Mime->find('first', array('conditions' => array('ativo' => true, 'extensao' => $extension)));
         //print_r($tipo_id); die();
 		if(!empty($find)) {
@@ -283,11 +287,16 @@ class Midia extends MidiasAppModel {
 	public function deleteFile($folder,$file) {
         $dir = new Folder($folder);
         $list = $dir->read();
+        
+        $list = array_values(array_filter($list));
+
         $config = new MidiaConfig();
         foreach($list[0] as $dir_name) {
             if($dir_name == 'thumb')
                 $file = $config->changeExt($file, 'jpg');
-            $new = new File($dir->pwd() . $dir_name . DS . $file);
+
+            $new = new File(str_replace('.DS_Store/', '' , $dir->pwd() . $dir_name . DS . $file) );
+
             $new->delete();
         }
 	}
@@ -299,10 +308,12 @@ class Midia extends MidiasAppModel {
 
 	public function afterDelete() {
         if(!$this->findByArquivo($this->midia['Midia']['arquivo'])) {
+           // pr('eba2'); die;
             $config = new MidiaConfig();
             $folder = $config->midiaDir($this->data['Midia']['tipo_id']);
     		$this->deleteFile($folder, $this->midia['Midia']['arquivo']);
         }
+
 		return true;
 	}
 
@@ -311,24 +322,28 @@ class Midia extends MidiasAppModel {
         $extensao = strtolower($img->retornaExt($arquivo));
         $folder = WWW_ROOT . 'files/img/';
         $or = $folder . 'or/';
-        $img->abrirImagem($or . $arquivo, $extensao);
-        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-        $img->escalar(800, 'auto');
-        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'gd');
+        if($img->abrirImagem($or . $arquivo, $extensao)){
+            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+            $img->escalar(800, 'auto');
+            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'gd');
+        }
         
-        $img->abrirImagem($or . $arquivo, $extensao);
-        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-        $img->escalar(530, 'auto');
-        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'md');
+        if($img->abrirImagem($or . $arquivo, $extensao)){
+            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+            $img->escalar(380, 'auto');
+            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'md');
+        }
 
-        $img->abrirImagem($or . $arquivo, $extensao);
-        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-        $img->escalar(220, 'auto');
-        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'pq');
+        if($img->abrirImagem($or . $arquivo, $extensao)){
+            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+            $img->escalar(220, 'auto');
+            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'pq');
+        }
 
-        $img->abrirImagem($or . $arquivo, $extensao);
-        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-        $img->escalar(160, 'auto');
-        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'th');
+        if($img->abrirImagem($or . $arquivo, $extensao)){
+            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+            $img->escalar(160, 'auto');
+            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'th');
+        }
     }
 }

@@ -92,7 +92,6 @@ App::uses('MenusAppController', 'Menus.Controller');
 	    	} 
 				
 			$this->set('menuPaginate', $this->paginate('Menu'));
-
 		}
 
 		private function search($query, $site_id){
@@ -204,7 +203,6 @@ App::uses('MenusAppController', 'Menus.Controller');
 			$this->set('title_for_layout', $titulo);
 		}
 		
-		
 		public function ra_query($type = 'all', $options = array()) {
 			if (!empty($this->request->params['requested'])) {
 				if ($options) {
@@ -217,7 +215,6 @@ App::uses('MenusAppController', 'Menus.Controller');
 			}
 		}
 		
-
 		public function isAuthorized($user) {
 			parent::isAuthorized($user);
 		}
