@@ -47,12 +47,14 @@ class TipoEditaisController extends TipoEditaisAppController {
 
 	public $name = 'TipoEditais';
 
+	public $components = array('TreeList');
+
 	public function admin_index(){
-		$this->numerar($this->site_id);
+		$emptySearches = false;
+		$conditions = array('TipoEdital.site_id' => $this->site_id);
 
         $options = array(
-            'fields' 	 => array('TipoEdital.id', 'TipoEdital.titulo', 'TipoEdital.descricao', 'TipoEdital.identificador'),
-            'conditions' => array('TipoEdital.site_id' => $this->site_id),
+            'conditions' => $conditions,
             'order' 	 => array('TipoEdital.lft' => 'ASC'),
             'limit' 	 => 15,
             'url' 		 => array('controller' => 'TipoEditais', 'action' => 'index', 'admin' => true)
@@ -65,71 +67,72 @@ class TipoEditaisController extends TipoEditaisAppController {
 	    }
 
     	if( $this->request->isPost() ){
-	    	if( isset($this->request->data['TipoEdital']['search']) && trim($this->request->data['TipoEdital']['search']) != "") {
-	    		$this->search($this->request->data['TipoEdital']['search']);
+    		$emptySearches = true;
 
-	    	} else if(isset($this->request->data['TipoEdital']['palavras']) && (trim($this->request->data['TipoEdital']['palavras'] != "" || trim($this->request->data['Modalidade']['parent_id'] != "") )   ) ){
-	    		$this->advancedSearch($this->request->data['TipoEdital']['palavras'], $this->request->data['TipoEdital']['parent_id']);
+    		if(isset($this->request->data['TipoEdital']['search'])){
+    			$palavra_chave = $this->request->data['TipoEdital']['search'];
+    			if(!empty($palavra_chave)){
+    				$palavra_chave = '%' . trim($palavra_chave) . '%';
+    				$conditions[] = array("OR" => array(
+												"TipoEdital.titulo LIKE " => $palavra_chave,
+												"TipoEdital.descricao LIKE " => $palavra_chave
+ 										  ));
+    			}
+    		}
 
-	    	} else {
+    		if(isset($this->request->data['TipoEdital']['parent_id'])){
+    			$palavra_chave = (int)$this->request->data['TipoEdital']['parent_id'];
+    			if($palavra_chave > 0){
+    				$conditions[] = "(TipoEdital.parent_id = $palavra_chave
+									  OR TipoEdital.id = $palavra_chave)";
+    			}else{
+    				$conditions[] = "TipoEdital.id > 0";
+    			}
+    		}
 
-	    		// sem nada na pesquisa
-				$this->params['paging'] = array
-	                (
-	                    'TipoEdital' => array
-	                        (
-	                            'page' => 1,
-	                            'current' => 0,
-	                            'count' => 0,
-	                            'prevPage' => null,
-	                            'nextPage' => null,
-	                            'pageCount' => 0,
-	                            //'order' => 
-	                            'limit' => 1,
-	                            'options' => array(),
-	                            'paramType' => 'named'
-	                        )
-	                );
-
-	    		$this->set('tipoEditalPaginate', array());
-	    	} 
+    		if( count($conditions) > 1 ) {
+				$emptySearches = false;
+			}
     	}
 
-    	$this->set('tipoEditalPaginate', $this->paginate());
+    	if($emptySearches){
+	  		// sem nada na pesquisa
+	 		$this->params['paging'] = array
+	            (
+	                'TipoEdital' => array
+	                    (
+	                        'page'      => 1,
+	                        'current'   => 0,
+	                        'count'     => 0,
+	                        'prevPage'  => null,
+	                        'nextPage'  => null,
+	                        'pageCount' => 0,
+	                        //'order' => 
+	                        'limit'     => 1,
+	                        'options'   => array(),
+	                        'paramType' => 'named'
+	                    )
+	            );
 
- 		$this->set('parents', $this->TipoEdital->generateTreeList(array('TipoEdital.site_id =' => $this->site_id), null, '{n}.TipoEdital.titulo', ''));
-	}
+            $this->paginate('TipoEdital');
+    		$this->set('tipoEditalPaginate', array());
+    	} else {
+    		$data = $this->paginate('TipoEdital', $conditions);
+			$this->set('tipoEditalPaginate', $data);	
+    	}
 
-	private function search($query){
-		if(!isset($query) || trim($query) == "")
-			return;
-		$like = '%' . trim($query) . '%';
-    	$this->paginate['conditions'] = array('TipoEdital.site_id' => $this->site_id,
-    		'OR' => array(
-	    		'TipoEdital.titulo LIKE' => $like,
-	    		'TipoEdital.descricao LIKE' => $like
-    		)
-    	);
-	}
 
-	private function advancedSearch($palavras, $parent_id){
-		$conditions = array('TipoEdital.site_id' => $this->site_id);
-		
-		if(isset($palavras)){
-			foreach(split(',', $palavras) as $palavra) {
-				$palavra = trim($palavra);
-				if($palavra != "") {
-					$conditions['OR'][]['TipoEdital.titulo LIKE'] = '%'.$palavra.'%';
-			    	$conditions['OR'][]['TipoEdital.descricao LIKE'] = '%'.$palavra.'%';
-			    }
-			}
-		}
+    	$results = $this->TipoEdital->find('all',
+                        array('conditions' => array('TipoEdital.site_id LIKE' => $this->site_id),
+                              'recursive' => 1,
+                              'order' => 'TipoEdital.lft ASC'
+                             )
+                     );
 
-		if(isset($parent_id) && trim($parent_id) != ""){
-			$conditions['OR'][]['TipoEdital.parent_id LIKE'] = trim($parent_id);
-		}
+		$result = $this->TreeList->numerar($results);
 
- 	 	$this->paginate['conditions'] = $conditions;
+		$this->set('numeracao', $result);		
+    	$this->set('parents', $this->TreeList->converterToList($result));
 	}
 
 	public function admin_add(){
@@ -146,7 +149,10 @@ class TipoEditaisController extends TipoEditaisAppController {
 
 		$this->set('titulo_modulo', 'Cadastro');
 
-		$this->set('parents', $this->TipoEdital->generateTreeList(array('TipoEdital.site_id =' => $this->site_id), null, '{n}.TipoEdital.titulo', null));
+		$result = $this->TipoEdital->find('all', array('conditions' => array('TipoEdital.site_id' => $this->site_id),
+													   'order' => 'TipoEdital.lft ASC' ));
+
+		$this->set('parents', $this->TreeList->numerar($result, true));
 	}
 
 	public function admin_edit($id = null) {
@@ -175,8 +181,11 @@ class TipoEditaisController extends TipoEditaisAppController {
 	 	}
 
 		if($this->request->data){
+			$result = $this->TipoEdital->find('all', array('conditions' => array('TipoEdital.site_id' => $this->site_id),
+													   	   'order' => 'TipoEdital.lft ASC'));
+
+			$this->set('parents', $this->TreeList->numerar($result, true));
 			$this->set('data', $this->request->data);
-			$this->set('parents', $this->TipoEdital->generateTreeList(array('TipoEdital.id <>' => $id, 'TipoEdital.site_id =' => $this->request->data['TipoEdital']['site_id']), null, '{n}.TipoEdital.titulo', null));
 		}
 
 		$this->set('titulo_modulo', 'Edição');
@@ -217,73 +226,6 @@ class TipoEditaisController extends TipoEditaisAppController {
 		$this->set('tipoEdital_pai', $this->TipoEdital->findById($tipoEdital['TipoEdital']['parent_id']));
 	}
 
-	private function numerar($site_id){
-	    	$results = $this->TipoEdital->find('all',
-	                        array(
-	                            'conditions' => array('TipoEdital.site_id LIKE' => $site_id),
-	                            'recursive' => 1,
-	                            'fields' => array('TipoEdital.id', 'TipoEdital.lft', 'TipoEdital.rght'),
-	                            'order' => 'TipoEdital.lft ASC'
-	                        )
-	                    );
-
-	        $this->set('numeracao', $this->numeracao($results));
-    }
-
-    private function numeracao($results){
-    	$stack = array();
-        $lastArray = array();
-        $arrayCount = array();
-        $contagem = 1;
-
-        foreach ($results as $i => $result) {
-            $count = count($stack);
-            while ($stack && ($stack[$count - 1] < $result['TipoEdital']['rght'])) {
-                array_pop($stack);
-                $count--;
-            }
-
-            array_push($arrayCount, $count);
-            if( isset($arrayCount[count($arrayCount) - 1]) && isset($arrayCount[count($arrayCount) - 2])  ){
-            	$ultimo = $arrayCount[count($arrayCount) - 1];
-            	$penultimo = $arrayCount[count($arrayCount) - 2];
-
-				if($ultimo > $penultimo){
-	            	if(empty($lastArray)){
-	            		$lastArray[0] = $contagem;
-	            	}else{
-	            		array_push($lastArray, $contagem); 
-	            	}
-	            	$contagem = 1;
-	            }else{
-	            	if($ultimo < $penultimo){
-	            		$contagem = $lastArray[count($lastArray) - 1]; 
-	            		unset($lastArray[count($lastArray) - 1]);
-	            		sort($lastArray);
-	            	}
-	            }	            	
-            }
-
-            $contagemPai = "";
-            for($j = 0; $j < $count; $j++){
-            	if(empty($contagemPai)){
-            		$contagemPai = 	($lastArray[$j] - 1);
-            	}else{
-            		$contagemPai = ($contagemPai . '.' . ($lastArray[$j] - 1) ); 	
-            	}
-            }
-            
-            if($count == 0){
-            	$results[$i]['TipoEdital']['numero'] = $contagem ;
-            }else{
-            	$results[$i]['TipoEdital']['numero'] = ( $contagemPai ) . '.' . $contagem ;
-            }
-            $stack[] = $result['TipoEdital']['rght'];
-            $contagem++;
-        }
-        return $results;
-    }
-
 	public function beforeFilter(){
     	parent::beforeFilter();
 	}
@@ -304,16 +246,14 @@ class TipoEditaisController extends TipoEditaisAppController {
 			return null;
 		}
 
-		$results = $this->TipoEdital->find('all',
-	                        array(
-	                            'conditions' => array('TipoEdital.site_id LIKE' => $this->site_id),
-	                            'recursive' => 1,
-	                            'fields' => array('TipoEdital.id', 'TipoEdital.titulo', 'TipoEdital.lft', 'TipoEdital.rght'),
-	                            'order' => 'TipoEdital.lft ASC'
-	                        )
-	                    );
+		$result = $this->TipoEdital->find('all', array( 'recursive' => 1,
+														'fields' => array('TipoEdital.id', 'TipoEdital.titulo', 'TipoEdital.parent_id', 'TipoEdital.lft', 'TipoEdital.rght'),
+														'order' => 'TipoEdital.lft ASC',
+														'conditions' => array('TipoEdital.site_id' => $this->site_id)
+													  ));
+		$result = $this->TreeList->numerar($result, true);
 
-		return $this->numeracao($results);
+		return $result;
 	}
 
 	public function isAuthorized($user){

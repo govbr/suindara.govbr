@@ -70,12 +70,9 @@ class NoticiasController extends NoticiasAppController {
     public function beforeFilter(){
     	parent::beforeFilter();
 		//$this->set('title_for_layout', 'Not&iacute;cias');
-		if( isset($this->params['pass'][1]) && $this->params['pass'][1] == 'publicar' )
-		{
+		if( isset($this->params['pass'][1]) && $this->params['pass'][1] == 'publicar'){
 			$this->set('title_for_layout', $this->stringAction($this->action, 'notícia', 'publicação') );
-		}
-		else
-		{
+		}else{
 			$this->set('title_for_layout', $this->stringAction($this->action, 'notícia') );
 		}	
 	}
@@ -139,7 +136,7 @@ class NoticiasController extends NoticiasAppController {
 
 		$options = array(
             'conditions' => $conditions,
-            'limit' => 15
+            'limit'      => 15
         );
         $this->paginate = $options;
 
@@ -149,28 +146,27 @@ class NoticiasController extends NoticiasAppController {
 		
 		if ($this->request->isPost()) {
 			$emptySearches = true;
-			//$author = $this->request->data['Noticia']['author'];
-			// $agendado = $this->request->data['Noticia']['sheduled'];
-			// $data_inicio = $this->request->data['Noticia']['start_date'];
-			// $data_fim = $this->request->data['Noticia']['end_date'];
-			// $categoria = $this->request->data['Noticia']['category'];
 		
 			if (isset($this->request->data['Noticia']['keyword'])) {
 				$palavra_chave = $this->request->data['Noticia']['keyword'];
 				if (!empty($palavra_chave)) {
-					$conditions[] = "(Noticia.titulo LIKE '%$palavra_chave%' 
-									 OR Noticia.cartola LIKE '%$palavra_chave%'
-									 OR Noticia.resumo LIKE '%$palavra_chave%'
-									 OR Noticia.texto LIKE '%$palavra_chave%')";
-					$emptySearches = false;
-				} 
+					$palavra_chave = '%' . trim($palavra_chave) . '%';
+					$conditions[] = array("OR" => array(
+											"Noticia.titulo LIKE " => $palavra_chave,
+											"Noticia.cartola LIKE " => $palavra_chave,
+											"Noticia.resumo LIKE " => $palavra_chave,
+											"Noticia.texto LIKE " => $palavra_chave
+										  ));
 
+					$emptySearches = false;
+				}
 			}
 			
 			if (isset($this->request->data['Noticia']['author'])) {
 				$palavra_chave = $this->request->data['Noticia']['author'];
 				if (!empty($palavra_chave)) {
-					$conditions[] = "Noticia.autor LIKE '%$palavra_chave%'";
+					$palavra_chave = '%' . trim($palavra_chave) . '%';
+					$conditions[] = array("Noticia.autor LIKE" => $palavra_chave);
 					$emptySearches = false;
 				}
 			}
@@ -196,6 +192,10 @@ class NoticiasController extends NoticiasAppController {
 				if ($palavra_chave > 0) {
 					$conditions[] = "Noticia.categoria_id = $palavra_chave";
 				}
+			}
+
+			if( count($conditions) > 1 ) {
+				$emptySearches = false;
 			}
 		}
 		

@@ -72,57 +72,84 @@ class MimesController extends MidiasAppController {
 	}
 
     public function admin_index() {
-    	$query = $this->params->query;
 
-    	if(!empty($query)) {
-	    	if(isset($query['search'])) {
-	    		$this->prepareSearch($query);
-	    	} elseif(isset($query['limit'])) {
-	    		$this->paginate['limit'] = $query['limit'];
-	    	} else {
-	    		$this->prepareAdvancedSearch($query);
-	    	}
-    	}
+    	$emptySearches = false;
+    	$conditions = null;
 
-    	$this->data = array('Mime' => $query);
-		$this->set('mimes', $this->paginate());
-		$this->set('tipos', $this->Mime->Tipo->find('list'));
-	}
+    	$options = array(
+            'conditions' => $conditions,
+            'limit'      => 15
+        );
+        $this->paginate = $options;
 
-	private function prepareSearch($query) {
-		if(trim($query['search']) == "")
-			return;
+        if(isset($this->params->query['limit'])){
+	    	$this->paginate['limit'] = $this->params->query['limit'];
+	    }
 
-		$like = '%' . trim($query['search']) . '%';
-		$this->paginate['conditions'] = array(
-			'OR' => array(
-    			'Mime.mime LIKE' => $like,
-    			'Mime.extensao LIKE' => $like
-			)
-		);
+	    if ($this->request->isPost()) {
+	    	$emptySearches = true;
 
-	}
+	    	if(isset($this->request->data['Mime']['search'])){
+    			$palavra_chave = $this->request->data['Mime']['search'];
+    			if(!empty($palavra_chave)){
+    				$palavra_chave = '%' . trim($palavra_chave) . '%';
+    				$conditions[] = array("OR" => array( 
+												"Mime.mime LIKE " => $palavra_chave,
+												"Mime.extensao LIKE " => $palavra_chave
+										  ));
+    				$emptySearches = false;
+    			}
+    		}
 
-	private function prepareAdvancedSearch($query) {
-		$conditions = array();
-		
-		if(isset($query['palavras'])) {
-			foreach(split(',', $query['palavras']) as $palavra) {
-				$palavra = trim($palavra);
-				if($palavra != "") {
-					$conditions['OR']['Mime.mime LIKE'] = '%'.$palavra.'%';
-			    	$conditions['OR']['Mime.extensao LIKE'] = '%'.$palavra.'%';
-		    	}
+    		if(isset($this->request->data['Mime']['tipo_id'])){
+				$palavra_chave = (int)$this->request->data['Mime']['tipo_id'];
+				if ($palavra_chave > 0) {
+					$conditions[] = array("Mime.tipo_id =" => $palavra_chave);
+				}else{
+					$conditions[] = "Mime.tipo_id > 0";
+				}
+				$emptySearches = false;
 			}
+
+			if(isset($this->request->data['Mime']['ativo'])){
+				if($this->request->data['Mime']['ativo'] != ""){
+					$palavra_chave = (int)$this->request->data['Mime']['ativo'];	
+					$conditions[] = array("Mime.ativo =" => $palavra_chave);
+				}else{
+					$palavra_chave = (int)$this->request->data['Mime']['ativo'];
+					$conditions[] = array("Mime.ativo =" => array(0, 1));
+				}
+				$emptySearches = false;
+			}
+	    }
+
+	    if($emptySearches){
+			// sem nada na pesquisa
+			$this->params['paging'] = array
+	            (
+	                'Mime' => array
+	                    (
+	                        'page'      => 1,
+	                        'current'   => 0,
+	                        'count'     => 0,
+	                        'prevPage'  => null,
+	                        'nextPage'  => null,
+	                        'pageCount' => 0,
+	                        //'order' => 
+	                        'limit'     => 1,
+	                        'options'   => array(),
+	                        'paramType' => 'named'
+	                    )
+	            );
+
+	        $this->paginate('Mime');
+			$this->set('mimes', array());
+		} else{
+			$data = $this->paginate('Mime', $conditions);
+			$this->set('mimes', $data);	
 		}
 
-		if(isset($query['palavras']) && trim($query['tipo_id']) != "")
-			$conditions['AND']['Mime.tipo_id'] = trim($query['tipo_id']);
-
-		if(isset($query['palavras']) && trim($query['ativo']) != "")
-			$conditions['AND']['Mime.ativo'] = trim($query['ativo']);
-
-		$this->paginate['conditions'] = $conditions;
+		$this->set('tipos', $this->Mime->Tipo->find('list'));
 	}
 
 	public function admin_status($id = null) {

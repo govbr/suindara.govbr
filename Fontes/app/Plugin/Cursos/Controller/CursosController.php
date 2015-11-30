@@ -51,12 +51,12 @@ App::uses('CursosAppController', 'Cursos.Controller');
 		public $helpers =  array('Midias', 'Midias.Midias');
 
 		public function admin_index(){
+			$emptySearches = false;
+			$conditions = array('Curso.site_id' => $this->site_id);
 
-			//pr($this->Curso->find());
-			
 			$options = array(
 	            'fields' => array('Curso.id','Curso.nome', 'Modalidade.titulo'),
-	            'conditions' => array('Curso.site_id' => $this->site_id),
+	            'conditions' => $conditions,
 	            'limit' => 15
         	);
         	
@@ -67,38 +67,43 @@ App::uses('CursosAppController', 'Cursos.Controller');
 	    	}
 
 	    	if( $this->request->isPost() ){
-	    		$query = $this->request->data['Curso']['search']; 
+	    		$emptySearches = true;
 
-		    	if( isset($query) && trim($query) != "") {
-		    		$this->search($query, $this->site_id);
-
-		    	} else {
-		    		//sem nada na pesquisa
-					$this->params['paging'] = array
-		                (
-		                    'Curso' => array
-		                        (
-		                            'page' => 1,
-		                            'current' => 0,
-		                            'count' => 0,
-		                            'prevPage' => null,
-		                            'nextPage' => null,
-		                            'pageCount' => 0,
-		                            //'order' => 
-		                            'limit' => 1,
-		                            'options' => array(),
-		                            'paramType' => 'named'
-		                        )
-		                );
-
-		    		$this->set('cursoPaginate', array());
-		    	} 
+	    		if(isset($this->request->data['Curso']['search'])){
+	    			$palavra_chave = $this->request->data['Curso']['search']; 
+	    			if (!empty($palavra_chave)) {
+		    			$conditions[] = array("Curso.nome LIKE " => '%' . trim($palavra_chave) . '%');
+		    			$emptySearches = false;
+		    		}
+	    		}
 
 	    	} 
-			
 
-			$this->set('cursoPaginate', $this->paginate('Curso') );
-			//$this->render(false);
+	    	if($emptySearches){
+	    		//sem nada na pesquisa
+				$this->params['paging'] = array
+	                (
+	                    'Curso' => array
+	                        (
+	                            'page'      => 1,
+	                            'current'   => 0,
+	                            'count'     => 0,
+	                            'prevPage'  => null,
+	                            'nextPage'  => null,
+	                            'pageCount' => 0,
+	                            //'order' => 
+	                            'limit'     => 1,
+	                            'options'   => array(),
+	                            'paramType' => 'named'
+	                        )
+	                );
+
+                $this->paginate('Curso');
+    			$this->set('cursoPaginate', array());
+	    	}else{
+	    		$data = $this->paginate('Curso', $conditions);
+				$this->set('cursoPaginate', $data);	
+	    	} 
 
 		}
 
@@ -127,9 +132,6 @@ App::uses('CursosAppController', 'Cursos.Controller');
 					unset($myData['Curso']);
 					$myData = $this->recursive_array_replace('/', '-' , $myData);
 					$myData = serialize($myData);
-
-					// unset($this->request->data['Midias']);
-					// $myData2 = serialize($this->request->data); 
 
 					$seila = $this->requestAction(array('plugin' => 'midias', 
 													'controller' => 'midias', 

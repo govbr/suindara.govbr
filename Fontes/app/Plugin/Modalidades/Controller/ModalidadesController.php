@@ -47,12 +47,15 @@ class ModalidadesController extends ModalidadesAppController {
 
 	public $name = 'Modalidades';
 
+	public $components = array('TreeList');
+
 	public function admin_index(){
-		$this->numerar($this->site_id);
+		$emptySearches = false;
+		$conditions = array('Modalidade.site_id' => $this->site_id);
 
         $options = array(
             'fields' 	 => array('Modalidade.id', 'Modalidade.titulo', 'Modalidade.descricao', 'Modalidade.identificador'),
-            'conditions' => array('Modalidade.site_id' => $this->site_id),
+            'conditions' => $conditions,
             'order' 	 => array('Modalidade.lft' => 'ASC'),
             'limit' 	 => 15,
             'url' 		 => array('controller' => 'Modalidades', 'action' => 'index', 'admin' => true)
@@ -65,71 +68,71 @@ class ModalidadesController extends ModalidadesAppController {
 	    }
 
     	if( $this->request->isPost() ){
-	    	if( isset($this->request->data['Modalidade']['search']) && trim($this->request->data['Modalidade']['search']) != "") {
-	    		$this->search($this->request->data['Modalidade']['search']);
+    		$emptySearches = true;
 
-	    	} else if(isset($this->request->data['Modalidade']['palavras']) && (trim($this->request->data['Modalidade']['palavras'] != "" || trim($this->request->data['Modalidade']['parent_id'] != "") )   ) ){
-	    		$this->advancedSearch($this->request->data['Modalidade']['palavras'], $this->request->data['Modalidade']['parent_id']);
+			if( isset($this->request->data['Modalidade']['search']) ){
+				$palavra_chave = $this->request->data['Modalidade']['search'];
+				if(!empty($palavra_chave)){
+					$palavra_chave = '%' . trim($palavra_chave) . '%';
+					$conditions[] = array("OR" => array(
+												"Modalidade.titulo LIKE " => $palavra_chave,
+												"Modalidade.descricao LIKE " => $palavra_chave
+ 										  ));
+				}
+			}
 
-	    	} else {
+			if(isset($this->request->data['Modalidade']['parent_id'])){
+				$palavra_chave = $this->request->data['Modalidade']['parent_id'];
+				if(!empty($palavra_chave)){
+					$conditions[] = "(Modalidade.parent_id = $palavra_chave
+									  OR Modalidade.id = $palavra_chave)";
+				}else{
+					$conditions[] = "Modalidade.id > 0";
+				}
+			}
 
-	    		// sem nada na pesquisa
-				$this->params['paging'] = array
-	                (
-	                    'Modalidade' => array
-	                        (
-	                            'page' => 1,
-	                            'current' => 0,
-	                            'count' => 0,
-	                            'prevPage' => null,
-	                            'nextPage' => null,
-	                            'pageCount' => 0,
-	                            //'order' => 
-	                            'limit' => 1,
-	                            'options' => array(),
-	                            'paramType' => 'named'
-	                        )
-	                );
-
-	    		$this->set('modalidadePaginate', array());
-	    	} 
+			if( count($conditions) > 1 ) {
+				$emptySearches = false;
+			}    		
     	}
 
-    	$this->set('modalidadePaginate', $this->paginate());
+		if($emptySearches){
+    		// sem nada na pesquisa
+			$this->params['paging'] = array
+                (
+                    'Modalidade' => array
+                        (
+                            'page' => 1,
+                            'current' => 0,
+                            'count' => 0,
+                            'prevPage' => null,
+                            'nextPage' => null,
+                            'pageCount' => 0,
+                            //'order' => 
+                            'limit' => 1,
+                            'options' => array(),
+                            'paramType' => 'named'
+                        )
+                );
+            $this->paginate('Modalidade');
+			$this->set('modalidadePaginate', array());
+    	} else {
+			$data = $this->paginate('Modalidade', $conditions);
+			$this->set('modalidadePaginate', $data);	
+    	}
 
- 		$this->set('parents', $this->Modalidade->generateTreeList(array('Modalidade.site_id =' => $this->site_id), null, '{n}.Modalidade.titulo', ''));
-	}
+    	$results = $this->Modalidade->find('all',
+                        array(
+                            'conditions' => array('Modalidade.site_id LIKE' => $this->site_id),
+                            'recursive' => 1,
+                            'order' => 'Modalidade.lft ASC'
+                        )
+                    );
 
-	private function search($query){
-		if(!isset($query) || trim($query) == "")
-			return;
-		$like = '%' . trim($query) . '%';
-    	$this->paginate['conditions'] = array('Modalidade.site_id' => $this->site_id,
-    		'OR' => array(
-	    		'Modalidade.titulo LIKE' => $like,
-	    		'Modalidade.descricao LIKE' => $like
-    		)
-    	);
-	}
+    	$result = $this->TreeList->numerar($results);
 
-	private function advancedSearch($palavras, $parent_id){
-		$conditions = array('Modalidade.site_id' => $this->site_id);
-		
-		if(isset($palavras)){
-			foreach(split(',', $palavras) as $palavra) {
-				$palavra = trim($palavra);
-				if($palavra != "") {
-					$conditions['OR'][]['Modalidade.titulo LIKE'] = '%'.$palavra.'%';
-			    	$conditions['OR'][]['Modalidade.descricao LIKE'] = '%'.$palavra.'%';
-			    }
-			}
-		}
-
-		if(isset($parent_id) && trim($parent_id) != ""){
-			$conditions['OR'][]['Modalidade.parent_id LIKE'] = trim($parent_id);
-		}
-
- 	 	$this->paginate['conditions'] = $conditions;
+		$this->set('numeracao', $result);		
+    	$this->set('parents', $this->TreeList->converterToList($result));
 	}
 
 	public function admin_add(){
@@ -146,7 +149,10 @@ class ModalidadesController extends ModalidadesAppController {
 
 		$this->set('titulo_modulo', 'Cadastro');
 
-		$this->set('parents', $this->Modalidade->generateTreeList(array('Modalidade.site_id =' => $this->site_id), null, '{n}.Modalidade.titulo', null));
+		$result = $this->Modalidade->find('all', array('conditions' => array('Modalidade.site_id' => $this->site_id),
+													   'order' => 'Modalidade.lft ASC'));
+
+		$this->set('parents', $this->TreeList->numerar($result, true));
 	}
 
 	public function admin_edit($id = null) {
@@ -175,8 +181,12 @@ class ModalidadesController extends ModalidadesAppController {
 	 	}
 
 		if($this->request->data){
+			$result = $this->Modalidade->find('all', array('conditions' => array('Modalidade.site_id' => $this->site_id),
+													   	  'order' => 'Modalidade.lft ASC'));
+
+			$this->set('parents', $this->TreeList->numerar($result, true));
+
 			$this->set('data', $this->request->data);
-			$this->set('parents', $this->Modalidade->generateTreeList(array('Modalidade.id <>' => $id, 'Modalidade.site_id =' => $this->request->data['Modalidade']['site_id']), null, '{n}.Modalidade.titulo', null));
 		}
 
 		$this->set('titulo_modulo', 'Edição');
@@ -217,74 +227,6 @@ class ModalidadesController extends ModalidadesAppController {
 		$this->set('modalidade_pai', $this->Modalidade->findById($modalidade['Modalidade']['parent_id']));
 	}
 
-	private function numerar($site_id){
-	    	$results = $this->Modalidade->find('all',
-	                        array(
-	                            'conditions' => array('Modalidade.site_id LIKE' => $site_id),
-	                            'recursive' => 1,
-	                            'fields' => array('Modalidade.id', 'Modalidade.lft', 'Modalidade.rght'),
-	                            'order' => 'Modalidade.lft ASC'
-	                        )
-	                    );
-
-	        $this->set('numeracao', $this->numeracao($results));
-    }
-
-    private function numeracao($results){
-    	$stack = array();
-        $lastArray = array();
-        $arrayCount = array();
-        $contagem = 1;
-
-        foreach ($results as $i => $result) {
-            $count = count($stack);
-            while ($stack && ($stack[$count - 1] < $result['Modalidade']['rght'])) {
-                array_pop($stack);
-                $count--;
-            }
-
-            array_push($arrayCount, $count);
-            if( isset($arrayCount[count($arrayCount) - 1]) && isset($arrayCount[count($arrayCount) - 2])  ){
-            	$ultimo = $arrayCount[count($arrayCount) - 1];
-            	$penultimo = $arrayCount[count($arrayCount) - 2];
-
-				if($ultimo > $penultimo){
-	            	if(empty($lastArray)){
-	            		$lastArray[0] = $contagem;
-	            	}else{
-	            		array_push($lastArray, $contagem); 
-	            	}
-	            	$contagem = 1;
-	            }else{
-	            	if($ultimo < $penultimo){
-	            		$contagem = $lastArray[count($lastArray) - 1]; 
-	            		unset($lastArray[count($lastArray) - 1]);
-	            		sort($lastArray);
-	            	}
-	            }	            	
-            }
-
-            $contagemPai = "";
-            for($j = 0; $j < $count; $j++){
-            	if(empty($contagemPai)){
-            		$contagemPai = 	($lastArray[$j] - 1);
-            	}else{
-            		$contagemPai = ($contagemPai . '.' . ($lastArray[$j] - 1) ); 	
-            	}
-            }
-            
-            if($count == 0){
-            	$results[$i]['Modalidade']['numero'] = $contagem ;
-            }else{
-            	$results[$i]['Modalidade']['numero'] = ( $contagemPai ) . '.' . $contagem ;
-            }
-            $stack[] = $result['Modalidade']['rght'];
-            $contagem++;
-        }
-
-	    return $results;
-    }
-
 	public function beforeFilter(){
     	parent::beforeFilter();
 	}
@@ -305,7 +247,14 @@ class ModalidadesController extends ModalidadesAppController {
 			return null;
 		}
 
-		return $this->Modalidade->find('list', array( 'fields' => array('Modalidade.id', 'Modalidade.titulo')));
+		$result = $this->Modalidade->find('all', array( 'recursive' => 1,
+														'fields' => array('Modalidade.id', 'Modalidade.titulo', 'Modalidade.parent_id', 'Modalidade.lft', 'Modalidade.rght'),
+														'order' => 'Modalidade.lft ASC',
+														'conditions' => array('Modalidade.site_id' => $this->site_id)
+													  ));
+		$result = $this->TreeList->numerar($result, true);
+
+		return $result;
 	}
 
 	public function isAuthorized($user){

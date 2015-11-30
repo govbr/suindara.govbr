@@ -179,6 +179,7 @@ class MidiasController extends MidiasAppController {
 											   'id_conteudo' => $id_conteudo)));
 				
 			} else if (isset($this->request->data['descartar'])) { 
+				$tipo_conteudo_ko = $tipo_conteudo . 's';
 				return $this->redirect(array('admin' => true, 'plugin' => $tipo_conteudo_ko, 'controller' => $tipo_conteudo_ko, 'action' => 'delete', $id_conteudo));
 				
 			} else {

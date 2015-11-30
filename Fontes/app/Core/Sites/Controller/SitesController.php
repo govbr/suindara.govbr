@@ -7,6 +7,9 @@ class SitesController extends SitesAppController {
 	public function admin_perfis(){}
 
 	public function admin_index(){
+		$emptySearches = false;
+		$conditions = null;
+
 		$options = array(
             'fields' => array('Site.id', 'Site.titulo', 'Site.dominio', 'Site.instituicao', 'Site.site_principal'),
             'limit' => 15,
@@ -19,39 +22,49 @@ class SitesController extends SitesAppController {
 	    }
 
     	if( $this->request->isPost() ){
-    		$query = $this->request->data['Site']['search']; 
+    		$emptySearches = true;
 
-	    	if( isset($query) && trim($query) != "") {
-	    		$this->search($query);
-
-	    	} else {
-	    		// sem nada na pesquisa
-				$this->params['paging'] = array
-	                (
-	                    'Site' => array
-	                        (
-	                            'page' => 1,
-	                            'current' => 0,
-	                            'count' => 0,
-	                            'prevPage' => null,
-	                            'nextPage' => null,
-	                            'pageCount' => 0,
-	                            //'order' => 
-	                            'limit' => 1,
-	                            'options' => array(),
-	                            'paramType' => 'named'
-	                        )
-	                );
-
-	    		$this->set('sitePaginate', array());
-	    	} 
+    		if(isset($this->request->data['Site']['search'])){
+    			$palavra_chave = $this->request->data['Site']['search'];
+    			if(!empty($palavra_chave)){
+    				$palavra_chave = '%' . trim($palavra_chave) . '%';
+    				$conditions[] = array("OR" => array(
+								    		"Site.titulo LIKE"      => $palavra_chave,
+								    		"Site.dominio LIKE"     => $palavra_chave,
+								    		"Site.instituicao LIKE" => $palavra_chave
+							    		));
+    				$emptySearches = false;
+    			}
+    		}
     	}
-			
-		$this->set('sitePaginate', $this->paginate());
-		
-		$this->data = $this->paginate('Site');
-		$this->set('sites', $this->Site->find('list', array('fields'=>array('titulo')))) ;
 
+    	if($emptySearches){
+    		// sem nada na pesquisa
+			$this->params['paging'] = array
+	            (
+	                'Site' => array
+	                    (
+	                        'page' => 1,
+	                        'current' => 0,
+	                        'count' => 0,
+	                        'prevPage' => null,
+	                        'nextPage' => null,
+	                        'pageCount' => 0,
+	                        //'order' => 
+	                        'limit' => 1,
+	                        'options' => array(),
+	                        'paramType' => 'named'
+	                    )
+	            );
+
+            $this->paginate('Site');
+    		$this->set('sitePaginate', array());
+    	}else{
+			$data = $this->paginate('Site', $conditions);
+			$this->set('sitePaginate', $data);
+    	}
+
+		$this->set('sites', $this->Site->find('list', array('fields'=>array('titulo')))) ;
 	}
 
 	private function search($query){
@@ -63,8 +76,7 @@ class SitesController extends SitesAppController {
 	    		'Site.titulo LIKE' => $like,
 	    		'Site.dominio LIKE' => $like,
 	    		'Site.instituicao LIKE' => $like
-    		)
-    	);
+    		));
 	}
 
 	public function admin_add(){

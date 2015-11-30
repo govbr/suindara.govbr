@@ -2,7 +2,7 @@
 	echo $this->Form->create('Categoria', array('type' => 'post', 
 												'id' => 'formBuscaAvancada'));
 	
-	echo $this->Form->input('Categoria.palavras', array('label' => 'Palavras-chave'));
+	echo $this->Form->input('Categoria.search', array('label' => 'Palavras-chave'));
 ?>
 
 <fieldset>

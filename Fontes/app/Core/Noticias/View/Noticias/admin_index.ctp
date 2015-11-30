@@ -12,15 +12,16 @@ $this->Html->addCrumb('Listagem de Not&iacute;cias',  array('plugin' => 'noticia
     </div>
 
     <div id="busca_avancada" <?php echo ($this->Session->read('Auth.User.modo_sistema') == MODO_SISTEMA_PADRAO) ? 'style="display: none;"' : ''; ?>>
-        <?php echo $this->Element('Form/_advanced_search'); ?>
+        <?php echo $this->element('Form/_advanced_search'); ?>
     </div>
 </div>
 
 <?php $noticiasCount = count($noticias); ?>
 <?php if($noticiasCount == 0) { ?>
     <p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de not&iacute;cias.', 
-                                 Router::url(array('plugin' => 'noticias', 'controller' => 'noticias', 'action' => 'index'), true)); ?>
+    <?php echo $this->Html->link("Voltar para a listagem de not&iacute;cias.", 
+                                 Router::url(array('plugin' => 'noticias', 'controller' => 'noticias', 'action' => 'index'), true),
+                                 array('escape' => false) ); ?>
     </p>
 
 <?php } else { ?>
@@ -39,7 +40,8 @@ $this->Html->addCrumb('Listagem de Not&iacute;cias',  array('plugin' => 'noticia
             <?php } ?>
 
             <?php echo $this->Html->link('Voltar para a listagem de not&iacute;cias.', 
-                                     Router::url(array('plugin' => 'noticias', 'controller' => 'noticias', 'action' => 'index'), true)); ?>
+                                     Router::url(array('plugin' => 'noticias', 'controller' => 'noticias', 'action' => 'index'), true),
+                                     array('escape' => false) ); ?>
 
             
         </p>
@@ -63,9 +65,10 @@ $this->Html->addCrumb('Listagem de Not&iacute;cias',  array('plugin' => 'noticia
             <td>
                 <?php 
                     foreach ($lista_categorias as $key => $value) {
-                        if(strpos($value, $noticia['Categoria']['titulo']) !== false){
-                            echo $this->CmsUtil->limitarTexto( $lista_categorias[$key], 40, " ...");
-                        } 
+                        $id_categoria = $noticia['Categoria']['id'];
+                        if($id_categoria == $key){
+                            echo $this->CmsUtil->limitarTexto($value, 40, " ...");
+                        }
                      } 
 
                 ?>

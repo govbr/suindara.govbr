@@ -50,6 +50,8 @@ class BannersController extends BannersAppController {
 
 	public $name = 'Banners';
 
+	public $components = array('TreeList');
+
 	public function admin_index($grupoPai_id = null){
 		if( isset($grupoPai_id) )
     	{
@@ -65,89 +67,91 @@ class BannersController extends BannersAppController {
     		$this->redirect(array('controller' => 'grupos', 'action' => 'index', 'admin' => true));
     	}
 
+		$tipos = $this->Banner->BmTipo->find('list');
 
-		$this->numerar($grupoPai_id);
+		$emptySearches = false;
+		$conditions = array('Banner.grupo_id LIKE' => $grupoPai_id);
 
 		$options = array(
-            'fields' => array('Banner.id','Banner.titulo', 'Banner.descricao', 'BmTipo.nome', 'Banner.grupo_id', 'Banner.lft', 'Banner.rght', 'testField'),
-            'order' => array('Banner.lft' => 'ASC'),
-            'limit' => 15,
-            'url' => array('controller' => 'Banners', 'action' => 'index', 'admin' => true)
+            'fields'     => array('Banner.id','Banner.titulo', 'Banner.descricao', 'BmTipo.nome', 'Banner.grupo_id', 'Banner.lft', 'Banner.rght', 'testField'),
+            'order'      => array('Banner.lft' => 'ASC'),
+            'conditions' => $conditions,
+            'limit'      => 15,
+            'url'        => array('controller' => 'Banners', 'action' => 'index', 'admin' => true)
         );
 		$this->paginate = $options;
-
-		$query = $this->params->query;
 
 		if(isset($this->params->query['limit'])){
 	    	$this->paginate['limit'] = $this->params->query['limit'];
 	    }
 
     	if( $this->request->isPost() ){
-	    	if( isset($this->request->data['Banner']['search']) && trim($this->request->data['Banner']['search']) != "") {
-	    		$this->search($this->request->data['Banner']['search']);
+    		$emptySearches = true;
+			
+			$query = $this->params->query;
 
-	    	} else if(isset($this->request->data['Banner']['palavras']) && (trim($this->request->data['Banner']['palavras'] != "" || trim($this->request->data['Banner']['tipo'] != "") )   ) ){
-	    		$this->advancedSearch($this->request->data['Banner']['palavras'], $this->request->data['Banner']['tipo']);
+	    	if(isset($this->request->data['Banner']['search'])){
+	    		$palavra_chave = $this->request->data['Banner']['search'];
+	    		if(!empty($palavra_chave)){
+	    			$palavra_chave = '%' . trim($palavra_chave) . '%';
+					$conditions[] = array("OR" => array( 
+												"Banner.titulo LIKE " => $palavra_chave,
+												"Banner.descricao LIKE " => $palavra_chave
+										  ));
+	    		}
+	    	}
 
-	    	} else {
+	    	if(isset($this->request->data['Banner']['tipo'])){
+    			$palavra_chave = (int)$this->request->data['Banner']['tipo'];
+				if ($palavra_chave > 0) {
+					$conditions[] = "Banner.bm_tipo_id = $palavra_chave";
+				}else{
+					$conditions[] = "Banner.bm_tipo_id > 0";
+				}
+    		}
 
-	    		// sem nada na pesquisa
-				$this->params['paging'] = array
-	                (
-	                    'Banner' => array
-	                        (
-	                            'page' => 1,
-	                            'current' => 0,
-	                            'count' => 0,
-	                            'prevPage' => null,
-	                            'nextPage' => null,
-	                            'pageCount' => 0,
-	                            //'order' => 
-	                            'limit' => 1,
-	                            'options' => array(),
-	                            'paramType' => 'named'
-	                        )
-	                );
-
-	    		$this->set('bannerPaginate', array());
-	    	} 
-    	}
-		
-		$this->set('bannerPaginate', $this->paginate('Banner', array('Banner.grupo_id LIKE' => $grupoPai_id)) );	
-
-    	$this->set('bmTipos', $this->Banner->BmTipo->find('list'));
-	}
-
-	private function search($query){
-		if(!isset($query) || trim($query) == "")
-			return;
-		$like = '%' . trim($query) . '%';
-    	$this->paginate['conditions'] = array('Banner.site_id' => $this->site_id,
-    		'OR' => array(
-	    		'Banner.titulo LIKE' => $like,
-	    		'Banner.descricao LIKE' => $like
-    		)
-    	);
-	}
-
-	private function advancedSearch($palavras, $tipo){
-		$conditions = array('Banner.site_id' => $this->site_id);
-		
-		if(isset($palavras)){
-			foreach(split(',', $palavras) as $palavra) {
-				$palavra = trim($palavra);
-				if($palavra != "") {
-					$conditions['OR'][]['Banner.titulo LIKE'] = '%'.$palavra.'%';
-			    	$conditions['OR'][]['Banner.descricao LIKE'] = '%'.$palavra.'%';
-			    }
+    		if( count($conditions) > 1 ) {
+				$emptySearches = false;
 			}
-		}
+    	}
 
-		if(isset($tipo) && trim($tipo) != ""){
-			$conditions['OR'][]['Banner.bm_tipo_id LIKE'] = '%'.trim($tipo).'%';
-		}
+    	if($emptySearches){
+	    	// sem nada na pesquisa
+			$this->params['paging'] = array
+                (
+                    'Banner' => array
+                        (
+                            'page'      => 1,
+                            'current'   => 0,
+                            'count'     => 0,
+                            'prevPage'  => null,
+                            'nextPage'  => null,
+                            'pageCount' => 0,
+                            //'order' => 
+                            'limit'     => 1,
+                            'options'   => array(),
+                            'paramType' => 'named'
+                        )
+                );
 
-    	$this->paginate['conditions'] = $conditions;
+            $this->paginate('Banner');
+			$this->set('bannerPaginate', array());
+    	}else{
+    		$data = $this->paginate('Banner', $conditions);
+			$this->set('bannerPaginate', $data);	
+    	}
+
+    	$results = $this->Banner->find('all',
+                        array(
+                            'conditions' => array('Banner.grupo_id LIKE' => $grupoPai_id),
+                            'recursive' => 1,
+                            'order' => 'Banner.lft ASC'
+                        )
+                    );
+
+		$this->set('numeracao', $this->TreeList->numerar($results));		
+
+    	$this->set('bmTipos', $tipos);
 	}
 
 	public function admin_add($grupoPai_id = null){
@@ -347,71 +351,4 @@ class BannersController extends BannersAppController {
 	public function isAuthorized($user) {
 		parent::isAuthorized($user);
 	}
-
-	private function numerar($grupoPai_id){
-			// $time = new exec_time();
-			// $time->startExec();
-	    	$results = $this->Banner->find('all',
-                            array(
-                                'conditions' => array('Banner.grupo_id LIKE' => $grupoPai_id),
-                                'recursive' => 1,
-                                'fields' => array('Banner.id', 'Banner.lft', 'Banner.rght'),
-                                'order' => 'Banner.lft ASC'
-                            )
-                        );
-	    	//debug('Find Numerar: ' . $time->endExec());
-
-	        $stack = array();
-	        $lastArray = array();
-	        $arrayCount = array();
-	        $contagem = 1;
-
-	        foreach ($results as $i => $result) {
-	            $count = count($stack);
-	            while ($stack && ($stack[$count - 1] < $result['Banner']['rght'])) {
-	                array_pop($stack);
-	                $count--;
-	            }
-
-	            array_push($arrayCount, $count);
-	            if( isset($arrayCount[count($arrayCount) - 1]) && isset($arrayCount[count($arrayCount) - 2])  ){
-	            	$ultimo = $arrayCount[count($arrayCount) - 1];
-	            	$penultimo = $arrayCount[count($arrayCount) - 2];
-
-					if($ultimo > $penultimo){
-		            	if(empty($lastArray)){
-		            		$lastArray[0] = $contagem;
-		            	}else{
-		            		array_push($lastArray, $contagem); 
-		            	}
-		            	$contagem = 1;
-		            }else{
-		            	if($ultimo < $penultimo){
-		            		$contagem = $lastArray[count($lastArray) - 1]; 
-		            		unset($lastArray[count($lastArray) - 1]);
-		            		sort($lastArray);
-		            	}
-		            }	            	
-	            }
-
-	            $contagemPai = "";
-	            for($j = 0; $j < $count; $j++){
-	            	if(empty($contagemPai)){
-	            		$contagemPai = 	($lastArray[$j] - 1);
-	            	}else{
-	            		$contagemPai = ($contagemPai . '.' . ($lastArray[$j] - 1) ); 	
-	            	}
-	            }
-	            
-	            if($count == 0){
-	            	$results[$i]['Banner']['numero'] = $contagem ;
-	            }else{
-	            	$results[$i]['Banner']['numero'] = ( $contagemPai ) . '.' . $contagem ;
-	            }
-	            $stack[] = $result['Banner']['rght'];
-	            $contagem++;
-	        }
-
-	        $this->set('numeracao', $results);
-	    }
 }

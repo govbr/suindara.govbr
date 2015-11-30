@@ -54,12 +54,13 @@ App::uses('EditaisAppController', 'Editais.Controller');
 										'encerrado' => 'Encerrado');
 
 		public function admin_index(){
+			$emptySearches = false;
+			$conditions = array('Edital.site_id' => $this->site_id);
 
-			//pr($this->Edital->find());
-			
+
 			$options = array(
 	            'fields' => array('Edital.id','Edital.titulo', 'TipoEdital.titulo'),
-	            'conditions' => array('Edital.site_id' => $this->site_id),
+	            'conditions' => $conditions,
 	            'limit' => 15
         	);
         	
@@ -70,48 +71,43 @@ App::uses('EditaisAppController', 'Editais.Controller');
 	    	}
 
 	    	if( $this->request->isPost() ){
-	    		$query = $this->request->data['Edital']['search']; 
+	    		$emptySearches = true;
 
-		    	if( isset($query) && trim($query) != "") {
-		    		$this->search($query, $this->site_id);
-
-		    	} else {
-		    		// sem nada na pesquisa
-					$this->params['paging'] = array
-		                (
-		                    'Edital' => array
-		                        (
-		                            'page' => 1,
-		                            'current' => 0,
-		                            'count' => 0,
-		                            'prevPage' => null,
-		                            'nextPage' => null,
-		                            'pageCount' => 0,
-		                            //'order' => 
-		                            'limit' => 1,
-		                            'options' => array(),
-		                            'paramType' => 'named'
-		                        )
-		                );
-
-		    		$this->set('editalPaginate', array());
-		    	} 
-
+	    		if(isset($this->request->data['Edital']['search'])){
+	    			$palavra_chave = $this->request->data['Edital']['search']; 
+	    			if (!empty($palavra_chave)) {
+	    				$conditions[] = array("Edital.titulo LIKE " => '%' . trim($palavra_chave) . '%');
+		    			$emptySearches = false;
+	    			}
+	    		}
 	    	} 
-				
-			$this->set('editalPaginate', $this->paginate('Edital'));
 
-		}
+	    	if($emptySearches){
+	    		// sem nada na pesquisa
+				$this->params['paging'] = array
+	                (
+	                    'Edital' => array
+	                        (
+	                            'page'      => 1,
+	                            'current'   => 0,
+	                            'count'     => 0,
+	                            'prevPage'  => null,
+	                            'nextPage'  => null,
+	                            'pageCount' => 0,
+	                            //'order' => 
+	                            'limit'     => 1,
+	                            'options'   => array(),
+	                            'paramType' => 'named'
+	                        )
+	                );
 
-		private function search($query, $site_id){
-			if(!isset($query) || trim($query) == "")
-				return;
-			$like = '%' . trim($query) . '%';
-	    	$this->paginate['conditions'] = array('Edital.site_id' => $this->site_id,
-	    		'OR' => array(
-		    		'Edital.titulo LIKE' => $like
-	    		)
-	    	);
+	            $this->paginate('Edital');
+	    		$this->set('editalPaginate', array());
+	    	} else{
+	    		$data = $this->paginate('Edital', $conditions);
+				$this->set('editalPaginate', $data);	
+	    	}
+
 		}
 
 		public function admin_add(){
@@ -180,15 +176,8 @@ App::uses('EditaisAppController', 'Editais.Controller');
 													   'controller' => 'tipoEditais',
 													   'action' => 'ra_getTipoEditais', 
 													   'admin' => true));
-
-			$lista[] = null;
-			foreach ($lista_tipoEditais as $key => $value) {
-				$lista[] = $value['TipoEdital']['numero'] . " - " . $value['TipoEdital']['titulo']; 
-			}
-
-			$lista_tipoEditais = array_filter($lista);
 			
-			$this->set(compact('lista_tipoEditais'));
+			$this->set('lista_tipoEditais', $lista_tipoEditais);
 
 			$this->set('status_options', $this->status_options);
 			

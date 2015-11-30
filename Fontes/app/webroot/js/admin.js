@@ -49,7 +49,6 @@ $(document).ready(function() {
     if(busca_avancada != undefined) {
         $('#exp_busca').click(function() {
             $("#busca_avancada").slideToggle();
-            alert($(this).children('span').text());
             if($(this).children('span').text() == 'Expandir op&ccedil;&otilde;es de busca avan&ccedil;ada' ||
                 $(this).children('span').text() == 'Expandir opções de busca avançada') {
                 $("#busca_simples").children("form").children("input").attr('disabled', 'disabled');

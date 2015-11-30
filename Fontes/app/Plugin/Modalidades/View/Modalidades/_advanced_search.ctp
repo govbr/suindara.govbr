@@ -2,7 +2,7 @@
 	echo $this->Form->create('Modalidade', array('type' => 'post', 
 												'id' => 'formBuscaAvancada'));
 	
-	echo $this->Form->input('Modalidade.palavras', array('label' => 'Palavras-chave'));
+	echo $this->Form->input('Modalidade.search', array('label' => 'Palavras-chave'));
 ?>
 
 <fieldset>

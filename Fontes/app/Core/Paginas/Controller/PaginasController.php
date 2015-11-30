@@ -66,7 +66,6 @@ class PaginasController extends PaginasAppController {
         )),
         
 		'Status' 
-		
     );
 
 
@@ -76,31 +75,63 @@ class PaginasController extends PaginasAppController {
 	}
 
 	public function admin_index() {
+		$emptySearches = false;
 		$conditions = array('Pagina.site_id' => $this->site_id);
 		
+		$options = array(
+            'conditions' => $conditions,
+            'limit'      => 15
+    	);
+    	$this->paginate = $options;
+
+    	if(isset($this->params->query['limit'])){
+    		$this->paginate['limit'] = $this->params->query['limit'];
+    	}
+
 		if ($this->request->isPost()) {
-		
+			$emptySearches = true;
 			if (isset($this->request->data['Pagina']['keyword'])) {
 				$palavra_chave = $this->request->data['Pagina']['keyword'];
 				if (!empty($palavra_chave)) {
-					$conditions[] = "(Pagina.titulo LIKE '%$palavra_chave%' 
-									  OR Pagina.texto LIKE '%$palavra_chave%')";
+					$palavra_chave = '%' . trim($palavra_chave) . '%'; 
+					$conditions[] = array("OR" => array(
+											"Pagina.titulo LIKE" => $palavra_chave,
+											"Pagina.texto LIKE" => $palavra_chave
+										 ));
+					$emptySearches = false;
 				}
 			}	
 		}
-		
-		$data = $this->paginate('Pagina', $conditions);
-		$this->set('paginas', $data);	
-	}
 
-	// function view($id = null) {
-	// 	return $this->admin_view($id);
-	// }
+		if($emptySearches){
+			$this->params['paging'] = array
+                (
+                    'Pagina' => array
+                        (
+                            'page'      => 1,
+                            'current'   => 0,
+                            'count'     => 0,
+                            'prevPage'  => null,
+                            'nextPage'  => null,
+                            'pageCount' => 0,
+                            //'order' => 
+                            'limit'     => 1,
+                            'options'   => array(),
+                            'paramType' => 'named'
+                        )
+                );
+
+            $this->paginate('Pagina');
+			$this->set('paginas', array());
+		}else{
+			$data = $this->paginate('Pagina', $conditions);
+			$this->set('paginas', $data);	
+		}
+	}
 	
 	function admin_view($id = null) {
 		if ($this->request->is('get') && $id > 0) {
 			$pagina = $this->Pagina->findById($id);
-			//print_r($pagina); die();
 			
 			if ($pagina) {
 				$this->isAllowed($id, 'Você não pode visualizar esta página', array('admin' => true, 'plugin' => 'paginas', 'controller' => 'paginas', 'action' => 'index'));
@@ -115,7 +146,6 @@ class PaginasController extends PaginasAppController {
 	}
 	
 	function admin_edit($id = null, $conteudo = null) {
-		//pr($this->request);
 		$this->Session->write('tipo_request', 'edit');
 		$pg = $this->Pagina->findById($id);
 		if ($pg['Pagina']['bloqueado'] 
@@ -144,7 +174,6 @@ class PaginasController extends PaginasAppController {
 		$this->set(compact('lista_sites'));
 
 		$lista_status = $Status->find('list', array('conditions' => array($condition), 'fields' => array('Status.nome')));
-		//print_r($lista_sites);
 		$this->set(compact('lista_status'));		
 		
 		$lista_grupos = $this->requestAction(array('plugin' => 'banners', 
@@ -174,8 +203,6 @@ class PaginasController extends PaginasAppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			
 			$this->request->data['Pagina']['usuario_id'] = $this->Auth->user('id');
-			
-			//pr($this->request->data);	
 				
 			if ($id && $id > 0) {
 				$this->request->data['Pagina']['id'] = $id;
@@ -244,7 +271,6 @@ class PaginasController extends PaginasAppController {
 	}
 
 	function admin_delete($id = null) {
-		//$this->isAllowed($id, 'Você não pode deletar esta página', '/admin/paginas');
 		$pg = $this->Pagina->findById($id);
 		if ($pg['Pagina']['bloqueado'] 
 			&& ($this->Auth->user('id') != $pg['Pagina']['usuario_id']) &&  !$this->Auth->user('root') != 1

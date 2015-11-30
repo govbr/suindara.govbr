@@ -60,6 +60,7 @@
 		<tbody>
 
 			<?php foreach($categoriaPaginate as $key => $categoria): ?>
+				<?php //pr($categoria); ?>
 				<?php
 					foreach ($numeracao as $index => $value) {
 						if($value['Categoria']['id'] == $categoria['Categoria']['id']){
