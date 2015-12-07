@@ -8,7 +8,6 @@
 /app/tmp/sessions/*
 /app/tmp/tests/*
 /lib/Cake/Console/Templates/skel/tmp/
-/plugins
 /vendors
 /build
 /dist
