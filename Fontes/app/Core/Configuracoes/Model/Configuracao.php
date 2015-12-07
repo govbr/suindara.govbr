@@ -51,7 +51,7 @@ class Configuracao extends ConfiguracoesAppModel{
 
 	public $name = 'Configuracao';
 
-    public $useTable = 'configuracoes';
+	public $useTable = 'configuracoes';
 
 	public $validate = array(
 		'tempo_sessao' => array(
