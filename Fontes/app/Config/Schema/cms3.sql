@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `templates` (
   `nome_original` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1
-COMMENT = 'Tabela que guarda os templates dos sies.' ;
+COMMENT = 'Tabela que guarda os templates dos sites.' ;
 
 
 -- -----------------------------------------------------
@@ -218,6 +218,8 @@ CREATE  TABLE IF NOT EXISTS `midias_pn` (
   `pagina_id` INT(11) NOT NULL ,
   `noticia_id` INT(11) NOT NULL ,
   `midia_id` INT(11) NOT NULL ,
+  `curso_id` INT(11) NOT NULL ,
+  `edital_id` INT(11) NOT NULL ,
   `destaque` TINYINT(1) NOT NULL DEFAULT 0 ,
   `posicao` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) )
@@ -376,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `categoria_perfis` (
 -- Table `configuracoes`
 -- -----------------------------------------------------
 
- CREATE TABLE `configuracoes` (
+ CREATE TABLE IF NOT EXISTS `configuracoes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tempo_sessao` varchar(50) DEFAULT NULL,
   `upload_tamanho` varchar(50) DEFAULT NULL,
@@ -385,6 +387,89 @@ CREATE TABLE IF NOT EXISTS `categoria_perfis` (
   PRIMARY KEY (`id`) ) 
  ENGINE=InnoDB  
  DEFAULT CHARSET=utf8 ;
+
+-- -----------------------------------------------------
+-- Table `modalidades`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `modalidades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(45) NOT NULL,
+  `descricao` varchar(250) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  `lft` int(11) DEFAULT NULL,
+  `rght` int(11) DEFAULT NULL,
+  `identificador` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`) ) 
+ENGINE=InnoDB  
+DEFAULT CHARSET=utf8 
+AUTO_INCREMENT=1
+COMMENT = 'Tabela que guarda as modalidades' ;
+
+-- -----------------------------------------------------
+-- Table `cursos`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `cursos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `turno_manha` TINYINT(1) DEFAULT 0,
+  `turno_tarde` TINYINT(1) DEFAULT 0,
+  `turno_vespertino` TINYINT(1) DEFAULT 0,
+  `turno_noite` TINYINT(1) DEFAULT 0,
+  `duracao` int(11) DEFAULT NULL,
+  `tipo_duracao` VARCHAR(9) DEFAULT 'semestres',
+  `nome_coordenador` VARCHAR(100) DEFAULT NULL,
+  `email_coordenador` VARCHAR(45) DEFAULT NULL,
+  `pre_requisito` varchar(100) DEFAULT NULL,
+  `formas_ingresso` varchar(100) DEFAULT NULL,
+  `site_id` INT NULL,
+  `modalidade_id` INT NULL,
+  PRIMARY KEY (`id`) ) 
+ENGINE=InnoDB  
+DEFAULT CHARSET=utf8 
+AUTO_INCREMENT=1
+COMMENT = 'Tabela que guarda os cursos dos sites.' ;
+
+-- -----------------------------------------------------
+-- Table `tipo_editais`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `tipo_editais` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(45) NOT NULL,
+  `descricao` varchar(250) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  `lft` int(11) DEFAULT NULL,
+  `rght` int(11) DEFAULT NULL,
+  `identificador` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`) ) 
+ENGINE=InnoDB  
+DEFAULT CHARSET=utf8 
+AUTO_INCREMENT=1
+COMMENT = 'Tabela que guarda os tipos de editais' ;
+
+-- -----------------------------------------------------
+-- Table `editais`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `editais` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(100) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `data_publicao` date DEFAULT NULL,
+  `status` VARCHAR(45) DEFAULT 'andamento',
+  `site_id` INT NULL,
+  `tipo_edital_id` INT NULL,
+  PRIMARY KEY (`id`) ) 
+ENGINE=InnoDB  
+DEFAULT CHARSET=utf8 
+AUTO_INCREMENT=1
+COMMENT = 'Tabela que guarda os editais dos sites.' ;
+
 
 # $Id$
 #
