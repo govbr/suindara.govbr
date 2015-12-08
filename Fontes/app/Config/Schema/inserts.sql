@@ -3,7 +3,7 @@
 --
 
 INSERT INTO `configuracoes` (`id`, `tempo_sessao`, `upload_tamanho`, `memoria_tamanho`, `post_tamanho`) VALUES
-(1, '1440', '10', '150', '200');
+(1, '1440', '90', '150', '200');
 
 
 --
