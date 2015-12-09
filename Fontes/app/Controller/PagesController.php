@@ -105,6 +105,8 @@ class PagesController extends AppController {
 	
 	
 	public function beforeFilter() {
+		$this->instalar();
+
 		$this->set("fromTemplate", true);
 
 		parent::beforeFilter();
@@ -235,6 +237,12 @@ class PagesController extends AppController {
 		$this->set('noticias', $data);			
 	
 		return $this->templateFinder();
+	}
+
+	public function instalar(){
+		if(Configure::read('Database.installed') === 'false'){
+			$this->redirect(Router::url('/instalar', true));
+		}
 	}
 }
 
