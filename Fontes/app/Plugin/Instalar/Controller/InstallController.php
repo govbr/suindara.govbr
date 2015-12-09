@@ -56,7 +56,7 @@ class InstallController extends Controller
     {
 
         $db = ConnectionManager::getDataSource('default');
-        $files = array('cms3.sql', 'inserts.sql');
+        $files = array('cms3.sql', 'inserts.sql', 'mimes1.sql', 'mimes2.sql');
 
         foreach ($files as $filename)
         {
@@ -78,11 +78,30 @@ class InstallController extends Controller
                     return false;
                 }
             }
-            else
+
+            if ($filename == $files[1])
             {   
                if (!$db->execute($content))
                {
                    $this->Session->setFlash('Ops, não foi possível popular o Banco de dados. Verifique se o BD está rodando.'); 
+                   return false;
+               }
+            }
+
+            if ($filename == $files[2])
+            {   
+               if (!$db->execute($content))
+               {
+                   $this->Session->setFlash('Ops, não foi possível popular o Banco de dados com os mimes . Verifique se o BD está rodando.'); 
+                   return false;
+               }
+            }
+
+            if ($filename == $files[3])
+            {   
+               if (!$db->execute($content))
+               {
+                   $this->Session->setFlash('Ops, não foi possível popular o Banco de dados com os mimes2. Verifique se o BD está rodando.'); 
                    return false;
                }
             }
