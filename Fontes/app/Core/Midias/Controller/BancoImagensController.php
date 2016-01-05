@@ -177,10 +177,10 @@ class BancoImagensController extends MidiasAppController {
 		        $this->Midia->validator()->getField('arquivo')->getRule('tamanho')->message[2] = $fileSize;
 				$this->Midia->validator()->getField('arquivo')->getRule('isUnique')->message[1] = $arqName;
 				$this->Midia->validator()->getField('arquivo')->getRule('mime')->message[1] = $arqName;
+				$this->Midia->validator()->getField('arquivo')->getRule('mime2')->message[1] = $arqName;
 				
 
 				$new['Midia']['titulo'] = $midiaConfig->removeExt($new['Midia']['arquivo']['name']);
-				
 				if(!$this->Midia->save($new)) {
 					$errors[] = $this->Midia->validationErrors['arquivo'][0];
 				}

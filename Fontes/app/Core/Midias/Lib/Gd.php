@@ -124,27 +124,30 @@ class Gd {
 
         $tipo = strtolower($tipo);
 
+        $size = getimagesize($arquivo);
+
         // Aloca a imagem na memória
-        switch ($tipo) {
-            case 'jpeg':
-            case 'jpg':
+        switch ($size["mime"]) {
+            case 'image/jpeg':
                 $this->tipo = 'jpg';
                 $this->imgSrc = imagecreatefromjpeg($arquivo);
                 break;
 
-            case 'gif':
+            case 'image/gif':
                 $this->tipo = 'gif';
                 $this->imgSrc = imagecreatefromgif($arquivo);
                 break;
 
-            case 'png':
+            case 'image/png':
                 $this->tipo = 'png';
                 $this->imgSrc = imagecreatefrompng($arquivo);
+                die;
+                pr($this->imgSrc);
                 break;
 
             default:
+                $this->imgSrc = false;
                 return false;
-                //print '<strong>Erro:</strong> O arquivo n&atilde;o possui uma extens&atilde;o v&aacute;lida!';
                 break;
         }
 

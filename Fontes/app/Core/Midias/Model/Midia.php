@@ -83,6 +83,11 @@ class Midia extends MidiasAppModel {
                 //'message' => array('"%s": O tipo de arquivo "%s" não está habilitado para envio.' , "file", "extension")
                 'message' => array('"%s": Formato de arquivo inválido' , "file", "extension")
             ),
+            'mime2' => array(
+                'rule' => 'mime2',
+                'allowEmpty' => true,
+                'message' => array('"%s": Arquivo salvo com outra extensão' , "file", "extension")  
+            ),
             'isUniqueFile' => array(
                 'rule' => 'isUniqueFile',
                 'message' => array('"%s": Outro arquivo com o mesmo conteúdo já foi enviado para o sistema.', "file")
@@ -214,9 +219,28 @@ class Midia extends MidiasAppModel {
         return true;
     }
 
-	public function mime($data, $tipo_id) {
-//        pr($this->arq); die;
+    public function mime2($data){
+        $img = new Gd();
+        if(is_array($data['arquivo']) && array_key_exists('type', $data['arquivo'])) {
+            $type = $data['arquivo']['type'];
 
+            if((getimagesize($data)['mime']) != $type){
+                die;
+                return false;
+            }
+        } else {
+            $type = $this->arq['type'];
+
+            if((getimagesize($this->arq['tmp_name'])['mime']) != $type){
+                die;
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+	public function mime($data, $tipo_id) {
         $mime = null;
         $extension = null;
         $img = new Gd();
