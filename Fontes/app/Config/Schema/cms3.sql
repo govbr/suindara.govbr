@@ -210,6 +210,17 @@ CREATE  TABLE IF NOT EXISTS `midias` (
 ENGINE = InnoDB
 COMMENT = 'Armazena as informacoes das midias digitais upadas no sistem' /* comment truncated */;
 
+--
+-- Triggers `midias`
+--
+DELIMITER $$
+CREATE TRIGGER `value_default_descricao` BEFORE INSERT ON `midias`
+ FOR EACH ROW if (NEW.descricao = '') then
+      set NEW.descricao = "";   
+end if
+$$
+DELIMITER ;
+
 -- -----------------------------------------------------
 -- Table `midias_pn`
 -- -----------------------------------------------------
