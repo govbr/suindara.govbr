@@ -210,17 +210,6 @@ CREATE  TABLE IF NOT EXISTS `midias` (
 ENGINE = InnoDB
 COMMENT = 'Armazena as informacoes das midias digitais upadas no sistem' /* comment truncated */;
 
---
--- Triggers `midias`
---
-DELIMITER $$
-CREATE TRIGGER `value_default_descricao` BEFORE INSERT ON `midias`
- FOR EACH ROW if (NEW.descricao = '') then
-      set NEW.descricao = "";   
-end if
-$$
-DELIMITER ;
-
 -- -----------------------------------------------------
 -- Table `midias_pn`
 -- -----------------------------------------------------
@@ -523,6 +512,23 @@ CREATE TABLE aros (
   rght INTEGER(10) DEFAULT NULL,
   PRIMARY KEY  (id)
 );
+
+--
+-- Adicionar manualmente
+--
+
+DELIMITER $$
+
+CREATE TRIGGER `value_default_descricao` BEFORE INSERT 
+ON `midias`   
+FOR EACH ROW
+  BEGIN 
+    IF (NEW.descricao = '') THEN
+        set NEW.descricao = "";
+    END IF;
+  END $$
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
