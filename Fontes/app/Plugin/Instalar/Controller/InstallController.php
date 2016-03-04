@@ -70,9 +70,29 @@ class InstallController extends Controller
                 return false;
             }
 
+
+            // verificar engine database MySQL
+            $engines = $db->query("SHOW STORAGE ENGINES;");
+
+            foreach ($engines as $index => $engine) {
+                if( empty($engine) ){
+                    $this->Session->setFlash('Ops, banco de dados não tem nenhuma engine padrão.', 'error');
+                    return false;
+                }
+
+                if($engine['ENGINES']['Support'] == 'DEFAULT'){
+                    if($engine['ENGINES']['Engine'] != 'InnoDB'){
+                        $this->Session->setFlash('Ops, o bando de dados está com a engine ' . $engine['ENGINES']['Engine'] 
+                                                 . ' como padrão. Mude para InnoDB.', 'error');
+                        return false;
+                    }
+                }
+            }
+
+
             if ($filename == $files[0])
             {
-                if (!$db->query($content))
+                if ($db->query($content) == 0)
                 {
                     $this->Session->setFlash('Ops, não foi possível criar as tabelas no Banco de Dados. Verifique se o BD está rodando.');
                     return false;
