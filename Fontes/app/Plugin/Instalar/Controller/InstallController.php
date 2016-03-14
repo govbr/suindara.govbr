@@ -245,16 +245,16 @@ class InstallController extends Controller
                 {
 
                     // Salvar site modelo
-                    $file = new File(CONFIG . 'Schema' . DS . 'site_modelo.sql');
+                    // $file = new File(CONFIG . 'Schema' . DS . 'site_modelo.sql');
 
-                    if ($file->exists()) 
-                    {
-                        $db->query($file->read());    
-                    }
-                    else
-                    {
-                        $this->setFlash('Ops, ocorreu um erro ao gerar dos dados do site modelo. Verifique os dados e tente novamente.', 'error'); 
-                    }
+                    // if ($file->exists()) 
+                    // {
+                    //     $db->query($file->read());    
+                    // }
+                    // else
+                    // {
+                    //     $this->setFlash('Ops, ocorreu um erro ao gerar dos dados do site modelo. Verifique os dados e tente novamente.', 'error'); 
+                    // }
                     
 
                     $this->redirect(Router::url('/instalar/finish', true));    
