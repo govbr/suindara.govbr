@@ -25,7 +25,9 @@
 
     <!-- TITLE -->
       <link rel="shortcut icon" href="<?php echo $this->CmsTemplate->imagemPath('favicon.ico') ?>" type="images/x-icon" />
-      <title>Site Modelo - Acessibilidade Virtual</title>
+
+      <?php $site = $this->CmsTemplate->getSite(); ?>
+      <title> <?php echo( !empty($site) ? $site->titulo : '' ); ?> </title>
 
     <!-- CSS -->
       <link rel="stylesheet" href=" <?php echo $this->CmsTemplate->cssPath('bootstrap') ?> " type="text/css" media="screen" />
