@@ -179,7 +179,6 @@ class Midia extends MidiasAppModel {
     public function beforeSave($options = array()) {
         // if($this->data['Midia']['tipo_id'] == ARQUIVO && $this->arq) {
 
-
         $this->arq = $this->arqf;
         if($this->arq) {
             $config = new MidiaConfig();
@@ -221,19 +220,26 @@ class Midia extends MidiasAppModel {
 
     public function mime2($data){
         $img = new Gd();
-        if(is_array($data['arquivo']) && array_key_exists('type', $data['arquivo'])) {
-            $type = $data['arquivo']['type'];
 
-            if((getimagesize($data)['mime']) != $type){
-                die;
-                return false;
-            }
-        } else {
-            $type = $this->arq['type'];
+        $extension = $img->retornaExt($data['arquivo']);
 
-            if((getimagesize($this->arq['tmp_name'])['mime']) != $type){
-                die;
-                return false;
+        $find = $this->Mime->find('first', array('conditions' => array('ativo' => true, 'extensao LIKE' => "%$extension%")));
+
+        if(!empty($find)){
+            if($find['Tipo'] == 'Image' ){
+                if(is_array($data['arquivo']) && array_key_exists('type', $data['arquivo'])) {
+                    $type = $data['arquivo']['type'];
+
+                    if((getimagesize($data)['mime']) != $type){
+                        return false;
+                    }
+                } else {
+                    $type = $this->arq['type'];
+
+                    if((getimagesize($this->arq['tmp_name'])['mime']) != $type){
+                        return false;
+                    }
+                }
             }
         }
 
@@ -253,11 +259,9 @@ class Midia extends MidiasAppModel {
         }
 
 
-        //die($mime . ' - ' . $extension);
 		$find = $this->Mime->find('first', array('conditions' => array('tipo_id' => $tipo_id, 
             'or' => array('mime LIKE' => "%$extension%", 'mime LIKE' => "%$mime%"), 'ativo' => true, 'extensao LIKE' => "%$extension%")));
         //$find = $this->Mime->find('first', array('conditions' => array('ativo' => true, 'extensao' => $extension)));
-        //print_r($tipo_id); die();
 		if(!empty($find)) {
 			$this->data['Midia']['mime_id'] = $find['Mime']['id'];
 			$this->data['Midia']['tipo_id'] = $find['Mime']['tipo_id'];
@@ -332,7 +336,6 @@ class Midia extends MidiasAppModel {
 
 	public function afterDelete() {
         if(!$this->findByArquivo($this->midia['Midia']['arquivo'])) {
-           // pr('eba2'); die;
             $config = new MidiaConfig();
             $folder = $config->midiaDir($this->data['Midia']['tipo_id']);
     		$this->deleteFile($folder, $this->midia['Midia']['arquivo']);
