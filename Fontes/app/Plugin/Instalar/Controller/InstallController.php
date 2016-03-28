@@ -71,22 +71,9 @@ class InstallController extends Controller
             }
 
 
-            // verificar engine database MySQL
-            $engines = $db->query("SHOW STORAGE ENGINES;");
-
-            foreach ($engines as $index => $engine) {
-                if( empty($engine) ){
-                    $this->Session->setFlash('Ops, banco de dados não tem nenhuma engine padrão.', 'error');
-                    return false;
-                }
-
-                if($engine['ENGINES']['Support'] == 'DEFAULT'){
-                    if($engine['ENGINES']['Engine'] != 'InnoDB'){
-                        $this->Session->setFlash('Ops, o bando de dados está com a engine ' . $engine['ENGINES']['Engine'] 
-                                                 . ' como padrão. Mude para InnoDB.', 'error');
-                        return false;
-                    }
-                }
+            $result = $this->getMySqlInfo($db);
+            if( !$result ){
+                return false;
             }
 
 
@@ -283,4 +270,48 @@ class InstallController extends Controller
             $this->Session->setFlash(__('Ops, não foi possível modificar a chave "Database.installed" no arquivo "app/Plugin/Install/Config/bootstrap.php".'), 'error');
         }
     }
+
+
+    /**
+     *  Está função verifica a versão e a engine padrão do MySQL.
+     *
+     */
+    public function getMySqlInfo($db){
+        // verificar versao
+        $infos = $db->query("SELECT version()");
+
+        if( empty($infos) ){
+            $this->Session->setFlash('Não foi possivel determinar a versão do banco de dados.', 'error');
+            return false;
+        }
+
+        $version = explode('.', $infos[0][0]['version()']);
+        $version = $version[0].$version[1];
+        if( $version < 50 ){
+            $this->Session->setFlash('Banco de dados não está na versão recomendada. Por favor atualize-o para a versão mais recente', 'error');
+            return false;
+        }
+
+        // verificar engine
+        $engines = $db->query("SHOW STORAGE ENGINES;");
+
+        foreach ($engines as $index => $engine) {
+            if( empty($engine) ){
+                $this->Session->setFlash('Ops, banco de dados não tem nenhuma engine padrão.', 'error');
+                return false;
+            }
+
+            if($engine['ENGINES']['Support'] == 'DEFAULT'){
+                if($engine['ENGINES']['Engine'] != 'InnoDB'){
+                    $this->Session->setFlash('Ops, o bando de dados está com a engine ' . $engine['ENGINES']['Engine'] 
+                                             . ' como padrão. Mude para InnoDB.', 'error');
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
+    }
+
 }

@@ -753,7 +753,7 @@ p {
 
 .post-blog ul,
 .post-blog ol{
-  display: block !important;
+  display: table;
   margin-top: 10px;
 }
 
@@ -762,6 +762,7 @@ p {
   list-style: square !important;
   list-style-position: inherit !important;
   color:#333 !important;
+  margin: 0 0 0 20px;
 }
 
 .list-blog {
@@ -1492,7 +1493,7 @@ footer {
     width: 100%;
   }
   .inner-1 {
-    padding: 0;
+    padding: 0 3% 2% 3%;
   }
   .block-slogan h2 {
 
