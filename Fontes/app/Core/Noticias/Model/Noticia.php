@@ -146,7 +146,7 @@ class Noticia extends NoticiasAppModel {
 		'titulo'			=> array('rule' => 'notEmpty', 'message' => NOTICIA_FORM_TITULO),
 		
         'resumo' => array('rule' => array('between', 0, 1000), 'allowEmpty' => false, 'message' => 'O resumo não pode estar vazio e deve conter no máximo 1000 caracteres'),
-    	'texto'  => array('rule' => array('between', 0, 10000), 'allowEmpty' => false,  'message' => 'O texto não pode estar vazio e deve conter no máximo 10000 caracteres'),
+    	'texto'  => array('rule' => array('between', 0, 20000), 'allowEmpty' => false,  'message' => 'O texto não pode estar vazio e deve conter no máximo 20000 caracteres'),
 		//'resumo'   			=> array('rule' => 'notEmpty', 'message' => NOTICIA_FORM_RESUMO),
 		//'texto' 			=> array('rule' => 'notEmpty', 'message' => NOTICIA_FORM_TEXTO),
 		'datahora_prog_pub' => array('rule' => array('datetime'), 'allowEmpty' => true), 
