@@ -100,7 +100,7 @@
 							<div class="meta">
 								<time datetime="2012-11-09" class="date-1"><i class="icon-calendar"></i> <?php echo $nt->htmlDataPublicacao(DATA_PONTO); ?></time>
 								<div class="name-author">
-									<i class="icon-user"></i> Projeto Acessibilidade Virtual<?php //echo $nt->htmlAutor() ?>
+									<i class="icon-user"></i> <?php echo $nt->htmlAutor(); ?>
 								</div>
 							</div>
 
