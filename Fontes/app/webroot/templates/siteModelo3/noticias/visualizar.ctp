@@ -131,7 +131,7 @@
                 <h4><?php echo $noticia->titulo;?></h4>     
                 
                 <time datetime="2012-11-09" class="date-1"><i class="icon-calendar"></i> <?php echo $noticia->htmlDataPublicacao(DATA_PONTO); ?></time>
-                <div class="name-author"><i class="icon-user"></i>Projeto Acessibilidade Virtual<?php //echo $noticia->htmlAutor() ?></div>
+                <div class="name-author"><i class="icon-user"></i><?php echo $noticia->htmlAutor(); ?></div>
                 
                 <div class="clear"></div>            
           
