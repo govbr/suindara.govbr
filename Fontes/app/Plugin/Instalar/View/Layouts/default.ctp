@@ -13,7 +13,7 @@
         <?php
             echo $this->Html->meta('icon');
             
-            echo $this->Html->css(array('bootstrap.min', 'bootstrap-theme.min', 'instalador'));
+            echo $this->Html->css(array('bootstrap.min', 'bootstrap-theme.min', 'instalador', 'principal', '1140/1140', 'jPages', 'animate', 'resolucoes', 'hacks-safari'));
             echo $this->Html->script(array('jquery-1.10.1.min', 'jquery-migrate-1.2.1.min', 'jquery.maskedinput', 'instalador'));
 
             echo $this->fetch('meta');
