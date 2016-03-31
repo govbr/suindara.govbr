@@ -51,7 +51,8 @@ $this->Html->addCrumb('Listagem de Not&iacute;cias',  array('plugin' => 'noticia
         <thead>
         <tr>
             <th><?php echo $this->Paginator->sort('titulo', '<span class="bullet">Ordenar por </span><span class="texto">T&iacute;tulo</span>', array('escape' => false)); ?></th>
-            <th><?php echo $this->Paginator->sort('categoria', '<span class="bullet">Ordenar por </span><span class="texto">Categoria</span>', array('escape' => false)); ?></th>
+            <!-- <th><?php //echo $this->Paginator->sort('categoria', '<span class="bullet">Ordenar por </span><span class="texto">Categoria</span>', array('escape' => false)); ?></th> -->
+            <th>Categoria</th>
             <th><?php echo $this->Paginator->sort('status_id', '<span class="bullet">Ordenar por </span><span class="texto">Status</span>', array('escape' => false)); ?></th>
             <th>A&ccedil;&otilde;es</th>
         </tr>
