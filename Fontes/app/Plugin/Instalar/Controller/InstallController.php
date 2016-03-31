@@ -8,6 +8,8 @@ class InstallController extends Controller
     public $name = 'Install';
     public $uses = false;
 
+    const VERSION = 50;
+
     public $components = array('Session');
 
     public $helpers = array(
@@ -56,7 +58,32 @@ class InstallController extends Controller
     {
 
         $db = ConnectionManager::getDataSource('default');
-        $files = array('cms3.sql', 'inserts.sql', 'mimes1.sql', 'mimes2.sql');
+
+        // Verificação de versão do banco de dados
+        $version = $this->getMySqlVersion($db);
+        if( $version < self::VERSION ){
+            $this->Session->setFlash('Banco de dados não está na versão recomendada. Por favor atualize-o para a versão mais recente', 'error');
+            return false;
+        }
+
+        // Verificação da engine utilizada pelo banco de dados  
+        $engine = $this->getMySqlEngine($db);
+
+        $files = array('inserts.sql', 'mimes1.sql', 'mimes2.sql');
+
+        switch ($engine) {
+            case 'InnoDB':
+                    array_unshift($files, 'cms3.sql');
+                    break;
+
+            case 'MyISAM':
+                    array_unshift($files, 'cms3_myisam.sql');
+                    break;
+            
+            default: 
+                    return false; 
+                    break;
+        }
 
         foreach ($files as $filename)
         {
@@ -69,13 +96,6 @@ class InstallController extends Controller
                 $this->Session->setFlash("Ops, não foi possível achar o arquivo {$filename}. Verifique se o arquivo existe.", 'error');
                 return false;
             }
-
-
-            $result = $this->getMySqlInfo($db);
-            if( !$result ){
-                return false;
-            }
-
 
             if ($filename == $files[0])
             {
@@ -276,8 +296,7 @@ class InstallController extends Controller
      *  Está função verifica a versão e a engine padrão do MySQL.
      *
      */
-    public function getMySqlInfo($db){
-        // verificar versao
+    public function getMySqlVersion($db){
         $infos = $db->query("SELECT version()");
 
         if( empty($infos) ){
@@ -287,12 +306,15 @@ class InstallController extends Controller
 
         $version = explode('.', $infos[0][0]['version()']);
         $version = $version[0].$version[1];
-        if( $version < 50 ){
-            $this->Session->setFlash('Banco de dados não está na versão recomendada. Por favor atualize-o para a versão mais recente', 'error');
-            return false;
-        }
 
-        // verificar engine
+        return $version;
+    }
+
+    /**
+     * Retorna engine utilizada no mysql
+     * 
+     */
+    public function getMySqlEngine($db){
         $engines = $db->query("SHOW STORAGE ENGINES;");
 
         foreach ($engines as $index => $engine) {
@@ -302,16 +324,9 @@ class InstallController extends Controller
             }
 
             if($engine['ENGINES']['Support'] == 'DEFAULT'){
-                if($engine['ENGINES']['Engine'] != 'InnoDB'){
-                    $this->Session->setFlash('Ops, o bando de dados está com a engine ' . $engine['ENGINES']['Engine'] 
-                                             . ' como padrão. Mude para InnoDB.', 'error');
-                    return false;
-                }
+                return $engine['ENGINES']['Engine'];                
             }
         }
-
-        return true;
-
     }
 
 }
