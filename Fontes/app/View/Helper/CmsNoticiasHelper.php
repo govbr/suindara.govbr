@@ -76,7 +76,7 @@
 			if ($categoria_id) $conditions['Noticia.categoria_id'] = $categoria_id;
 			
 			$noticia = $this->getNoticias(array( 'conditions' => $conditions,
-														'order' => array('Noticia.id DESC')));
+												  'order' => array('Noticia.id DESC')));
 			
 			if (!empty($noticia)) {
 				return $noticia[0];
@@ -94,7 +94,6 @@
 		 * @return array Noticias  
 		 */
 		public function getNoticias(array $options = array(), $regrasBasicas = true) {
-			//pr($options);
 			$opt = urlencode(json_encode($options));
 			$noticias = $this->requestAction(array('ra' => true, 
 												'plugin' => 'noticias', 
@@ -118,13 +117,8 @@
 		 */
 		public function getNoticiasRecentes($limite_noticias = 2) {
 			$result = $this->getNoticias(array('limit' => $limite_noticias, 
-											'conditions' => array('Noticia.status_id' => 2),
-										    'order' => array('Noticia.id DESC') ));
-
-			
-			// foreach ($result as $key => $value) {
-			// 	pr($value->titulo);
-			// }
+										'conditions' => array('Noticia.status_id' => 2),
+									    'order' => array('Noticia.id DESC') ));
 
 			return $result;
 		}

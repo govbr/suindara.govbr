@@ -52,10 +52,16 @@
 			
 		}
 		
-		public function getNoticiasRecentes($limite = 5) {
-			$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('Noticia.categoria_id' => $this->id), 
-															 'order' => 'Noticia.id DESC',
+		public function getNoticiasRecentes($limite = 5, $data = false, $order = 'DESC') {
+			if($data){
+				$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('Noticia.categoria_id' => $this->id), 
+															 'order' => "Noticia.datahora_publicacao {$order}",
 															 'limit' => $limite));
+			}else{
+				$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('Noticia.categoria_id' => $this->id), 
+															 'order' => 'Noticia.id DESC',
+															 'limit' => $limite));				
+			}
 			
 			return $noticias;												 
 		}
