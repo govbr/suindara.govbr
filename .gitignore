@@ -12,6 +12,7 @@
 /build
 /dist
 /tags
+site/*
 
 # OS generated files #
 ######################
