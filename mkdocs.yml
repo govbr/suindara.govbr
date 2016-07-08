@@ -1,0 +1,10 @@
+site_name: Suindara Manual Editor Ampliado
+theme: readthedocs
+repo_url: https://github.com/govbr/suindara.govbr/
+site_description: Suindara é um gerenciador de conteúdos acessível e open source do governo brasileiro.
+copyright: CC0
+repo_name: Contribua com o projeto
+pages:
+    - 'Sobre': 'index.md'
+    - 'Editor Ampliado': 'manual_suindara_editor_ampliado.md'
+
