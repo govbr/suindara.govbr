@@ -6,9 +6,8 @@ env:
   - secure: iMWaaoktIq+C75ebLHNpvC4gZwByXkLVe6Cj4FFHeOI9/GWxPAYdt2/S29jAE1UWh6ij9hY/zBe+C/7JSEqGK/ngYTPMV8F9eIvAhrwXT+6TWZ8J5/QMd8mLaD5wmxVr2ufaN3nEihHc7Mfonzv0DYSOKEijp004HI/fwO9Qg4hutMwG1hdE+VVONgKYHUH/TBOs0Xic2YT6YihfUuShZjc10NMaeDXYJ9/oiIobNZ3SINX0fyEMf7E+ovaeragI/5kLhC6fFpWvVojllyhK+fyTLsMOGZ/lDfvv+WxNEXhHoPBcsrhcyUOZkvX5Il+Qd9gU6v2lQFClbom74ttR4MEhmgYbFLsy1ieoajRXUNcWDaLJ5dyN+N2tlqaQ8sQkH/AlVU6T41W6gP2G/BQY1smRe1UgpEER9KxwLWv9RauSefsXrNSlXGm5A8k42uvkPSIBQ0eHHEU81fLExtlDdzAdrfg8H5crpF5lyPC3+XSkGEJMuAurezDR7uYOCDlx+2sTiXbuga5WEKN5foEJe26MmE4uTmIY2oqRFwtTi5L//fT0hiqJ6XXV+FMzaHC//NWlC+54quu86WtwPENzx15pMOb13kxZ72K8I4g3I/12ojsyvnvF5wUVypvN+IeLwp194ZQco5QfhcetnIeKVaVr6cglHETXOm+r4/u6b1o=
 script:
 - git clean -f -d -x
-matrix:
-  fast_finish: true
-after_deploy:
+- true
+after_script:
 - git config user.name "Carlos Vieira"
 - git config user.email "edu.carlos.vieira@gmail.com"
 - git remote add gh-token "https://${GH_TOKEN}@github.com/govbr/suindara.govbr.git";
