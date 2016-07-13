@@ -65,7 +65,6 @@
 </div>
 
 <?php
-
 $this->Html->scriptBlock("
 $(document).ready(function () {
     $('#atualizarSJS').bind('click', function(e){

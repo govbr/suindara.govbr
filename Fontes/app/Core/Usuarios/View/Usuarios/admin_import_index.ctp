@@ -1,10 +1,10 @@
 <?php
-$this->Html->addCrumb('Listagem de Usu&aacute;rios',  array('plugin' => 'usuarios', 'controller' => 'usuarios', 'action' => 'index'));
+$this->Html->addCrumb('Listagem de Usuários',  array('plugin' => 'usuarios', 'controller' => 'usuarios', 'action' => 'index'));
 $this->Html->addCrumb('Importar',  array('plugin' => 'usuarios', 'controller' => 'usuarios', 'action' => 'import_index'));
 ?>
 <h2 class="row">Listagem de <span><?php echo $this->name; ?></span></h2>
 <div class="row controlist">
-	<?php echo $this->Html->link('Adicionar novo usu&aacute;rio<span></span>', array('plugin' => 'usuarios', 'controller' => 'usuarios', 'action' => 'add'), array('class' => 'threecol add', 'escape' => false)); ?>
+	<?php echo $this->Html->link('Adicionar novo usuário<span></span>', array('plugin' => 'usuarios', 'controller' => 'usuarios', 'action' => 'add'), array('class' => 'threecol add', 'escape' => false)); ?>
 
 	<div id="busca_simples" class="eightcol">
 		<?php echo $this->Element('../Usuarios/_search'); ?>

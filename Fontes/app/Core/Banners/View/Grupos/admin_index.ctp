@@ -13,35 +13,8 @@
 </div>
 
 <?php if( empty($grupoPaginate) ) { ?>
-	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de grupos.', 
-                                 Router::url(array('plugin' => 'banners', 'controller' => 'banners', 'action' => 'index'), true)); ?>
-    </p>
-
+	<p class="noInfo">Nenhum grupo encontrado.</p>
 <?php } else { ?>
-	
-	<?php $grupoCount = count($grupoPaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($grupoCount > 1) {
-             ?>
-                Foram encontrados <?php echo $grupoCount; ?> grupos.
-            
-            <?php } else { ?>
-
-                Foi encontrado 1 grupo.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de grupos.', 
-                                     Router::url(array('plugin' => 'banners', 'controller' => 'banners', 'action' => 'index'), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
 	<table class="row" summary="Tabela de Listagem de grupos de banners.">
 		<thead>
 			<tr>

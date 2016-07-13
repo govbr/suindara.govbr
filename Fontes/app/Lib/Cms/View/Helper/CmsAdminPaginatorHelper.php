@@ -49,7 +49,6 @@ class CmsAdminPaginatorHelper extends PaginatorHelper {
 	public $helpers = array('Html' => array('className' => 'CmsAdminHtml'));
 
 	public function numbers($options = array()) {
-
 		if ($options === true) {
 			$options = array(
 				'before' => ' | ', 'after' => ' | ', 'first' => 'first', 'last' => 'last'

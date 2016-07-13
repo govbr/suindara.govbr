@@ -92,30 +92,11 @@ class Usuario extends UsuariosAppModel {
         ),
         'Perfil' => array(
             'multiple' => array( 
-                'rule' => 'quantidadePerfil',
+                'rule' => array('multiple',array('min' => 1)), 
                 'message' => 'Selecione pelo menos um perfil para o usuário'
             )
         ),
     );
-
-    public function quantidadePerfil(){
-
-        if (empty($this->data)) {
-            return null;
-        }
-
-        if($this->data['Usuario']['nome'] == 'admin'){
-            return true;
-        }else{
-            $qunt = count($this->data['Usuario']['Perfil']);
-            pr($qunt);
-            if( $qunt >= 1 ){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
 
     public function parentNode() {
         if (!$this->id && empty($this->data)) {

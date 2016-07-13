@@ -109,7 +109,7 @@
 		 */
 		public function cssPath($path) {
 		//	return '..' . '/' . 'templates' . '/' . $this->diretorio() . '/' . 'css' . '/' . $path . '.css'; 
-			return str_replace(' ', '%20', $this->raiz() . '/' . 'css' . '/' . $path . '.css');
+			return $this->raiz() . '/' . 'css' . '/' . $path . '.css';
 		}
 		
 		// public function css($path) {
@@ -125,7 +125,7 @@
 		 */
 		public function jsPath($path) {
 			//return '..' . '/' . 'templates' . '/' . $this->diretorio() . '/' . 'js' . '/' . $path . '.js';
-			return str_replace(' ', '%20', $this->raiz() . '/' . 'js' . '/' . $path . '.js');
+			return $this->raiz() . '/' . 'js' . '/' . $path . '.js';
 		}
 		
 		// public function js($path) {
@@ -141,18 +141,19 @@
 		 */
 		public function imagemPath($path) {
 			//return '..' . '/' . 'templates' . '/' . $this->diretorio() . '/' . 'images' . '/' . $path;
-			return str_replace(' ', '%20', $this->raiz() . '/' . 'images' . '/' . $path);	
+			return $this->raiz() . '/' . 'images' . '/' . $path;
+						
 		}
 		
 		/**
 		 * Localização do arquivo $path
-		 * Por padrão este método pesquisa a partir da pasta 'file' definida no diretório do template 
+		 * Por padrão este método pesquisa a partir da pasta 'images' definida no diretório do template 
 		 * 
-		 * @param $path Caminho para o arquivo
+		 * @param $path Caminho para a imagem
 		 * @return string Localização do arquivo css 
 		 */
 		public function arquivoPath($path) {
-			return str_replace(' ', '%20', $this->raiz() . '/' . 'file' . '/' . $path);
+			//return '..' . '/' . 'templates' . $this->diretorio() . '/' . 'images' . '/' . $path;
 		}
 		
 		/**

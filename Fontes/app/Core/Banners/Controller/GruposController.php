@@ -50,57 +50,62 @@ App::uses('BannersAppController', 'Banners.Controller');
 		public $name = 'Grupos';
 
 		public function admin_index(){
-			$emptySearches = false;
-			$conditions = array('Grupo.site_id' => $this->site_id);
-
 			$options = array(
-	            'fields'     => array('Grupo.id','Grupo.nome'),
-	            'conditions' => $conditions,
-	            'limit'      => 15
+	            'fields' => array('Grupo.id','Grupo.nome'),
+	            'conditions' => array('Grupo.site_id' => $this->site_id),
+	            'limit' => 15
         	);
         	$this->paginate = $options;
 
-        	if(isset($this->params->query['limit'])){
-	    		$this->paginate['limit'] = $this->params->query['limit'];
-	    	}
+			$query = $this->params->query;
 
-	    	if($this->request->isPost()){
-	    		$emptySearches = true;
+	    	if(!empty($query)) {
 
-		    	if(isset($this->request->data['Grupo']['search'])){
-		    		$palavra_chave = $this->request->data['Grupo']['search']; 
-		    		if (!empty($palavra_chave)) {
-		    			$conditions[] = array("Grupo.nome LIKE " => '%' . trim($palavra_chave) . '%');
-		    			$emptySearches = false;
-		    		}
-		    	}
-			}
+		    	if( isset($query['search']) && trim($query['search']) != "") {
+		    		$this->search($query, $this->site_id);
+		    		$this->set('grupoPaginate', $this->paginate());	
 
-			if ($emptySearches){
+		    	}else if(isset($query['limit'])){
+	    			$this->paginate['limit'] = $query['limit'];
+	    			$this->set('grupoPaginate', $this->paginate());	
+
+		    	}else {
+
 	    		// sem nada na pesquisa
 				$this->params['paging'] = array
 	                (
 	                    'Grupo' => array
 	                        (
-	                            'page'      => 1,
-	                            'current'   => 0,
-	                            'count'     => 0,
-	                            'prevPage'  => null,
-	                            'nextPage'  => null,
+	                            'page' => 1,
+	                            'current' => 0,
+	                            'count' => 0,
+	                            'prevPage' => null,
+	                            'nextPage' => null,
 	                            'pageCount' => 0,
 	                            //'order' => 
-	                            'limit'     => 1,
-	                            'options'   => array(),
+	                            'limit' => 1,
+	                            'options' => array(),
 	                            'paramType' => 'named'
 	                        )
 	                );
 
-                $this->paginate('Grupo');
-    			$this->set('grupoPaginate', array());
-	    	}else{
-	    		$data = $this->paginate('Grupo', $conditions);
-				$this->set('grupoPaginate', $data);	
-	    	}
+	    		$this->set('grupoPaginate', array());
+	    	} 
+
+	    	}else {
+    			$this->set('grupoPaginate', $this->paginate());
+    		} 
+		}
+
+		private function search($query, $site_id){
+			if(!isset($query['search']) || trim($query['search']) == "")
+				return;
+			$like = '%' . trim($query['search']) . '%';
+	    	$this->paginate['conditions'] = array('Grupo.site_id' => $this->site_id,
+	    		'OR' => array(
+		    		'Grupo.nome LIKE' => $like
+	    		)
+	    	);
 		}
 
 		public function admin_add(){

@@ -51,8 +51,6 @@ class Configuracao extends ConfiguracoesAppModel{
 
 	public $name = 'Configuracao';
 
-	public $useTable = 'configuracoes';
-
 	public $validate = array(
 		'tempo_sessao' => array(
             'maxLength' => array(
@@ -124,7 +122,7 @@ class Configuracao extends ConfiguracoesAppModel{
     }
 
     public function beforeSave($options = array()){
-
+        
         ( isset($this->data['Configuracao']['tempo_sessao']) ) ? $tempoSessao = trim($this->data['Configuracao']['tempo_sessao']) : $tempoSessao = null;
         ( isset($this->data['Configuracao']['upload_tamanho']) ) ? $uploadTamanho = trim($this->data['Configuracao']['upload_tamanho']) : $uploadTamanho = null;
         ( isset($this->data['Configuracao']['memoria_tamanho']) ) ? $memoriaTamanho = trim($this->data['Configuracao']['memoria_tamanho']) : $memoriaTamanho = null;
@@ -139,7 +137,6 @@ class Configuracao extends ConfiguracoesAppModel{
             $end = strpos($contents, "php_value memory_limit");
 
             ini_set('upload_max_filesize', $uploadTamanho . 'M');
-
             $contents = substr_replace($contents, "php_value upload_max_filesize {$uploadTamanho}M \n", $start, ($end - $start - 1));
         }
 
@@ -161,8 +158,7 @@ class Configuracao extends ConfiguracoesAppModel{
             $contents = substr_replace($contents, "php_value post_max_size {$postTamanho}M", $start, ($end - $start - 1));
         }
 
-        file_put_contents($path, $contents);
-        //$file->write($contents);
+        $file->write($contents);
         $file->close();
 
         return true;

@@ -83,11 +83,6 @@ class Midia extends MidiasAppModel {
                 //'message' => array('"%s": O tipo de arquivo "%s" não está habilitado para envio.' , "file", "extension")
                 'message' => array('"%s": Formato de arquivo inválido' , "file", "extension")
             ),
-            'mime2' => array(
-                'rule' => 'mime2',
-                'allowEmpty' => true,
-                'message' => array('"%s": Arquivo salvo com outra extensão' , "file", "extension")  
-            ),
             'isUniqueFile' => array(
                 'rule' => 'isUniqueFile',
                 'message' => array('"%s": Outro arquivo com o mesmo conteúdo já foi enviado para o sistema.', "file")
@@ -179,6 +174,7 @@ class Midia extends MidiasAppModel {
     public function beforeSave($options = array()) {
         // if($this->data['Midia']['tipo_id'] == ARQUIVO && $this->arq) {
 
+
         $this->arq = $this->arqf;
         if($this->arq) {
             $config = new MidiaConfig();
@@ -218,34 +214,6 @@ class Midia extends MidiasAppModel {
         return true;
     }
 
-    public function mime2($data){
-        $img = new Gd();
-
-        $extension = $img->retornaExt($data['arquivo']);
-
-        $find = $this->Mime->find('first', array('conditions' => array('ativo' => true, 'extensao LIKE' => "%$extension%")));
-
-        if(!empty($find)){
-            if($find['Tipo'] == 'Image' ){
-                if(is_array($data['arquivo']) && array_key_exists('type', $data['arquivo'])) {
-                    $type = $data['arquivo']['type'];
-
-                    if((getimagesize($data)['mime']) != $type){
-                        return false;
-                    }
-                } else {
-                    $type = $this->arq['type'];
-
-                    if((getimagesize($this->arq['tmp_name'])['mime']) != $type){
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
 	public function mime($data, $tipo_id) {
         $mime = null;
         $extension = null;
@@ -258,10 +226,10 @@ class Midia extends MidiasAppModel {
             $extension = $img->retornaExt($this->arq['name']);
         }
 
-
-		$find = $this->Mime->find('first', array('conditions' => array('tipo_id' => $tipo_id, 
-            'or' => array('mime LIKE' => "%$extension%", 'mime LIKE' => "%$mime%"), 'ativo' => true, 'extensao LIKE' => "%$extension%")));
+        //die($mime . ' - ' . $extension);
+		$find = $this->Mime->find('first', array('conditions' => array('tipo_id' => $tipo_id, 'mime' => $mime, 'ativo' => true, 'extensao' => $extension)));
         //$find = $this->Mime->find('first', array('conditions' => array('ativo' => true, 'extensao' => $extension)));
+        //print_r($tipo_id); die();
 		if(!empty($find)) {
 			$this->data['Midia']['mime_id'] = $find['Mime']['id'];
 			$this->data['Midia']['tipo_id'] = $find['Mime']['tipo_id'];
@@ -315,16 +283,11 @@ class Midia extends MidiasAppModel {
 	public function deleteFile($folder,$file) {
         $dir = new Folder($folder);
         $list = $dir->read();
-        
-        $list = array_values(array_filter($list));
-
         $config = new MidiaConfig();
         foreach($list[0] as $dir_name) {
             if($dir_name == 'thumb')
                 $file = $config->changeExt($file, 'jpg');
-
-            $new = new File(str_replace('.DS_Store/', '' , $dir->pwd() . $dir_name . DS . $file) );
-
+            $new = new File($dir->pwd() . $dir_name . DS . $file);
             $new->delete();
         }
 	}
@@ -340,7 +303,6 @@ class Midia extends MidiasAppModel {
             $folder = $config->midiaDir($this->data['Midia']['tipo_id']);
     		$this->deleteFile($folder, $this->midia['Midia']['arquivo']);
         }
-
 		return true;
 	}
 
@@ -349,28 +311,24 @@ class Midia extends MidiasAppModel {
         $extensao = strtolower($img->retornaExt($arquivo));
         $folder = WWW_ROOT . 'files/img/';
         $or = $folder . 'or/';
-        if($img->abrirImagem($or . $arquivo, $extensao)){
-            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-            $img->escalar(800, 'auto');
-            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'gd');
-        }
+        $img->abrirImagem($or . $arquivo, $extensao);
+        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+        $img->escalar(800, 'auto');
+        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'gd');
         
-        if($img->abrirImagem($or . $arquivo, $extensao)){
-            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-            $img->escalar(380, 'auto');
-            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'md');
-        }
+        $img->abrirImagem($or . $arquivo, $extensao);
+        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+        $img->escalar(530, 'auto');
+        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'md');
 
-        if($img->abrirImagem($or . $arquivo, $extensao)){
-            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-            $img->escalar(220, 'auto');
-            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'pq');
-        }
+        $img->abrirImagem($or . $arquivo, $extensao);
+        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+        $img->escalar(220, 'auto');
+        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'pq');
 
-        if($img->abrirImagem($or . $arquivo, $extensao)){
-            $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
-            $img->escalar(160, 'auto');
-            $img->gerarPublic($img->retornaNome($arquivo), $folder . 'th');
-        }
+        $img->abrirImagem($or . $arquivo, $extensao);
+        $img->crop($crop_x, $crop_y, $crop_x2, $crop_y2, $crop_w, $crop_h);
+        $img->escalar(160, 'auto');
+        $img->gerarPublic($img->retornaNome($arquivo), $folder . 'th');
     }
 }

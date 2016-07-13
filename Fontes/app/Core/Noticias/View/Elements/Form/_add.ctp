@@ -33,11 +33,13 @@
 	<fieldset>
 	<legend class="oculto">Conte&uacute;do Textual</legend>
 	<?php
-		echo $this->Html->script('/js/ckeditor1/ckeditor.js');
+		echo $this->Html->script('/js/ckeditor/ckeditor.js');
 	
-		echo $this->Form->input('titulo',  array('type' => 'text', 'class'=>"w97", 'label' => 'Título'));
-		echo $this->Form->input('resumo',  array('type' => 'text', 'class' => 'ckeditor', 'cols' => '80', 'rows' => '5'));
-		echo $this->Form->input('texto',   array('type' => 'text', 'class' => 'ckeditor', 'cols' => '80', 'rows' => '5'));
+		echo $this->Form->input('titulo', array('type' => 'text', 'class'=>"w97", 'label' => 'Título'));
+		echo ('O campo a seguir contém funções que podem comprometer a acessibilidade do site. Recomenda-se que as orientações do <a href="http://emag.governoeletronico.gov.br/" alt="Site do eMAG">Modelo de Acessibilidade em Governo Eletrônico - eMAG</a> sejam seguidas. Além disso, sugere-se a realização dos cursos de acessibilidade para <a href="http://www.enap.gov.br/web/pt-br/sobre-curso?p_p_id=enapvisualizardetalhescurso_WAR_enapinformacoescursosportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_r_p_564233524_idCurso=2617" alt="Curso de Acessibilidade Desenvolvedor">desenvolvedor</a> e <a href="http://www.enap.gov.br/web/pt-br/sobre-curso?p_p_id=enapvisualizardetalhescurso_WAR_enapinformacoescursosportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_r_p_564233524_idCurso=2616" alt="Curso de Acessibilidade Conteudista">conteudista</a> oferecidos pela Escola Nacional de Administração Pública - ENAP.<br/><br/>');
+		echo $this->Form->input('resumo', array('type' => 'text', 'class' => 'ckeditor', 'cols' => '80', 'rows' => '5'));
+		echo ('O campo a seguir contém funções que podem comprometer a acessibilidade do site. Recomenda-se que as orientações do <a href="http://emag.governoeletronico.gov.br/" alt="Site do eMAG">Modelo de Acessibilidade em Governo Eletrônico - eMAG</a> sejam seguidas. Além disso, sugere-se a realização dos cursos de acessibilidade para <a href="http://www.enap.gov.br/web/pt-br/sobre-curso?p_p_id=enapvisualizardetalhescurso_WAR_enapinformacoescursosportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_r_p_564233524_idCurso=2617" alt="Curso de Acessibilidade Desenvolvedor">desenvolvedor</a> e <a href="http://www.enap.gov.br/web/pt-br/sobre-curso?p_p_id=enapvisualizardetalhescurso_WAR_enapinformacoescursosportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_r_p_564233524_idCurso=2616" alt="Curso de Acessibilidade Conteudista">conteudista</a> oferecidos pela Escola Nacional de Administração Pública - ENAP.<br/><br/>');
+		echo $this->Form->input('texto', array('type' => 'text', 'class' => 'ckeditor', 'cols' => '80', 'rows' => '5'));
 		echo $this->Form->input('cartola', array('type' => 'text', 'class'=>"w97"));
 		
 		echo $this->Form->input('autor', array('type' => 'text', 'class'=>"w97"));

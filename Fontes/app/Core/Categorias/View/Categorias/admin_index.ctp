@@ -18,35 +18,11 @@
 </div>
 
 <?php if( empty($categoriaPaginate) ) { ?>
-  	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de categorias.', 
-                                 Router::url(array('plugin' => 'categorias', 'controller' => 'categorias', 'action' => 'index'), true)); ?>
-    </p>
+	<ul >
+    	<p class="noInfo">Nenhuma categoria encontrada.</p>
+  	</ul>
 
 <?php } else { ?>
-
-	<?php $categoriaCount = count($categoriaPaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($categoriaCount > 1) {
-             ?>
-                Foram encontradas <?php echo $categoriaCount; ?> categorias.
-            
-            <?php } else { ?>
-
-                Foi encontrada 1 categoria.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de categorias.', 
-                                     Router::url(array('plugin' => 'categorias', 'controller' => 'categorias', 'action' => 'index'), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
 	<table class="row" summary="Tabela de listagem de categorias.">
 		<thead>
 			<tr>
@@ -60,7 +36,6 @@
 		<tbody>
 
 			<?php foreach($categoriaPaginate as $key => $categoria): ?>
-				<?php //pr($categoria); ?>
 				<?php
 					foreach ($numeracao as $index => $value) {
 						if($value['Categoria']['id'] == $categoria['Categoria']['id']){
@@ -69,10 +44,10 @@
 					} 
 				?>
 				<tr>
-					<td><?php echo $categoria['Categoria']['virtualField']; ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($categoria['Categoria']['titulo'], 20, null); ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($categoria['Categoria']['descricao'], 20, null); ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($categoria['Categoria']['identificador'], 19, ' ...'); ?></td>
+					<td><?php echo $categoria['Categoria']['virtualField'] ?></td>
+					<td><?php echo $categoria['Categoria']['titulo']; ?></td>
+					<td><?php echo $categoria['Categoria']['descricao']; ?></td>
+					<td><?php echo $categoria['Categoria']['identificador']; ?></td>
 					<td>
 						<ul>
 							<li><?php echo $this->Html->link('Visualizar <span class="oculto">categoria: ' . $categoria['Categoria']['titulo'] . '</span>', 
@@ -91,7 +66,7 @@
 														     array('controller' => 'categorias', 'action' => 'delete', 'admin' => true, $categoria['Categoria']['id']),
 														 	 array('class'  => 'del',
 															       'escape' => false),
-														 	 'Voc&ecirc; tem certeza que deseja deletar a categoria ' . $categoria['Categoria']['titulo'] . '?'
+														 	 'Você tem certeza que deseja deletar a categoria ' . $categoria['Categoria']['titulo'] . '?'
 														    ); ?></li>
 						</ul>
 					</td>

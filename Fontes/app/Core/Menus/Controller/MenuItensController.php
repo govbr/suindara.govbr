@@ -71,16 +71,20 @@ App::uses('MenusAppController', 'Menus.Controller');
 	        );
 			$this->paginate = $options;
 
-			if(isset($this->params->query['limit'])){
-	    		$this->paginate['limit'] = $this->params->query['limit'];
-	    	}
+			$query = $this->params->query;
 			
-	    	if( $this->request->isPost() ){
-		    	if( isset($this->request->data['MenuItem']['search']) && trim($this->request->data['MenuItem']['search']) != "") {
-		    		$this->search($this->request->data['MenuItem']['search']);
-		    		
-		    	} else if(isset($this->request->data['MenuItem']['palavras']) && (trim($this->request->data['MenuItem']['palavras'] != "" || trim($this->request->data['MenuItem']['tipo'] != "") )   ) ){
-	    			$this->advancedSearch($this->request->data['MenuItem']['palavras'], $this->request->data['MenuItem']['tipo']);
+	    	if(!empty($query)) {
+		    	if( isset($query['search']) && trim($query['search']) != "") {
+		    		$this->search($query);
+		    		$this->set('menuItemPaginate', $this->paginate('MenuItem', array('MenuItem.menu_id LIKE' => $menuPai_id)) );
+
+		    	} else if(isset($query['aplicar_pesquisa_avançada']) && (trim($query['palavras'] != "" || trim($query['tipo'] != "") )   ) ){
+	    			$this->advancedSearch($query);
+	    			$this->set('menuItemPaginate', $this->paginate('MenuItem', array('MenuItem.menu_id LIKE' => $menuPai_id)) );
+
+	    		} else if (isset($query['limit'])) {
+	    			$this->paginate['limit'] = $query['limit'];
+	    			$this->set('menuItemPaginate', $this->paginate('MenuItem', array('MenuItem.menu_id LIKE' => $menuPai_id)) );
 
 	    		} else {
 
@@ -105,18 +109,19 @@ App::uses('MenusAppController', 'Menus.Controller');
 		    		$this->set('menuItemPaginate', array());
 		    	} 
 
-	    	}
-			
-			$this->set('menuItemPaginate', $this->paginate('MenuItem', array('MenuItem.menu_id LIKE' => $menuPai_id)) );
+	    	} else {
+				$this->set('menuItemPaginate', $this->paginate('MenuItem', array('MenuItem.menu_id LIKE' => $menuPai_id)) );
+    		}
+
 
 			$this->set('bmTipos', $this->MenuItem->BmTipo->find('list'));
 
 		}
 
 		private function search($query){
-			if(!isset($query) || trim($query) == "")
+			if(!isset($query['search']) || trim($query['search']) == "")
 				return;
-			$like = '%' . trim($query) . '%';
+			$like = '%' . trim($query['search']) . '%';
 	    	$this->paginate['conditions'] = array(
 	    		'OR' => array(
 		    		'MenuItem.nome LIKE' => $like
@@ -124,11 +129,11 @@ App::uses('MenusAppController', 'Menus.Controller');
 	    	);
 		}
 
-		private function advancedSearch($palavras, $tipo){
+		private function advancedSearch($query){
 			$conditions = array();
 			
-			if(isset($palavras)){
-				foreach(split(',', $palavras) as $palavra) {
+			if(isset($query['palavras'])){
+				foreach(split(',', $query['palavras']) as $palavra) {
 					$palavra = trim($palavra);
 					if($palavra != "") {
 						$conditions['OR'][]['MenuItem.nome LIKE'] = '%'.$palavra.'%';
@@ -136,8 +141,8 @@ App::uses('MenusAppController', 'Menus.Controller');
 				}
 			}
 
-			if(isset($tipo) && trim($tipo) != ""){
-				$conditions['OR'][]['MenuItem.bm_tipo_id LIKE'] = '%'.trim($tipo).'%';
+			if(isset($query['tipo']) && trim($query['tipo']) != ""){
+				$conditions['AND'][]['MenuItem.bm_tipo_id LIKE'] = '%'.trim($query['tipo']).'%';
 			}
 
 	    	$this->paginate['conditions'] = $conditions;

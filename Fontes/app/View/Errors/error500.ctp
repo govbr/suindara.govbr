@@ -21,13 +21,13 @@
 <h2><?php echo $name; ?></h2>
 
 <div class="desc-error">
-    <p>Erro interno do servidor. Tente novamente mais tarde. Se o problema persistir contate o administrador do sistema!</p>
+    <p>Erro interno, isso pode ter acontecido porque:</p>
 
-    <!-- <ul>
+    <ul>
         <li>» O servidor está sobrecarregado</li>
         <li>» Forças sobrenaturais estão atacando o servidor</li>
         <li>» Culpa dos desenvolvedores</li>
-    </ul> -->
+    </ul>
 </div>
 
 <!--

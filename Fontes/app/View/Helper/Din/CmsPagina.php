@@ -48,8 +48,17 @@
 
 	class CmsPagina extends CmsWrapper {
 		
+		// Grupos de banners
+		//protected $gruposBanners;
+		
 		public function __construct(array $pagina, View $view) {
+			
 			parent::__construct($pagina, $view);
+			
+			// foreach ($this->GruposBanners as $b) {
+// 				
+			// }
+			
 		}
 		
 		public function getGruposDeBanners() {

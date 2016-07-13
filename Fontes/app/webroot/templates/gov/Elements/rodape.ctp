@@ -4,12 +4,11 @@
 						<?php 
 							
 							$rodape = $this->CmsMenu->getMenu('GovRodape');
-							$menus = array( $this->CmsMenu->getMenu('GovPrincipal')->getSubMenu('assuntos'),  
-										    $this->CmsMenu->getMenu('GovTopo')->getSubMenu('servicos'),
-										    $rodape->getSubMenu('redes_sociais'),
-										    $rodape->getSubMenu('rss'),
-										    $rodape->getSubMenu('sobre_o_site'));
-
+							$menus = array( $this->CmsMenu->getMenu('GovPrincipal')->getSubMenu('Assuntos'),  
+										    $this->CmsMenu->getMenu('GovTopo')->getSubMenu('Serviços'),
+										    $rodape->getSubMenu('Redes sociais'),
+										    $rodape->getSubMenu('RSS'),
+										    $rodape->getSubMenu('Sobre o site'));
 										  
 							foreach ($menus as $i => $m) {			  
 						 ?>

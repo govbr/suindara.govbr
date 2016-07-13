@@ -52,27 +52,17 @@
 			
 		}
 		
-		public function getNoticiasRecentes($limite = 5, $data = false, $order = 'DESC') {
-			if($data){
-				$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('Noticia.categoria_id' => $this->id), 
-															 'order' => "Noticia.datahora_publicacao {$order}",
-															 'limit' => $limite));
-			}else{
-				$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('Noticia.categoria_id' => $this->id), 
+		public function getNoticiasRecentes($limite = 5) {
+			$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('Noticia.categoria_id' => $this->id), 
 															 'order' => 'Noticia.id DESC',
-															 'limit' => $limite));				
-			}
+															 'limit' => $limite));
 			
 			return $noticias;												 
-		}
-
-		public function getNoticiasRecentesFilhos($limite = 5) {
-			$id_filhos = $this->getIdFilhos();
-
-			$noticias = $this->_view->CmsNoticias->getNoticias(array('conditions' => array('OR' => array('Noticia.categoria_id' => $this->id), array('Noticia.categoria_id' => $id_filhos)   ), 
-															 'order' => 'Noticia.id DESC',
-															 'limit' => $limite));
-			return $noticias;												 
+			// if ($noticia) { 
+				// return $noticia[0];
+			// } else {
+				// return null;
+			// }
 		}
 		
 		public function getNoticias() {
@@ -83,7 +73,9 @@
 		public function getProximasNoticias() {
 			$cond = array(
 							'Noticia.status_id' => Noticia::STATUS_PUBLICO,
-							'Noticia.datahora_prog_pub >' => date('Y-m-d H:i:s')
+							'Noticia.datahora_prog_pub >' => date('Y-m-d H:i:s'),
+							//'OR' => array('Noticia.datahora_prog_exp >' => 'NOW()',
+								//		  'Noticia.datahora_prog_exp' => null)
 						 );
 						 
 			return $this->_view->CmsNoticias->getNoticias(array('conditions' => $cond), 0);
@@ -91,31 +83,6 @@
 		
 		public function getNoticiasPath() {
 			return Router::url('/' . 'noticias' . '/' . 'listar' . '/' . $this->id, true);
-		}
-
-		public function createPath($plugin, $action = null){
-			$url = '';
-
-			if($plugin != null){
-				$url = '/' . strtolower($plugin);
-			}
-
-			$url .= '/';
-
-			if($action != null){
-				$url .= strtolower($action) . '/' . $this->id;
-			}
-
-			return Router::url($url, true);
-		}
-
-		public function getNoticiasPathCategoriaPai(){
-			$categoria_pai = $this->getCategoriaPai();
-			if($categoria_pai != null){
-				return Router::url('/' . strtolower($categoria_pai->identificador) . '/' . 'listar' . '/' . $this->id, true);
-			}else{
-				return Router::url('/' . strtolower($this->identificador) . '/' . 'listar' . '/' . $this->id, true);
-			}
 		}
 
 		public function getDescricao() {
@@ -135,35 +102,7 @@
 		public function htmlTitulo($nivel = 3, array $options = array()) {
 			return $this->_view->Html->tag("h$nivel", $this->titulo, $options);
 		}
-
-		public function getCategoriaPai(){
-			$result = $this->_view->CmsCategorias->getCategorias(array('conditions' => array('Categoria.id' => $this->parent_id), 
-															           'order' => 'Categoria.titulo ASC'));	
-
-			while($result){
-				if($result[0]->parent_id == null){
-					return $result[0];
-				}else{
-					$result = $this->_view->CmsCategorias->getCategorias(array('conditions' => array('Categoria.id' => $result->parent_id), 
-															                   'order' => 'Categoria.titulo ASC'));
-				}				
-			}
-
-			return null;
-		}
-
 		
-		public function getIdFilhos(){
-			$id_array = null;
-			$filhos = $this->getFilhos();
-
-			if($filhos){
-				foreach ($filhos as $key => $value) {
-					$id_array[] = $value->id;
-				}
-			}
-
-			return $id_array;
-		}
+		
 		
 	}

@@ -8,7 +8,7 @@
 ?>
 
 	<div id="flashMessage" class="message">
-		<div class="row" role="alert">
+		<div class="row">
 			<?php $html = array_unique($html); ?>
 			
 			<?php echo (count($html) == 1) ? "<a href=\"#message\" id=\"message\"> O seguinte erro foi encontrado:</a>" 

@@ -13,35 +13,11 @@
 </div>
 
 <?php if( empty($perfilPaginate) ) { ?>
-	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de perfis.', 
-                                 Router::url(array('plugin' => 'perfis', 'controller' => 'perfis', 'action' => 'index'), true)); ?>
-    </p>
+	<ul>
+		<p class="noInfo">Nenhum perfil encontrado.</p>
+	</ul>
 
 <?php } else { ?>
-	
-	<?php $perfilCount = count($perfilPaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($perfilCount > 1) {
-             ?>
-                Foram encontrados <?php echo $perfilCount; ?> perfis.
-            
-            <?php } else { ?>
-
-                Foi encontrado 1 perfil.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de perfis.', 
-                                     Router::url(array('plugin' => 'perfis', 'controller' => 'perfis', 'action' => 'index'), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
 	<table class="row" summary="Tabela de Listagem de perfis.">
 		<thead>
 			<tr>
@@ -53,8 +29,8 @@
 		<tbody>
 			<?php foreach($perfilPaginate as $perfil): ?>
 				<tr>
-					<td><?php echo $this->CmsUtil->limitarTexto($perfil['Perfil']['nome'], 32, " ..."); ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($perfil['Perfil']['descricao'], 32, " ..."); ?></td>
+					<td><?php echo $perfil['Perfil']['nome']; ?></td>
+					<td><?php echo $perfil['Perfil']['descricao']; ?></td>
 					<td>
 						<ul>
 							<li><?php echo $this->Html->link('Visualizar <span class="oculto">perfil: ' . $perfil['Perfil']['id'] . '</span>', 

@@ -66,7 +66,7 @@ class CmsAdminSessionHelper extends SessionHelper {
 				}
 //				$out = '<div id="' . $key . 'Message" class="' . $class . '">' . $message . '</div>';
 				$out = '<div id="' . $key . 'Message" class="' . $class . '">';
-					$out .= '<div class="row" role="alert">';
+					$out .= '<div class="row">';
 						$out .= '<a href="#message" id="message">' . $message . '</a>';
 		
 						$modo_sistema = $this->requestAction(

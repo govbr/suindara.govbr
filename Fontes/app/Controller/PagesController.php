@@ -105,10 +105,6 @@ class PagesController extends AppController {
 	
 	
 	public function beforeFilter() {
-		$this->instalar();
-
-		$this->set("fromTemplate", true);
-
 		parent::beforeFilter();
 		$siteAtual = $this->requestAction(array('ra' => true, 
 												'plugin' => 'sites', 
@@ -156,11 +152,9 @@ class PagesController extends AppController {
 		$paramFirstIndex = 0;
 		$templateFileFound = false;
 		$templateFile = null;
-
-		if (!preg_match('/\/admin\//', $this->here))
-			App::build(array('View' => array(Configure::read('Template.dir') . DS)));
 		
 	
+		
 		foreach ($vars as $res) {
 			$paramFirstIndex++;
 			if ($res) {
@@ -190,7 +184,7 @@ class PagesController extends AppController {
 			}	
 		}
 		
-		
+		App::build(array('View' => array(Configure::read('Template.dir') . DS)));
 		$this->viewPath = $viewBase;
 		$this->view = $templateFile;
 		 
@@ -237,12 +231,6 @@ class PagesController extends AppController {
 		$this->set('noticias', $data);			
 	
 		return $this->templateFinder();
-	}
-
-	public function instalar(){
-		if(Configure::read('Database.installed') === 'false'){
-			$this->redirect(Router::url('/instalar', true));
-		}
 	}
 }
 

@@ -318,10 +318,6 @@ class CmsController extends Controller {
 					}
 				break;
 
-			case 'imagem':
-					return '- Edição de imagem';
-				break;
-
 			case 'view':
 					return '- Vizualização de ' . ucfirst($controller);
 				break;

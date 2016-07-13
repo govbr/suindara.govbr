@@ -69,7 +69,8 @@
 										<?php 
 											$posicoes = array('position-0', 'position-5', 'position-10');
 											$cores = array('azul-claro', 'verde', 'laranja');
-											$categorias = array('Acessibilidade Projetos', 'TA Projetos', 'Pedagogico Cursos');
+											//$categorias = array('Suindara', 'TA Projetos', 'Pedagogico Cursos');
+											$categorias = array('Suindara', 'Notícias', 'Destaques');
 											
 											for ($i = 0; $i < 3; $i++) {
 												
@@ -144,28 +145,28 @@
 									
 								<!-- Inicio Noticias -->	
 								<?php 
-									$assunto = $this->CmsCategorias->getCategoria('Eventos');
+									//$assunto = $this->CmsCategorias->getCategoria('Eventos');
 								?>
-								
+								<!--
 								<div class="row">
 									<div class="cell width-15 position-0 ">
 										<div>
 											<div class="tile">
 												<div class="outstanding-header">
-													<?php if ($assunto) { ?>
-														<h2 class="outstanding-title">+ <?php echo $assunto->titulo ?></h2>
-														<p><?php echo $assunto->descricao ?></p>
-													<?php } ?>
+													<?php //if ($assunto) { ?>
+														<h2 class="outstanding-title">+ <?php //echo $assunto->titulo ?></h2>
+														<p><?php //echo $assunto->descricao ?></p>
+													<?php //} ?>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								
+								-->
 								<div class="row">
 									
 									<?php 
-										$posicoes = array('position-0', 'position-5', 'position-10');
+										/*$posicoes = array('position-0', 'position-5', 'position-10');
 									
 										if ($assunto) {
 											$noticias = $assunto->getNoticiasRecentes(6);
@@ -174,63 +175,63 @@
 												
 											$p = $posicoes[$i];
 											
-											if (isset($noticias[$i])) {	
+											if (isset($noticias[$i])) {	*/
 									 ?>
 									 
-											 <div class="cell width-5 <?php echo $posicoes[$i] ?> ">
+										<!--	 <div class="cell width-5 <?php //echo $posicoes[$i] ?> ">
 												<div>
 													<div class="tile">
 														<div>
-															<p class="tile-subtitle"><?php echo $noticias[$i]->cartola ?></p>
+															<p class="tile-subtitle"><?php //echo $noticias[$i]->cartola ?></p>
 															<a class="imag" href="#"> 
 																<?php 
-															 		$img = $noticias[$i]->getImagemDestaque();
+															 		/* $img = $noticias[$i]->getImagemDestaque();
 																	if ($img) {
 																	
-																		echo $img->htmlImagem(TIMG_PEQUENA, array('width' => 220, 'height' => 130, 'class' => 'left'));
+																		echo $img->htmlImagem(TIMG_PEQUENA, array('width' => 220, 'height' => 130, 'class' => 'left')); */
 																?>
 															 
-															 	<?php } else { 
+															 	<?php /* } else { 
 															 			echo $this->CmsTemplate->htmlParaImagem('imagem-indisponivel.jpg', array('width' => '220', 'height' => '130', 
 															 																				 'class' => 'left',
-																																			 'alt' => 'Imagem indisponível'));
-															  	} ?>
+																																			 'alt' => 'Imagem indisponível')); 
+															  	} */ ?>
 															</a>
 
 															<h3>
-																<a href="<?php echo $noticias[$i]->getPath() ?>" title="<?php echo $noticias[$i]->titulo ?>"><?php echo $this->CmsUtil->limitarTexto($noticias[$i]->titulo, 50, '...') ?></a>
+																<a href="<?php //echo $noticias[$i]->getPath() ?>" title="<?php //echo $noticias[$i]->titulo ?>"><?php //echo $this->CmsUtil->limitarTexto($noticias[$i]->titulo, 50, '...') ?></a>
 															</h3>
-															<p class="tile-description"><?php echo $this->CmsUtil->limitarTexto($noticias[$i]->htmlResumo(array(), false, true), 110, '...') ?></p>
+															<p class="tile-description"><?php //echo $this->CmsUtil->limitarTexto($noticias[$i]->htmlResumo(array(), false, true), 110, '...') ?></p>
 															
 															<div class="visualClear"></div>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div>-->
 										
 									<?php 
-										}
+										/*}
 										  } 
-									} // Fim for ?>										
+									} */ // Fim for ?>										
 									</div>
 									
-									<div class="visualClear sep"></div>
+								<!--	<div class="visualClear sep"></div>
 									
 									<div class="row">
 									
 									<?php 
-										for ($i = 3; $i < 6; $i++) {
+										/* for ($i = 3; $i < 6; $i++) {
 										
 										if (isset($noticias[$i])) {	
 									 ?>
 									 
-											 <div class="cell width-5 <?php echo $posicoes[$i - 3] ?> ">
+											 <div class="cell width-5 <?php //echo $posicoes[$i - 3] ?> ">
 												<div>
 													<div class="tile">
 														<div>
-															<p class="tile-subtitle"><?php echo $noticias[$i]->cartola ?></p>
+															<p class="tile-subtitle"><?php //echo $noticias[$i]->cartola ?></p>
 															<h3>
-																<a href="<?php echo $noticias[$i]->getPath() ?>" title="<?php echo $noticias[$i]->titulo ?>"><?php echo $this->CmsUtil->limitarTexto($noticias[$i]->titulo, 80, '...') ?></a>
+																<a href="<?php //echo $noticias[$i]->getPath() ?>" title="<?php //echo $noticias[$i]->titulo ?>"><?php //echo $this->CmsUtil->limitarTexto($noticias[$i]->titulo, 80, '...') ?></a>
 															</h3>
 															<div class="visualClear"></div>
 														</div>
@@ -239,9 +240,9 @@
 											</div>
 											
 									<?php 
-										} 
-									} // Fim for ?>										
-									</div>
+										/*} 
+									} */ // Fim for ?>										
+									</div> -->
 
 								</div>
 							</div>							

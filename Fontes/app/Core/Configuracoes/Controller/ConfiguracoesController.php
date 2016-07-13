@@ -6,7 +6,6 @@
 		public $name = 'Configuracoes';
 
 		public function admin_edit(){
-			//phpinfo();
 
 			if ($this->request->isPost() || $this->request->isPut()) {
 

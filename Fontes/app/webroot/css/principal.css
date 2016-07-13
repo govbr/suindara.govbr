@@ -142,11 +142,11 @@
 		display: block;
 		text-indent: -20000px;
 		font-size: 0;
-		background: url(../img/menu_bullet.png) no-repeat center center;
-		height: 16px;
-		width: 16px;
+		background: url(../img/bullet.png) no-repeat center center;
+		height: 7px;
+		width: 8px;
 		float: right;
-		margin: 0 0 0 12px;
+		margin: 7px 0 0 12px;
 	}
 
 	div#topo #opcoes_acessibilidade a:hover,
@@ -1598,13 +1598,12 @@
 	}
 	form input[type='text'],
 	form input[type='email'],
-	form input[type='number'],
 	form input[type='password']{
 		-webkit-border-radius: 5px;
 		-moz-border-radius: 5px;
 		border-radius: 5px;
 		padding: 1% 1.5%;
-		border: 1px solid #cfc8bc !important;
+		border: 1px solid #cfc8bc;
 		color: #797979;
 		margin: 5px 0 15px 0;
 	}
@@ -1917,10 +1916,6 @@
 		border: none;
 		padding: 0;
 		margin-top: 10px;
-	}
-	div.form form fieldset.checkbox legend{
-		margin: 0 0 5px 0 !important;
-		color: #444;
 	}
 	div.form form legend span{
 		font-size: 1.125em;

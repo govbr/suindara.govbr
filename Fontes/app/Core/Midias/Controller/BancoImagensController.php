@@ -82,19 +82,9 @@ class BancoImagensController extends MidiasAppController {
 
 	public function admin_index() {
 		$query = $this->params->query;
-
-		$options = array(
-            'fields' 	 => array('Midia.id', 'Midia.titulo', 'Midia.descricao', 'Midia.arquivo', 'Midia.fonte', 'Midia.versao_textual', 'Midia.tamanho', 'Midia.banco_imagens', 'Midia.mime_id', 'Midia.tipo_id', 'Midia.crop_x', 'Midia.crop_y', 'Midia.crop_x2', 'Midia.crop_y2', 'Midia.crop_w', 'Midia.crop_h', 'Midia.ativa', 'Midia.nome_original'),
-            'conditions' => array('Midia.banco_imagens' => 1, 'Midia.tipo_id' => IMAGEM),
-            'order' 	 => array('Midia_titulo' => 'DESC'),
-            'limit' 	 => 16,
-            'url' 		 => array('controller' => 'Midias', 'action' => '?', 'admin' => true)
-        );
-
-        $this->paginate = $options;
 		
-		// $this->paginate['conditions']['Midia.banco_imagens'] = 1;
-  		// $this->paginate['conditions']['Midia.tipo_id'] = IMAGEM;
+		$this->paginate['conditions']['Midia.banco_imagens'] = 1;
+    	$this->paginate['conditions']['Midia.tipo_id'] = IMAGEM;
 		
 		if(!empty($query)) {
 			
@@ -177,10 +167,10 @@ class BancoImagensController extends MidiasAppController {
 		        $this->Midia->validator()->getField('arquivo')->getRule('tamanho')->message[2] = $fileSize;
 				$this->Midia->validator()->getField('arquivo')->getRule('isUnique')->message[1] = $arqName;
 				$this->Midia->validator()->getField('arquivo')->getRule('mime')->message[1] = $arqName;
-				$this->Midia->validator()->getField('arquivo')->getRule('mime2')->message[1] = $arqName;
 				
 
 				$new['Midia']['titulo'] = $midiaConfig->removeExt($new['Midia']['arquivo']['name']);
+				
 				if(!$this->Midia->save($new)) {
 					$errors[] = $this->Midia->validationErrors['arquivo'][0];
 				}

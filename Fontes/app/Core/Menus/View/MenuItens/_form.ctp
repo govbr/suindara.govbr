@@ -63,17 +63,6 @@
 	<?php echo $this->Html->link('Cancelar', array('plugin' => 'menus', 'controller' => 'menu_itens', 'action' => 'index', $menu_id), array('id'=>'cancelar')); ?> 
 </div>
 <?php
-
-// ainda vai ferrar 
-
-// Quando o código abaixo parar de funcionar, siga os passos do Goku
-
-// Passo 1: encontre as esferas do dragão
-// Passo 2: invocar ShenLong
-// Passe 3: faça seu pedido para que o kuririn renasça
-
-// P.S.: nem ShenLong salva esse código
-
 $this->Html->scriptBlock("
 $(document).ready(function () {
     $('#atualizarSJS').bind('click', function(e){
@@ -85,13 +74,13 @@ $(document).ready(function () {
     			$('#link_extra').html('');
     			break;
     		case '2': //Link
-    			action = '" . Router::url(array('plugin' => 'menus' ,'controller' => 'ajax', 'action' => 'menu_itens_link'))."';
+    			action = '". $this->Html->url(array('controller' => 'ajax', 'action' => 'menu_itens_link'))."';
     			break;
     		case '3': //Página
-    			action = '" . Router::url(array('plugin' => 'menus' ,'controller' => 'ajax', 'action' => 'menu_itens_paginas'))."';
+    			action = '" .$this->Html->url(array('controller' => 'ajax', 'action' => 'menu_itens_paginas'))."';
     			break;
     		case '4': //categoria
-    			action = '" . Router::url(array('plugin' => 'menus' ,'controller' => 'ajax', 'action' => 'menu_itens_categorias'))."';
+    			action = '".$this->Html->url(array('controller' => 'ajax', 'action' => 'menu_itens_categorias'))."';
     			break;
     	}
 

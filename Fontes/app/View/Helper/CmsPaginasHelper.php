@@ -57,7 +57,8 @@
 												  'plugin' => 'paginas', 
 					      				          'controller' => 'paginas', 
 					      				          'action' => 'ra_view'), array($id));
-				
+				//pr($n); die();
+				//$n['Pagina']['GruposBanners'] = $n['GruposBanners'];
 				return new CmsPagina($n['Pagina'], $this->_View);
 			} else {
 				return null;

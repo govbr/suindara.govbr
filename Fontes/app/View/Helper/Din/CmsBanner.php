@@ -53,7 +53,7 @@
 		
 		public function getLink() {
 			switch ($this->bm_tipo_id) {
-				case BAN_LINK : 
+				case MENU_LINK : 
 						$matches = array();
 						if (preg_match("/^(www)|(.+?:\/\/).*$/", $this->link, $matches)){
 							if ($matches[1]) return 'http://' . $this->link;
@@ -62,13 +62,12 @@
 						} else {
 							return Router::url($this->link , true);	
 						}
-						break;
 				
-				case BAN_PAGINA :
+				case MENU_PAGINA :
 						$p = $this->_view->CmsPaginas->getPagina($this->pagina_id);
 						return $p->getPath();
 						
-				case BAN_CATEGORIA :
+				case MENU_CATEGORIA :
 						$c = $this->_view->CmsCategorias->getCategoria($this->categoria_id);
 						return $c->getNoticiasPath();
 						

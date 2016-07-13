@@ -1,7 +1,7 @@
 <?php
 
-echo $this->Form->create('Mime', array('type' => 'post'));
-echo $this->Form->input('Mime.search', array('label' => 'Palavras-chave'));
+echo $this->Form->create('Mime', array('type' => 'get'));
+echo $this->Form->input('Mime.palavras', array('label' => 'Palavras-chave'));
 ?>
 <fieldset>
 	<legend>Filtrar por</legend>

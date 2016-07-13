@@ -127,7 +127,7 @@
 					<div id="social-icons">
 						<ul>							
 							<?php
-								$menu = $this->CmsMenu->getMenu('GovRodape')->getSubMenu('redes_sociais');
+								$menu = $this->CmsMenu->getMenu('GovRodape')->getSubMenu('Redes sociais');
 								$cssCompl = array('twitter', 'youtube', 'facebook', 'flickr');
 								
 								foreach ($menu->getItens() as $i => $it) {
@@ -146,7 +146,7 @@
 				<div id="sobre">
 					<ul>
 						<?php 
-							$menu = $this->CmsMenu->getMenu('GovTopo')->getSubMenu('servicos');
+							$menu = $this->CmsMenu->getMenu('GovTopo')->getSubMenu('Serviços');
 							foreach ($menu->getItens() as $it) {
 						?>
 						

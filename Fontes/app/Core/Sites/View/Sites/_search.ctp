@@ -1,6 +1,5 @@
 <?php
-    echo $this->Form->create('Site', array('type' => 'post', 
-    									   'id' => 'formBuscaSimples')); 
+    echo $this->Form->create('Site', array('id' => 'formBuscaSimples','type' => 'get')); 
 
     echo $this->Form->input('Site.search', array('label' 	=> 'Pesquisar', 
     											 'id'       => 'pesquisa', 

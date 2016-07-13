@@ -1,8 +1,6 @@
 <?php
-	echo $this->Form->create('Banner', array('id' => 'formBuscaAvancada',
-											 'type' => 'post'));
-	
-	echo $this->Form->input('Banner.search', array('label' => 'Palavras-chave'));
+	echo $this->Form->create('Banner', array('id' => 'formBuscaAvancada','type' => 'get'));
+	echo $this->Form->input('Banner.palavras', array('label' => 'Palavras-chave'));
 ?>
 
 <fieldset>

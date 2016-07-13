@@ -10,6 +10,7 @@
 	<div id="busca_simples" class="eightcol">
 		<?php echo $this->element('../BancoImagens/_search'); ?>
 	</div>
+
 </div>
 
 
@@ -63,4 +64,4 @@
 	</ul>
 
 <?php }
-	echo $this->Element('paginatorOther');
+	echo $this->Element('paginator');

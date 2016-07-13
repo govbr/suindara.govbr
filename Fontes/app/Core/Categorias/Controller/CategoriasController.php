@@ -46,14 +46,12 @@ App::uses('CategoriasAppController', 'Categorias.Controller');
 class CategoriasController extends CategoriasAppController {
 	public $name = 'Categorias';
 
-	public $components = array('TreeList');
-
 	public function admin_index(){
-		$emptySearches = false;
-		$conditions = array('Categoria.site_id' => $this->site_id);
+		$this->numerar($this->site_id);
 
 		$options = array(
-            'conditions' => $conditions,
+            'fields' 	 => array('Categoria.id', 'Categoria.titulo', 'Categoria.descricao', 'Categoria.identificador'),
+            'conditions' => array('Categoria.site_id' => $this->site_id),
             'order' 	 => array('Categoria.lft' => 'ASC'),
             'limit' 	 => 15,
             'url' 		 => array('controller' => 'Categorias', 'action' => 'index', 'admin' => true)
@@ -61,77 +59,80 @@ class CategoriasController extends CategoriasAppController {
 
 		$this->paginate = $options;
 
-		if(isset($this->params->query['limit'])){
-	    	$this->paginate['limit'] = $this->params->query['limit'];
-	    }
+		$query = $this->params->query;
 
-    	if( $this->request->isPost() ){
-    		$emptySearches = true;
+    	if(!empty($query)) {
+	    	if( isset($query['search']) && trim($query['search']) != "") {
+	    		$this->search($query);
+				$this->set('categoriaPaginate', $this->paginate());
 
-    		if(isset($this->request->data['Categoria']['search'])){
-    			$palavra_chave = $this->request->data['Categoria']['search'];
-    			if(!empty($palavra_chave)){
-    				$palavra_chave = '%' . trim($palavra_chave) . '%';
-    				$conditions[] = array("OR" => array( 
-												"Categoria.titulo LIKE " => $palavra_chave,
-												"Categoria.descricao LIKE " => $palavra_chave
-										  ));
-    			}
-    		}
+	    	} else if(isset($query['aplicar_pesquisa_avançada']) && (trim($query['palavras'] != "" || trim($query['parent_id'] != "") )   ) ){
+	    		$this->advancedSearch($query);
+				$this->set('categoriaPaginate', $this->paginate());
 
-    		if(isset($this->request->data['Categoria']['parent_id'])){
-    			$palavra_chave = (int)$this->request->data['Categoria']['parent_id'];
-				if ($palavra_chave > 0) {
-					$conditions[] = "(Categoria.parent_id = $palavra_chave
-									  OR Categoria.id = $palavra_chave)";
-				}else{
-					$conditions[] = "Categoria.id > 0";
-				}
-    		}
+	    	} else if( isset($query['limit']) ) {
+	    		$this->paginate['limit'] = $query['limit'];
+	    		$this->set('categoriaPaginate', $this->paginate());
 
-    		if( count($conditions) > 1 ) {
-				$emptySearches = false;
-			}
-    	}
+	    	} else {
 
-    	if($emptySearches){
-			// sem nada na pesquisa
-			$this->params['paging'] = array
-	            (
-	                'Categoria' => array
-	                    (
-	                        'page'      => 1,
-	                        'current'   => 0,
-	                        'count'     => 0,
-	                        'prevPage'  => null,
-	                        'nextPage'  => null,
-	                        'pageCount' => 0,
-	                        //'order' => 
-	                        'limit'     => 1,
-	                        'options'   => array(),
-	                        'paramType' => 'named'
-	                    )
-	            );
+	    		// sem nada na pesquisa
+				$this->params['paging'] = array
+	                (
+	                    'Categoria' => array
+	                        (
+	                            'page' => 1,
+	                            'current' => 0,
+	                            'count' => 0,
+	                            'prevPage' => null,
+	                            'nextPage' => null,
+	                            'pageCount' => 0,
+	                            //'order' => 
+	                            'limit' => 1,
+	                            'options' => array(),
+	                            'paramType' => 'named'
+	                        )
+	                );
 
-	        $this->paginate('Categoria');
-			$this->set('categoriaPaginate', array());
-		} else{
-			$data = $this->paginate('Categoria', $conditions);
-			$this->set('categoriaPaginate', $data);	
-		}
+	    		$this->set('categoriaPaginate', array());
+	    	} 
+    	}else {
+    		$this->set('categoriaPaginate', $this->paginate());
+    	} 
+
+    	$this->set('parents', $this->Categoria->generateTreeList(array('Categoria.site_id =' => $this->site_id), null, '{n}.Categoria.titulo', ''));
+	}
+
+	private function search($query){
+		if(!isset($query['search']) || trim($query['search']) == "")
+			return;
+		$like = '%' . trim($query['search']) . '%';
+    	$this->paginate['conditions'] = array('Categoria.site_id' => $this->site_id,
+    		'OR' => array(
+	    		'Categoria.titulo LIKE' => $like,
+	    		'Categoria.descricao LIKE' => $like
+    		)
+    	);
+	}
+
+	private function advancedSearch($query){
+		$conditions = array('Categoria.site_id' => $this->site_id);
 		
-		$results = $this->Categoria->find('all',
-                        array(
-                            'conditions' => array('Categoria.site_id LIKE' => $this->site_id),
-                            'recursive' => 1,
-                            'order' => 'Categoria.lft ASC'
-                        )
-                    );
+		if(isset($query['palavras'])){
+			foreach(split(',', $query['palavras']) as $palavra) {
+				$palavra = trim($palavra);
+				if($palavra != "") {
+					$conditions['OR'][]['Categoria.titulo LIKE'] = '%'.$palavra.'%';
+			    	$conditions['OR'][]['Categoria.descricao LIKE'] = '%'.$palavra.'%';
+			    }
+			}
+		}
 
-		$result = $this->TreeList->numerar($results);
+		if(isset($query['parent_id']) && trim($query['parent_id']) != ""){
+			$conditions['OR'][]['Categoria.parent_id LIKE'] = trim($query['parent_id']);
+		}
 
-		$this->set('numeracao', $result);		
-    	$this->set('parents', $this->TreeList->converterToList($result));
+    	$this->paginate['conditions'] = $conditions;
 	}
 
 	public function admin_add(){
@@ -154,13 +155,7 @@ class CategoriasController extends CategoriasAppController {
 
 		$this->set('titulo_modulo', 'Cadastro');
 
-		$result = $this->Categoria->find('all', array( 'conditions' => array('Categoria.site_id' => $this->site_id),
-													   'order' => 'Categoria.lft ASC'));
-
-		$this->set('parents', $this->TreeList->numerar($result, true));
-
-		$perfis = $this->Categoria->Perfil->find('list', array('fields'=>array('nome')));
-        $this->set(compact('perfis'));
+		$this->set('parents', $this->Categoria->generateTreeList(array('Categoria.site_id =' => $this->site_id), null, '{n}.Categoria.titulo', null));
 	}
 
 	public function admin_edit($id = null) {
@@ -179,6 +174,7 @@ class CategoriasController extends CategoriasAppController {
 					unset($this->request->data['CategoriaPerfil']);
 					}
 					if ($this->Categoria->saveAll($this->request->data)) {
+						//$this->numerar($this->site_id);
 						$this->Session->setFlash('Categoria editada com sucesso', 'success');
 						$this->redirect(array('controller' => 'categorias', 'action' => 'index', 'admin' => true));
 					} else {
@@ -202,12 +198,8 @@ class CategoriasController extends CategoriasAppController {
 		}
 
 		if($this->request->data){
-			$result = $this->Categoria->find('all', array('conditions' => array('Categoria.site_id' => $this->site_id),
-													   	  'order' => 'Categoria.lft ASC'));
-
-			$this->set('parents', $this->TreeList->numerar($result, true));
-
 			$this->set('data', $this->request->data);
+			$this->set('parents', $this->Categoria->generateTreeList(array('Categoria.id <>' => $id, 'Categoria.site_id =' => $this->request->data['Categoria']['site_id']), null, '{n}.Categoria.titulo', null));
 		}
 
 		$this->set('titulo_modulo', 'Edição');
@@ -230,7 +222,6 @@ class CategoriasController extends CategoriasAppController {
 				$this->Session->setFlash('Categoria não foi deletada');
 			}
 		}
-
 		$this->redirect(array('controller' => 'categorias', 'action' => 'index', 'admin' => true));
 	}
 
@@ -252,6 +243,70 @@ class CategoriasController extends CategoriasAppController {
 		$this->set('categoria_pai', $this->Categoria->findById($categoria['Categoria']['parent_id']));
 	}
 
+	private function numerar($site_id){
+
+    	$results = $this->Categoria->find('all',
+                        array(
+                            'conditions' => array('Categoria.site_id LIKE' => $site_id),
+                            'recursive' => 1,
+                            'fields' => array('Categoria.id', 'Categoria.lft', 'Categoria.rght'),
+                            'order' => 'Categoria.lft ASC'
+                        )
+                    );
+
+        $stack = array();
+        $lastArray = array();
+        $arrayCount = array();
+        $contagem = 1;
+
+        foreach ($results as $i => $result) {
+            $count = count($stack);
+            while ($stack && ($stack[$count - 1] < $result['Categoria']['rght'])) {
+                array_pop($stack);
+                $count--;
+            }
+
+            array_push($arrayCount, $count);
+            if( isset($arrayCount[count($arrayCount) - 1]) && isset($arrayCount[count($arrayCount) - 2])  ){
+            	$ultimo = $arrayCount[count($arrayCount) - 1];
+            	$penultimo = $arrayCount[count($arrayCount) - 2];
+
+				if($ultimo > $penultimo){
+	            	if(empty($lastArray)){
+	            		$lastArray[0] = $contagem;
+	            	}else{
+	            		array_push($lastArray, $contagem); 
+	            	}
+	            	$contagem = 1;
+	            }else{
+	            	if($ultimo < $penultimo){
+	            		$contagem = $lastArray[count($lastArray) - 1]; 
+	            		unset($lastArray[count($lastArray) - 1]);
+	            		sort($lastArray);
+	            	}
+	            }	            	
+            }
+
+            $contagemPai = "";
+            for($j = 0; $j < $count; $j++){
+            	if(empty($contagemPai)){
+            		$contagemPai = 	($lastArray[$j] - 1);
+            	}else{
+            		$contagemPai = ($contagemPai . '.' . ($lastArray[$j] - 1) ); 	
+            	}
+            }
+            
+            if($count == 0){
+            	$results[$i]['Categoria']['numero'] = $contagem ;
+            }else{
+            	$results[$i]['Categoria']['numero'] = ( $contagemPai ) . '.' . $contagem ;
+            }
+            $stack[] = $result['Categoria']['rght'];
+            $contagem++;
+        }
+        $this->set('numeracao', $results);
+    }
+
 	private function _formAddPerfil(){
 		if( array_key_exists('CategoriaPerfil', $this->request->data) ){
 			array_push( $this->request->data['CategoriaPerfil'], array('id' => $this->request->data['unused']['lastRow']) );
@@ -265,32 +320,18 @@ class CategoriasController extends CategoriasAppController {
 		sort($this->request->data['CategoriaPerfil']);
 	}
 
-	private function clearFormDelete(){
-		unset($this->request->data['CategoriaPerfil']);
-	}
-
 	public function beforeFilter(){
     	parent::beforeFilter();
 		$this->set('title_for_layout', $this->stringAction($this->action, 'categoria') );
 	}
 
-	public function ra_query($type = 'all', $options = array(), $basicRules = true) {
+	public function ra_query($type = 'all', $options = array()) {
 		if (!empty($this->request->params['requested'])) {
-			$siteAtual = Configure::read('Site.Atual');
-
 			if ($options) {
 				$opt = json_decode(urldecode($options), true);
-				if ($basicRules) {
-					if (isset($opt['conditions'])) {
-						$opt['conditions']['Categoria.site_id'] = $siteAtual['id'];
-					}else{
-						$opt['conditions'] = array('Noticia.site_id' => $siteAtual['id']);
-					}
-				}
 				return $this->Categoria->find($type, $opt);
 			} else {
-				return $this->Categoria->find($type, array('conditions' => array('Categoria.site_id' => $siteAtual['id']
-																				)));
+				return $this->Categoria->find($type);
 			}		
 		}
 	}
@@ -300,14 +341,7 @@ class CategoriasController extends CategoriasAppController {
 			return null;
 		}
 
-		$result = $this->Categoria->find('all', array( 'recursive' => 1,
-														'fields' => array('Categoria.id', 'Categoria.titulo', 'Categoria.parent_id', 'Categoria.lft', 'Categoria.rght'),
-														'order' => 'Categoria.lft ASC',
-														'conditions' => array('Categoria.site_id' => $this->site_id)
-													  ));
-		$result = $this->TreeList->numerar($result, true);
-
-		return $result;
+		return $this->Categoria->find('list', array( 'fields' => array('Categoria.id', 'Categoria.titulo')));
 	}
 
 	public function isAuthorized($user) {

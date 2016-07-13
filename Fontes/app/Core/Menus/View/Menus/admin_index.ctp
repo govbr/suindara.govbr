@@ -13,36 +13,11 @@
 </div>
 
 <?php if( empty($menuPaginate) ) { ?>
-	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de grupos.', 
-                                 Router::url(array('plugin' => 'menus', 'controller' => 'menus', 'action' => 'index'), true)); ?>
-    </p>
+	<ul >
+    	<p class="noInfo">Nenhum menu encontrado.</p>
+  	</ul>
   	
 <?php } else { ?>
-	
-	<?php $menuCount = count($menuPaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($menuCount > 1) {
-             ?>
-                Foram encontrados <?php echo $menuCount; ?> menus.
-            
-            <?php } else { ?>
-
-                Foi encontrado 1 menu.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de menus.', 
-                                     Router::url(array('plugin' => 'menus', 'controller' => 'menus', 'action' => 'index'), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
-
 	<table class="row" summary="Tabela de listagem de Menus.">
 		<thead>
 			<tr>
@@ -55,8 +30,8 @@
 
 			<?php foreach($menuPaginate as $menu): ?>
 				<tr>
-					<td><?php echo $this->CmsUtil->limitarTexto($menu['Menu']['nome'], 32, " ..."); ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($menu['Menu']['identificador'], 32, " ..."); ?></td>
+					<td><?php echo $menu['Menu']['nome']; ?></td>
+					<td><?php echo $menu['Menu']['identificador']; ?></td>
 					<td>
 						<ul>
 							<li><?php echo $this->Html->link('Itens do Menu <span class="oculto">menu: ' . $menu['Menu']['nome'] . '</span>', 

@@ -124,30 +124,27 @@ class Gd {
 
         $tipo = strtolower($tipo);
 
-        $size = getimagesize($arquivo);
-
         // Aloca a imagem na memória
-        switch ($size["mime"]) {
-            case 'image/jpeg':
+        switch ($tipo) {
+
+            case 'jpeg':
+            case 'jpg':
                 $this->tipo = 'jpg';
                 $this->imgSrc = imagecreatefromjpeg($arquivo);
                 break;
 
-            case 'image/gif':
+            case 'gif':
                 $this->tipo = 'gif';
                 $this->imgSrc = imagecreatefromgif($arquivo);
                 break;
 
-            case 'image/png':
+            case 'png':
                 $this->tipo = 'png';
                 $this->imgSrc = imagecreatefrompng($arquivo);
-                die;
-                pr($this->imgSrc);
                 break;
 
             default:
-                $this->imgSrc = false;
-                return false;
+                print '<strong>Erro:</strong> O arquivo n&atilde;o possui uma extens&atilde;o v&aacute;lida!';
                 break;
         }
 
@@ -171,6 +168,7 @@ class Gd {
      * @param altura
      */
     function redimensionar($largura, $altura) {
+
         $return = imagecreatetruecolor($largura, $altura);
 
         imagecopyresampled($return, $this->imgSrc, 0, 0, 0, 0, $largura, $altura, $this->w, $this->h);
@@ -200,6 +198,7 @@ class Gd {
         }
 
         switch ($sentido) {
+
             case 'x':
                 $largura = $dimensao;
                 $fator = imagesx($this->imgSrc) / $dimensao;
@@ -216,40 +215,6 @@ class Gd {
         if ($this->w > $largura || $this->h > $altura) {
             $this->redimensionar($largura, $altura);
         }
-
-        if($this->w < $largura || $this->h < $altura){
-            $this->estenderLarguraFixa($dimensao);
-        }
-
-        return true;
-    }
-
-
-    /**
-    * Metodo que estende a imagem colocando-a num fundo branco maior.
-    * A largura é definida dentro os tamanhos das imagens. 800 350 220 160
-    */
-    function estenderLarguraFixa($largura, $r = 255, $g = 255, $b = 255) {
-
-        $x = $this->w;
-        $y = $this->h;
-
-        $maiorX = $largura;
-        $maiorY = ( ($y / $x) * $largura);
-
-        $imgMaior = imagecreatetruecolor($maiorX, $maiorY);
-        $branco = imagecolorallocate($imgMaior, $r, $g, $b);
-
-        imagefill($imgMaior, 0, 0, $branco);
-
-        $meioX = ($maiorX - $x) / 2;
-        $meioY = ($maiorY - $y) / 2;
-
-        imagecopymerge($imgMaior, $this->imgSrc, $meioX, $meioY, 0, 0, $x, $y, 100);
-
-        $this->imgSrc = $imgMaior;
-        $this->w = $maiorX;
-        $this->h = $maiorY;
 
         return true;
     }
@@ -310,7 +275,6 @@ class Gd {
         $this->imgSrc = $dest;
         $this->w = $w;
         $this->h = $h;
-
         return true;
     }
 

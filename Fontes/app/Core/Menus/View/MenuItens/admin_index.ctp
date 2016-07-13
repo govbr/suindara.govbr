@@ -19,35 +19,11 @@
 </div>
 
 <?php if( empty($menuItemPaginate) ) { ?>
-	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de itens do menu.', 
-                                 Router::url(array('plugin' => 'menus', 'controller' => 'menu_itens', 'action' => 'index', $menu_id), true)); ?>
-    </p>
+	<ul>
+    	<p class="noInfo">Nenhum item do menu encontrado.</p>
+  	</ul>
 
 <?php } else { ?>
-	
-	<?php $menuItemCount = count($menuItemPaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($menuItemCount > 1) {
-             ?>
-                Foram encontrados <?php echo $menuItemCount; ?> itens do menu.
-            
-            <?php } else { ?>
-
-                Foi encontrado 1 item do menu.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de itens do menu.', 
-                                     Router::url(array('plugin' => 'menus', 'controller' => 'menu_itens', 'action' => 'index', $menu_id), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
 	<table class="row" summary="Tabela de listagem de Itens de Menu.">
 		<thead>
 			<tr>
@@ -71,8 +47,8 @@
 				?>
 				<tr>
 					<td> <?php echo $menuItem['MenuItem']['virtualField']; ?> </td>
-					<td> <?php echo $this->CmsUtil->limitarTexto($menuItem['MenuItem']['nome'], 32, " ..."); ?> </td>
-					<td> <?php echo $this->CmsUtil->limitarTexto($menuItem['MenuItem']['identificador'], 32, " ..."); ?> </td>
+					<td> <?php echo $menuItem['MenuItem']['nome']; ?> </td>
+					<td><?php echo $menuItem['MenuItem']['identificador']; ?> </td>
 					<td> <?php echo $menuItem['BmTipo']['nome']; ?> </td>
 					<td>
 						<ul>
@@ -126,7 +102,7 @@
 															 array('controller' => 'menu_itens', 'action' => 'delete', 'admin' => true, $menuItem['MenuItem']['id']),
 															 array('class'  => 'del',
 																   'escape' => false),
-															 'Voc&ecirc; tem certeza que deseja deletar o item de menu ' . $menuItem['MenuItem']['nome'] . '?'
+															 'Você tem certeza que deseja deletar o item de menu ' . $menuItem['MenuItem']['nome'] . '?'
 															); ?></li>
 						</ul>
 					</td>

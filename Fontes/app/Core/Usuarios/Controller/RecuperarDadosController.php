@@ -97,7 +97,6 @@ class RecuperarDadosController extends UsuariosAppController {
 	                $msg .= "\n\r" . $link;
 
 	                if($email->send($msg)){
-	                	//print($msg);
 	                    $this->Session->setFlash('E-mail enviado com sucesso', 'success');
 	                }else{
 	                    $this->Session->setFlash('Houve um erro ao tentar enviar o e-mail');

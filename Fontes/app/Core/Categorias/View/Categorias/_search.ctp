@@ -1,7 +1,5 @@
 <?php
-    echo $this->Form->create('Categoria', array('type' => 'post', 
-    											'id' => 'formBuscaSimples', 
-    											'url' => array('controller' => 'categorias' , 'action' => 'index'))); 
+    echo $this->Form->create('Categoria', array('id' => 'formBuscaSimples', 'type' => 'get')); 
 
     echo $this->Form->input('Categoria.search', array('label'    => 'Pesquisar', 
     											 	  'id'       => 'pesquisa', 

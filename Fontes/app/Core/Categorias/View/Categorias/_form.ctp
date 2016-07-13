@@ -31,6 +31,7 @@
 			</tr>
 
 			<?php $count = 0; ?>
+			
 			<?php if(isset($this->data['CategoriaPerfil']) ){ ?>
 				<?php $maxPerfil = count($this->data['CategoriaPerfil']); ?>
 				<?php foreach($this->data['CategoriaPerfil'] as $count => $perfil){ ?>
@@ -71,6 +72,7 @@
 		echo '</fieldset>';
 		
 		echo $this->Form->end();
+		//echo $this->Html->link('Descartar' , array('controller' =>'categorias', 'action' => 'index'));
 	?>
 	<?php echo $this->Html->link('Cancelar', array('plugin' => 'categorias', 'controller' => 'categorias', 'action' => 'index'), array('id'=>'cancelar')); ?> 
 </div>

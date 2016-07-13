@@ -65,32 +65,10 @@
 			// TODO Melhorar filtro de crumbs
 			$crumbLinkList = explode('---', $this->_View->Html->getCrumbs('---', array(
 					'text' => $home,
-					'url' => $url,
-					'escape' => false
+					'url' => $url
 				))
 			);
 			
 			return $crumbLinkList;
-		}
-
-
-		function getNomeMes($mes){
-			switch ($mes) {
-		        case "01": $mes = 'Janeiro';   break;
-		        case "02": $mes = 'Fevereiro'; break;
-		        case "03": $mes = 'Março';     break;
-		        case "04": $mes = 'Abril';     break;
-		        case "05": $mes = 'Maio';      break;
-		        case "06": $mes = 'Junho';     break;
-		        case "07": $mes = 'Julho';     break;
-		        case "08": $mes = 'Agosto';    break;
-		        case "09": $mes = 'Setembro';  break;
-		        case "10": $mes = 'Outubro';   break;
-		        case "11": $mes = 'Novembro';  break;
-		        case "12": $mes = 'Dezembro';  break; 
-		        default: $mes = ''; break;
- 			}
-
- 			return $mes;
 		}
 	}

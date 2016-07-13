@@ -146,11 +146,10 @@
 						$matches = array();
 						if (preg_match("/^(www)|(.+?:\/\/).*$/", $this->link, $matches)){
 							if ($matches[1]) return 'http://' . $this->link;
+							//if ($matches[2]) return $this->link;
 							return $this->link;
 						} else {
-							$link_without_index = preg_replace('/index$/', '', $this->link);
-
-							return Router::url($link_without_index , true);	
+							return Router::url($this->link , true);	
 						}
 				
 				case MENU_PAGINA :

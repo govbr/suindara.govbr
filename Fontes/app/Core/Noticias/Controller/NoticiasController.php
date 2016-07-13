@@ -70,11 +70,16 @@ class NoticiasController extends NoticiasAppController {
     public function beforeFilter(){
     	parent::beforeFilter();
 		//$this->set('title_for_layout', 'Not&iacute;cias');
-		if( isset($this->params['pass'][1]) && $this->params['pass'][1] == 'publicar'){
+		//pr($this->params);
+		if( isset($this->params['pass'][1]) && $this->params['pass'][1] == 'publicar' )
+		{
 			$this->set('title_for_layout', $this->stringAction($this->action, 'notícia', 'publicação') );
-		}else{
+		}
+		else
+		{
 			$this->set('title_for_layout', $this->stringAction($this->action, 'notícia') );
-		}	
+		}
+		
 	}
 
 	public function ra_query($type = 'all', $options = array(), $basicRules = true) {
@@ -91,7 +96,6 @@ class NoticiasController extends NoticiasAppController {
 						$opt['conditions']['Noticia.datahora_prog_pub <'] = $now;
 						$opt['conditions']['OR'] =  array('Noticia.datahora_prog_exp >' => $now,
 														  'Noticia.datahora_prog_exp' => null) ;
-
 					} else {
 						$opt['conditions'] = array('Noticia.status_id' => Noticia::STATUS_PUBLICO,
 												  'NOT' => array('Noticia.datahora_publicacao' => null),
@@ -131,42 +135,35 @@ class NoticiasController extends NoticiasAppController {
 
 
 	public function admin_index() {
+		//print_r($this->request->data); die();
 		$emptySearches = false;
 		$conditions = array('Noticia.site_id' => $this->site_id);
-
-		$options = array(
-            'conditions' => $conditions,
-            'limit'      => 15
-        );
-        $this->paginate = $options;
-
-		if(isset($this->params->query['limit'])){
-	    	$this->paginate['limit'] = $this->params->query['limit'];
-	    }
+	
 		
 		if ($this->request->isPost()) {
 			$emptySearches = true;
+			//$author = $this->request->data['Noticia']['author'];
+			// $agendado = $this->request->data['Noticia']['sheduled'];
+			// $data_inicio = $this->request->data['Noticia']['start_date'];
+			// $data_fim = $this->request->data['Noticia']['end_date'];
+			// $categoria = $this->request->data['Noticia']['category'];
 		
 			if (isset($this->request->data['Noticia']['keyword'])) {
 				$palavra_chave = $this->request->data['Noticia']['keyword'];
 				if (!empty($palavra_chave)) {
-					$palavra_chave = '%' . trim($palavra_chave) . '%';
-					$conditions[] = array("OR" => array(
-											"Noticia.titulo LIKE " => $palavra_chave,
-											"Noticia.cartola LIKE " => $palavra_chave,
-											"Noticia.resumo LIKE " => $palavra_chave,
-											"Noticia.texto LIKE " => $palavra_chave
-										  ));
-
+					$conditions[] = "(Noticia.titulo LIKE '%$palavra_chave%' 
+									 OR Noticia.cartola LIKE '%$palavra_chave%'
+									 OR Noticia.resumo LIKE '%$palavra_chave%'
+									 OR Noticia.texto LIKE '%$palavra_chave%')";
 					$emptySearches = false;
-				}
+				} 
+
 			}
 			
 			if (isset($this->request->data['Noticia']['author'])) {
 				$palavra_chave = $this->request->data['Noticia']['author'];
 				if (!empty($palavra_chave)) {
-					$palavra_chave = '%' . trim($palavra_chave) . '%';
-					$conditions[] = array("Noticia.autor LIKE" => $palavra_chave);
+					$conditions[] = "Noticia.autor LIKE '%$palavra_chave%'";
 					$emptySearches = false;
 				}
 			}
@@ -193,26 +190,24 @@ class NoticiasController extends NoticiasAppController {
 					$conditions[] = "Noticia.categoria_id = $palavra_chave";
 				}
 			}
-
-			if( count($conditions) > 1 ) {
-				$emptySearches = false;
-			}
 		}
 		
-		if ($emptySearches){
+
+		if ($emptySearches)
+		{
 			$this->params['paging'] = array
                 (
                     'Noticia' => array
                         (
-                            'page'      => 1,
-                            'current'   => 0,
-                            'count'     => 0,
-                            'prevPage'  => null,
-                            'nextPage'  => null,
+                            'page' => 1,
+                            'current' => 0,
+                            'count' => 0,
+                            'prevPage' => null,
+                            'nextPage' => null,
                             'pageCount' => 0,
-                            //'order'   => 
-                            'limit'     => 1,
-                            'options'   => array(),
+                            //'order' => 
+                            'limit' => 1,
+                            'options' => array(),
                             'paramType' => 'named'
                         )
 
@@ -220,19 +215,24 @@ class NoticiasController extends NoticiasAppController {
 
             $this->paginate('Noticia');
 	    	$this->set('noticias', array());
-		}else{
+		}
+		else
+		{
 			$data = $this->paginate('Noticia', $conditions);
 			$this->set('noticias', $data);	
 		}
 		
+		
+
 		$this->set('agendadoOpts', array('Todos', 'Agendado', 'Não agendado'));
 		//$lista_categorias = $this->requestAction('/admin/categorias/ra_getCategorias');
-		$lista_categorias = $this->requestAction(array('plugin'     => 'categorias', 
+		$lista_categorias = $this->requestAction(array('plugin' => 'categorias', 
 													   'controller' => 'categorias',
-													   'action'     => 'ra_getCategorias', 
-													   'admin'      => true));
+													   'action' => 'ra_getCategorias', 
+													   'admin' => true));
 		$lista_categorias = array('Todas') + $lista_categorias;
 		$this->set(compact('lista_categorias'));
+		
 	}
 	
 	function admin_view($id = null) {
@@ -465,6 +465,7 @@ class NoticiasController extends NoticiasAppController {
 	}
 
 
+
 	function admin_delete($id = null) {
 		$nt = $this->Noticia->findById($id);
 		if ($nt['Noticia']['bloqueado'] 
@@ -521,5 +522,6 @@ class NoticiasController extends NoticiasAppController {
                 return false;
 
         return true;
-    } 
+    }
+	 
 }

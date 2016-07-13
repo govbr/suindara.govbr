@@ -49,7 +49,7 @@ class AjaxController extends MenusAppController {
 	public $name = 'Ajax';
 
 	public function admin_index(){
-
+		
 	}
 
 	public function admin_menu_itens_categorias(){
@@ -64,9 +64,9 @@ class AjaxController extends MenusAppController {
 		
 	}
 
-	// public function isAuthorized($user) {
-	// 	return true;
-	// }
+	public function isAuthorized($user) {
+		return true;
+	}
 
     public function beforeFilter() {
     	parent::beforeFilter();

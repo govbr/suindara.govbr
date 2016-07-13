@@ -40,6 +40,7 @@
 			$this->Html->addCrumb("{$acao} de Página - Conteúdo textual",  array('plugin' => 'paginas', 'controller' => 'paginas', 'action' => 'edit'));
 			echo $this->Html->script('/js/ckeditor/ckeditor.js');
 			echo $this->Form->input('titulo', array('type' => 'text', 'class'=>"w97", 'label' => 'Título'));
+			echo ('O campo a seguir contém funções que podem comprometer a acessibilidade do site. Recomenda-se que as orientações do <a href="http://emag.governoeletronico.gov.br/" alt="Site do eMAG">Modelo de Acessibilidade em Governo Eletrônico - eMAG</a> sejam seguidas. Além disso, sugere-se a realização dos cursos de acessibilidade para <a href="http://www.enap.gov.br/web/pt-br/sobre-curso?p_p_id=enapvisualizardetalhescurso_WAR_enapinformacoescursosportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_r_p_564233524_idCurso=2617" alt="Curso de Acessibilidade Desenvolvedor">desenvolvedor</a> e <a href="http://www.enap.gov.br/web/pt-br/sobre-curso?p_p_id=enapvisualizardetalhescurso_WAR_enapinformacoescursosportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_r_p_564233524_idCurso=2616" alt="Curso de Acessibilidade Conteudista">conteudista</a> oferecidos pela Escola Nacional de Administração Pública - ENAP.<br/><br/>');
 			echo $this->Form->input('texto', array('type' => 'text', 'class' => 'ckeditor w97', 'cols' => '80', 'rows' => '5'));
 			//echo $this->Form->input('site_id', array('type' => 'select', 'options' => $lista_sites));
 			echo $this->Form->input('status_id', array('type' => 'select', 'options' => $lista_status,'class' => 'clear 30'));

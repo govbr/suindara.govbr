@@ -121,10 +121,11 @@
 											
 											$posicoes = array('position-0', 'position-5', 'position-10');
 											$cores = array('azul-claro', 'verde', 'laranja');
-											$categorias = array('Acessibilidade Projetos', 'TA Projetos', 'Pedagogico Cursos');
+											//$categorias = array('Suindara', 'TA Projetos', 'Pedagogico Cursos');
+											$categorias = array('Suindara', 'Notícias', 'Destaques');
 											
 											// Títulos das categorias
-											//$assuntoTitulos = array('Acessibilidade', 'Projetos de TA', 'Pedagógico');
+											//$assuntoTitulos = array('Suindara', 'Notícias', 'Destaques');
 											
 											for ($i = 0; $i < 3; $i++) {
 												

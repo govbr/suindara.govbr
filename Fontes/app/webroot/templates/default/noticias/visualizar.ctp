@@ -47,7 +47,7 @@
 						<p>
 							<?php
 								// Gera o HTML para o texto
-								echo $noticia->htmlTexto(array(), false, false);
+								echo $noticia->htmlTexto() 
 							?>
 						</p>
 											

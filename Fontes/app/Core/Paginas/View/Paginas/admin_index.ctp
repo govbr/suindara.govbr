@@ -1,48 +1,24 @@
 <?php
-    $this->Html->addCrumb('Listagem de Páginas',  array('plugin' => 'paginas', 'controller' => 'paginas', 'action' => 'index'));
+$this->Html->addCrumb('Listagem de Páginas',  array('plugin' => 'paginas', 'controller' => 'paginas', 'action' => 'index'));
 ?>
 
 <h2 class="row">Listagem de <span>P&aacute;ginas</span></h2>
-
 <div class="row controlist">
 	<?php echo $this->Html->link('Adicionar nova página<span></span>', '/admin/paginas/add/', array('class' => 'threecol add', 'escape' => false)); ?>
 
 	<div id="busca_simples" class="eightcol">
-		<?php echo $this->Element('Form/_search'); ?>
+		<?php echo $this->element('Form/_search'); ?>
 	</div>
 </div>
 
 
-<?php if( empty($paginas) ) { ?>
-    <p class="noInfo">Nenhum registro encontrado. 
-        <?php echo $this->Html->link('Voltar para a listagem de p&aacute;ginas.', 
-                                     Router::url(array('plugin' => 'paginas', 'controller' => 'paginas', 'action' => 'index'), true),
-                                     array('escape' => false)); ?>
-    </p>
+<?php
+ 
 
+?>
+<?php if(count($paginas) == 0) { ?>
+	<p class="noInfo">Nenhum registro encontrado</p>
 <?php } else { ?>
-
-    <?php $paginaCount = count($paginas); ?>
-
-    <?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($paginaCount > 1) {
-             ?>
-                Foram encontradas <?php echo $paginaCount; ?> p&aacute;ginas.
-            
-            <?php } else { ?>
-
-                Foi encontrada 1 p&aacute;gina.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de p&aacute;ginas.', 
-                                     Router::url(array('plugin' => 'paginas', 'controller' => 'paginas', 'action' => 'index'), true), 
-                                     array('escape' => false) ); ?>
-        </p>
-    <?php } ?>
-
     <table class="row" summary="Tabela de listagem de páginas">
     	<thead>
             <tr>

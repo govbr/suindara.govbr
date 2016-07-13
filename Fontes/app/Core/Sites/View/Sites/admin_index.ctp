@@ -13,35 +13,11 @@
 </div>
 
 <?php if( empty($sitePaginate) ) { ?>
-	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de sites.', 
-                                 Router::url(array('plugin' => 'sites', 'controller' => 'sites', 'action' => 'index'), true)); ?>
-    </p>
+	<ul>
+		<p class="noInfo">Nenhum site encontrado.</p>
+	</ul>
 	
 <?php } else { ?>
-	
-	<?php $siteCount = count($sitePaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($siteCount > 1) {
-             ?>
-                Foram encontrados <?php echo $siteCount; ?> sites.
-            
-            <?php } else { ?>
-
-                Foi encontrado 1 site.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de sites.', 
-                                     Router::url(array('plugin' => 'sites', 'controller' => 'sites', 'action' => 'index'), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
 	<table class="row" summary="Tabela de Listagem de sites.">
 		<thead>
 			<tr>
@@ -56,9 +32,9 @@
 
 			<?php foreach($sitePaginate as $site): ?>
 				<tr>
-					<td><?php echo $this->CmsUtil->limitarTexto($site['Site']['titulo'], 20, " ..."); ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($site['Site']['dominio'], 20, " ..."); ?></td>
-					<td><?php echo $this->CmsUtil->limitarTexto($site['Site']['instituicao'], 20, " ..."); ?></td>
+					<td><?php echo $site['Site']['titulo']; ?></td>
+					<td><?php echo $site['Site']['dominio']; ?></td>
+					<td><?php echo $site['Site']['instituicao']; ?></td>
 					<td>
 						<?php 
 						if($site['Site']['site_principal']) {

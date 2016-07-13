@@ -166,21 +166,6 @@ class Banner extends BannersAppModel{
         }
 
         $this->data = $bannerAux2;
-
-        pr($this->data);
-
-        if(isset($this->data['Banner']['link'])){
-            $pos = strpos($this->data['Banner']['link'], 'http://');
-            $pos2 = strpos($this->data['Banner']['link'], 'https://');
-            if( $pos === false && $pos2 === false){
-                $this->data['Banner']['link'] = 'http://' . $this->data['Banner']['link'];
-            }else{
-                if($pos != 0 && $pos2 != 0){
-                    $this->data['Banner']['link'] = 'http://' . $this->data['Banner']['link']; 
-                }
-            }
-        }
-
         return true;
     }
 

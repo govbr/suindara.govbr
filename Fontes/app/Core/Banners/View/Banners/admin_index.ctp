@@ -19,35 +19,8 @@
 </div>
 
 <?php if( empty($bannerPaginate) ) { ?>
-	<p class="noInfo">Nenhum registro encontrado. 
-    <?php echo $this->Html->link('Voltar para a listagem de banners.', 
-                                 Router::url(array('plugin' => 'banners', 'controller' => 'banners', 'action' => 'index', $grupo_id), true)); ?>
-    </p>
-
+	<p class="noInfo">Nenhum banner encontrado.</p>
 <?php } else { ?>
-	
-	<?php $bannerCount = count($bannerPaginate); ?>
-
-	<?php  if (!$this->request->isGet()) { ?>
-        <p class="noInfo">
-            <?php
-                if ($bannerCount > 1) {
-             ?>
-                Foram encontrados <?php echo $bannerCount; ?> banners.
-            
-            <?php } else { ?>
-
-                Foi encontrado 1 banner.
-
-            <?php } ?>
-
-            <?php echo $this->Html->link('Voltar para a listagem de banner.', 
-                                     Router::url(array('plugin' => 'banners', 'controller' => 'banners', 'action' => 'index', $grupo_id), true)); ?>
-
-            
-        </p>
-    <?php } ?>
-
 	<table class="row" summary="Tabela de Listagem de banners.">
 		<thead>
 			<tr>
@@ -79,7 +52,7 @@
 								 if( $key > 0 ) 
 								 {
 							?>
-									<li><?php echo $this->Html->link('<span class="oculto">Mover "'.$banner['Banner']['titulo'].'" para a</span> posi&ccedil;&atilde;o anterior', 
+									<li><?php echo $this->Html->link('<span class="oculto">Mover "'.$banner['Banner']['titulo'].'" para a</span> posição anterior', 
 																 array('controller' => 'banners', 'action' => 'moveup', 'admin' => true, $banner['Banner']['id']),
 																 array('class'  => 'up', 'escape' => false)
 																); ?> </li>
@@ -91,7 +64,7 @@
 								 if( $key < (count($bannerPaginate) - 1) ) 
 								 {
 							?>
-	    					<li><?php echo $this->Html->link('<span class="oculto">Mover "'.$banner['Banner']['titulo'].'" para a</span> pr&oacute;xima posi&ccedil;&atilde;o', 
+	    					<li><?php echo $this->Html->link('<span class="oculto">Mover "'.$banner['Banner']['titulo'].'" para a</span> próxima posição', 
 	    													 array('controller' => 'banners', 'action' => 'movedown', 'admin' => true, $banner['Banner']['id']),
 	    													 array('class'  => 'down', 'escape' => false)
 	    													 ); ?> </li>
@@ -116,7 +89,7 @@
 															 '/admin/banners/delete/' . $banner['Banner']['id'], 
 															 array('class' => 'del', 
 																  'escape' => false), 
-															 'Voc&ecirc; tem certeza que deseja deletar o banner ' . $banner['Banner']['titulo'] . '?'); ?> </li>
+															 'Você tem certeza que deseja deletar o banner ' . $banner['Banner']['titulo'] . '?'); ?> </li>
 						</ul>
 					</td>
 				</tr>

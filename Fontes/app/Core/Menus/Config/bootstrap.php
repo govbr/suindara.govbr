@@ -61,13 +61,4 @@ CmsAclFreeActions::add('Menus', 'MenuItens', 'stringAction');
 CmsAclFreeActions::add('Menus', 'Menus', 'stringAction');
 
 CmsPublicActions::add('Menus', 'Menus', 'ra_query');
-
-// CmsPublicActions::add('Menus', 'Ajax', 'admin_menu_itens_link');
-// CmsPublicActions::add('Menus', 'Ajax', 'admin_menu_itens_paginas');
-// CmsPublicActions::add('Menus', 'Ajax', 'admin_menu_itens_categorias');
-
-// CmsAclFreeControllers::add('Menus', 'Ajax');
-
-CmsAclFreeActions::add('Menus', 'Ajax', 'admin_menu_itens_link');
-CmsAclFreeActions::add('Menus', 'Ajax', 'admin_menu_itens_paginas');
-CmsAclFreeActions::add('Menus', 'Ajax', 'admin_menu_itens_categorias');
+CmsAclFreeControllers::add('Menus', 'Ajax');

@@ -48,63 +48,64 @@ class PerfisController extends PerfisAppController {
 
 	public $name = 'Perfis';
 
+	public $paginate = array('limit' => 15);
+
 	public function admin_index(){
-		$emptySearches = false;
-		$conditions = array('Perfil.site_id' => $this->site_id);
-
-		$options = array(
-            'fields' => array('Perfil.id','Perfil.nome', 'Perfil.descricao'),
-            'conditions' => $conditions,
-            'limit' => 15
-        );
-
-        $this->paginate = $options;
+		$query = $this->params->query;
     	
-		if(isset($this->params->query['limit'])){
-	    	$this->paginate['limit'] = $this->params->query['limit'];
-	    }
+    	if(!empty($query)) {
+	    	if( isset($query['search']) && trim($query['search']) != "") {
+	    		$this->search($query);
+	    		
+	    		$this->paginate['conditions']['Perfil.site_id'] = $this->site_id;
+				$this->set('perfilPaginate', $this->paginate('Perfil'));
 
-    	if( $this->request->isPost() ){
-    		$emptySearches = true;
+	    	} else if( isset($query['limit']) ) {
+	    			$this->paginate['limit'] = $query['limit'];
+	    			
+	    			$this->paginate['conditions']['Perfil.site_id'] = $this->site_id;
+					$this->set('perfilPaginate', $this->paginate('Perfil'));
 
-    		if (isset($this->request->data['Perfil']['search'])) {
-    			$palavra_chave = $this->request->data['Perfil']['search']; 
-    			if(!empty($palavra_chave)){
-    				$palavra_chave = '%' . trim($palavra_chave) . '%';
-    				$conditions[] = array("OR" => array( 
-    											"Perfil.nome LIKE " => $palavra_chave,
-    											"Perfil.descricao LIKE " => $palavra_chave
-    									  ));
-    				$emptySearches = false;
-    			}	
-    		}
-    	}
+	    	} else {
+		    		// sem nada na pesquisa
+					$this->params['paging'] = array
+		                (
+		                    'Perfil' => array
+		                        (
+		                            'page' => 1,
+		                            'current' => 0,
+		                            'count' => 0,
+		                            'prevPage' => null,
+		                            'nextPage' => null,
+		                            'pageCount' => 0,
+		                            //'order' => 
+		                            'limit' => 1,
+		                            'options' => array(),
+		                            'paramType' => 'named'
+		                        )
+		                );
 
-    	if($emptySearches){
-    		// sem nada na pesquisa
-			$this->params['paging'] = array
-                (
-                    'Perfil' => array
-                        (
-                            'page' => 1,
-                            'current' => 0,
-                            'count' => 0,
-                            'prevPage' => null,
-                            'nextPage' => null,
-                            'pageCount' => 0,
-                            //'order' => 
-                            'limit' => 1,
-                            'options' => array(),
-                            'paramType' => 'named'
-                        )
-                );
+		    		$this->set('perfilPaginate', array());
+		    	} 
 
-            $this->paginate('Perfil');
-	    	$this->set('perfilPaginate', array());
     	} else {
-    		$data = $this->paginate('Perfil', $conditions);
-			$this->set('perfilPaginate', $data);	
+			$this->paginate['conditions']['Perfil.site_id'] = $this->site_id;
+			$this->set('perfilPaginate', $this->paginate('Perfil'));
     	}
+
+
+	}
+
+	private function search($query){
+		if(!isset($query['search']) || trim($query['search']) == "")
+			return;
+		$like = '%' . trim($query['search']) . '%';
+    	$this->paginate['conditions'] = array(
+    		'OR' => array(
+	    		'Perfil.nome LIKE' => $like,
+	    		'Perfil.descricao LIKE' => $like
+    		)
+    	);
 	}
 
 	public function admin_add(){

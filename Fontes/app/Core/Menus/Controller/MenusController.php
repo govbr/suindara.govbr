@@ -49,59 +49,62 @@ App::uses('MenusAppController', 'Menus.Controller');
 		public $name = 'Menus';
 
 		public function admin_index(){
-			$emptySearches = false;
-			$conditions = array('Menu.site_id' => $this->site_id);
-
 			$options = array(
-	            'fields'     => array('Menu.id','Menu.nome', 'Menu.identificador'),
-	            'conditions' => $conditions,
-	            'limit'      => 15
+	            'fields' => array('Menu.id','Menu.nome', 'Menu.identificador'),
+	            'conditions' => array('Menu.site_id' => $this->site_id),
+	            'limit' => 15
         	);
         	
         	$this->paginate = $options;
 
-			if(isset($this->params->query['limit'])){
-	    		$this->paginate['limit'] = $this->params->query['limit'];
-	    	}
+			$query = $this->params->query;
 
-	    	if( $this->request->isPost() ){
-	    		$emptySearches = true;
+	    	if(!empty($query)) {
+		    	if( isset($query['search']) && trim($query['search']) != "") {
+		    		$this->search($query, $this->site_id);
+		    		$this->set('menuPaginate', $this->paginate('Menu'));
 
-	    		if (isset($this->request->data['Menu']['search'])) {
-	    			$palavra_chave = $this->request->data['Menu']['search']; 
-	    			if(!empty($palavra_chave)){
-	    				$conditions[] = array("Menu.nome LIKE " => '%' . trim($palavra_chave) . '%');
-	    				$emptySearches = false;
-	    			}	
-	    		}
-	    	} 
+		    	} else if( isset($query['limit']) ) {
+	    				$this->paginate['limit'] = $query['limit'];
+	    				$this->set('menuPaginate', $this->paginate('Menu'));
 
-	    	if( $emptySearches ) {
-	    		// sem nada na pesquisa
-				$this->params['paging'] = array
-	                (
-	                    'Menu' => array
-	                        (
-	                            'page'      => 1,
-	                            'current'   => 0,
-	                            'count'     => 0,
-	                            'prevPage'  => null,
-	                            'nextPage'  => null,
-	                            'pageCount' => 0,
-	                            //'order' => 
-	                            'limit'     => 1,
-	                            'options'   => array(),
-	                            'paramType' => 'named'
-	                        )
-	                );
+		    	} else {
+		    		// sem nada na pesquisa
+					$this->params['paging'] = array
+		                (
+		                    'Menu' => array
+		                        (
+		                            'page' => 1,
+		                            'current' => 0,
+		                            'count' => 0,
+		                            'prevPage' => null,
+		                            'nextPage' => null,
+		                            'pageCount' => 0,
+		                            //'order' => 
+		                            'limit' => 1,
+		                            'options' => array(),
+		                            'paramType' => 'named'
+		                        )
+		                );
 
-	            $this->paginate('Menu');
-	    		$this->set('menuPaginate', array());
-	    	}else{
-	    		$data = $this->paginate('Menu', $conditions);
-				$this->set('menuPaginate', $data);	
-	    	}
+		    		$this->set('menuPaginate', array());
+		    	} 
 
+	    	} else {
+				$this->set('menuPaginate', $this->paginate('Menu'));	
+    		}
+
+		}
+
+		private function search($query, $site_id){
+			if(!isset($query['search']) || trim($query['search']) == "")
+				return;
+			$like = '%' . trim($query['search']) . '%';
+	    	$this->paginate['conditions'] = array('Menu.site_id' => $this->site_id,
+	    		'OR' => array(
+		    		'Menu.nome LIKE' => $like
+	    		)
+	    	);
 		}
 
 		public function admin_add(){
@@ -202,6 +205,7 @@ App::uses('MenusAppController', 'Menus.Controller');
 			$this->set('title_for_layout', $titulo);
 		}
 		
+		
 		public function ra_query($type = 'all', $options = array()) {
 			if (!empty($this->request->params['requested'])) {
 				if ($options) {
@@ -214,6 +218,7 @@ App::uses('MenusAppController', 'Menus.Controller');
 			}
 		}
 		
+
 		public function isAuthorized($user) {
 			parent::isAuthorized($user);
 		}

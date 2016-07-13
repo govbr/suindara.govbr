@@ -68,7 +68,8 @@
 						<h3>&Uacute;ltimas not&iacute;cias</h3>
 						<ul>
 							<?php 
-								$noticiasRecentes = $this->CmsNoticias->getNoticiasRecentesSemDestaque(3);
+								$noticiasRecentes = $this->CmsNoticias->getNoticiasRecentes(3);
+								array_shift($noticiasRecentes);
 								foreach ($noticiasRecentes as $noticia) { 
 							?>
 		            		<li>

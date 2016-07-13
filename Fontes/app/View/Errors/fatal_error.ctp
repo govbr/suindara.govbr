@@ -97,13 +97,13 @@
                 	<h2><?php echo $name; ?></h2>
 
 					<div class="desc-error">
-					    <p>Erro interno! Contate o administrador do sistema urgentemente!</p>
+					    <p>Erro interno, isso pode ter acontecido porque:</p>
 
-					    <!-- <ul>
+					    <ul>
 					        <li>» O programador esqueceu de implementar alguma função</li>
 					        <li>» Terminou o café</li>
-					        <li>» ...</li>
-					    </ul> -->
+					        <li>» Cancelaram nossos salários</li>
+					    </ul>
 
 					    <?php
 							if (Configure::read('debug') > 0):

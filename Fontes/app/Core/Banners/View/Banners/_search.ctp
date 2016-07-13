@@ -1,7 +1,5 @@
 <?php
-    echo $this->Form->create('Banner', array('type' => 'post',
-    										 'id' => 'formBuscaSimples', 
-    										 'url' => array('controller' => 'banners' , 'action' => 'index', $grupo_id))); 
+    echo $this->Form->create('Banner', array('id' => 'formBuscaSimples', 'type' => 'get')); 
 
     echo $this->Form->input('Banner.search', array('label' 	  => 'Pesquisar', 
     											   'id'       => 'pesquisa', 

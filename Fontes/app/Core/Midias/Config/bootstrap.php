@@ -52,8 +52,6 @@ CmsPublicActions::add('Midias', 'MidiasConteudos', 'ra_getImagens');
 CmsPublicActions::add('Midias', 'MidiasConteudos', 'ra_getVideos');
 CmsPublicActions::add('Midias', 'MidiasConteudos', 'ra_getAudios');
 CmsPublicActions::add('Midias', 'MidiasConteudos', 'ra_getArquivos');
-CmsPublicActions::add('Midias', 'Midias', 'ra_addArquivo');
-CmsPublicActions::add('Midias', 'Midias', 'ra_getMidias');
 
 CmsAclFreeActions::add('Midias', 'MidiasConteudos', 'stringAction');
 CmsAclFreeActions::add('Midias', 'MidiasConteudos', 'admin_move_up');

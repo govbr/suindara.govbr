@@ -75,7 +75,7 @@
 							?>
 							
 							<h4>
-								<a href="<?php echo $nDestaque->getPath(); ?>">
+								<a href="#">
 									<?php 
 										echo $nDestaque->htmlDataPublicacao();   
 									    echo $nDestaque->titulo;  
@@ -93,8 +93,9 @@
 						
 	                    <ul class="lista">
 							<?php 
-								$noticiasRecentes = $this->CmsNoticias->getNoticiasRecentesSemDestaque(3);
-								foreach ($noticiasRecentes as $noticia) {
+								$noticiasRecentes = $this->CmsNoticias->getNoticiasRecentes(3);
+								array_shift($noticiasRecentes);
+								foreach ($noticiasRecentes as $noticia) { 
 							?>
 		            		<li>
 		            			<?php
@@ -118,13 +119,13 @@
 						
 						<!-- fim lista ultimas noticia -->
 						
-						<a href="<?php echo $this->CmsTemplate->raizNoticias() ?>" class="veja_mais">Veja todas as not&iacute;cias</a>
+						<a href="/noticias" class="veja_mais">Veja todas as not&iacute;cias</a>
 					</div>
 				</div>
 				
 				<div id="eventos_home">
 					<h3>Eventos</h3>
-					<p>A seguir, est&atilde;o disponibilizadas apresenta&ccedil;&otilde;es dos &uacute;ltimos eventos que promovemos ou dos quais participamos. Ao acessar o link do evento, voc&ecirc; encontrar&aacute; o respectivo material para download.</p>
+					<p>A seguir, est&atilde;o disponibilizadas apresenta&ccedil;&otilde;es dos &uacute;ltimos eventos que promovemos ou dos quais participamos. Ao acessar o link do evento, você encontrar&aacute; o respectivo material para download.</p>
 					<!-- lista ultimos eventos -->
 					<?php 
 						$eventos = $this->CmsCategorias->getCategoria('Eventos');
@@ -175,7 +176,7 @@
 				</div>
 
 				<div id="banner_download_site_modelo">
-					<a href="<?php echo $this->CmsTemplate->arquivoPath('site_modelo_template.zip') ?>">Clique aqui e fa&ccedil;a download do site modelo</a>
+					<a href="/download-site-modelo">Clique aqui e faça download do site modelo</a>
 				</div>
 
 				<div id="quem_somos_home">

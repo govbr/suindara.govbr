@@ -51,10 +51,10 @@ $(document).ready(function() {
             $("#busca_avancada").slideToggle();
             if($(this).children('span').text() == 'Expandir op&ccedil;&otilde;es de busca avan&ccedil;ada' ||
                 $(this).children('span').text() == 'Expandir opções de busca avançada') {
-                $("#busca_simples").children("form").children("input").attr('disabled', 'disabled');
+                $("#busca_simples").children("form").children("input").removeAttr('disabled');
                 $(this).children('span').text('Ocultar op&ccedil;&otilde;es de busca avan&ccedil;ada');
             } else {
-                $("#busca_simples").children("form").children("input").removeAttr('disabled');
+                $("#busca_simples").children("form").children("input").attr('disabled', 'disabled');
                 $(this).children('span').text('Expandir op&ccedil;&otilde;es de busca avan&ccedil;ada');
             }
         });

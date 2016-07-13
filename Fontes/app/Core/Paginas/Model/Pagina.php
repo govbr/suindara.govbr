@@ -132,7 +132,7 @@ class Pagina extends PaginasAppModel {
 	
 	public $validate = array(
 		'titulo'			=> array('rule' => 'notEmpty', 'message' => PAGINA_FORM_TITULO),
-		'texto'  => array('rule' => array('between', 0, 10000), 'allowEmpty' => false,  'message' => 'O texto não pode estar vazio e deve conter no máximo 10000 caracteres'),
+		'texto'  => array('rule' => array('between', 0, 50000), 'allowEmpty' => false,  'message' => 'O texto não pode estar vazio e deve conter no máximo 50000 caracteres'),
 		//'texto' 			=> array('rule' => '/.*/','allowEmpty' => false, 'message' => PAGINA_FORM_TEXTO),
 		//'datahora_cadastro' => array('rule' => array('datetime'), 'allowEmpty' => true), 
 		//'usuario_id'		=> array('rule' => 'numeric', 'required' => true),

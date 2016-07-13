@@ -48,7 +48,7 @@
 			</li>
 			<li>
 				<h3>O CMS Suindara &eacute; protegido por algum direito autoral? Posso utiliz&aacute;-lo livremente?</h3>
-				<p>Os direitos autorais deste sistema pertencem ao MPOG (Minist&eacute;rio do Planejamento, Or&ccedil;amento e Gest&atilde;o) e ao IFRS (Instituto Federal de Educa&ccedil;&atilde;o, Ci&ecirc;ncia e Tecnologia do Rio Grande do Sul), sendo distribu&iacute;do gratuitamente sob a licen&ccedil;a <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a> podendo ser utilizado livremente, com acesso ao seu c&oacute;digo fonte e havendo a possibilidade de modific&aacute;-lo se desejar, desde que sua distribui&ccedil;&atilde;o ocorra da mesma forma que este software foi adquirido, ou seja, gratuitamente.</p>
+				<p>Os direitos autorais deste sistema pertencem ao MPDG (Minist&eacute;rio do Planejamento, Desenvolvimento e Gest&atilde;o) e ao IFRS (Instituto Federal de Educa&ccedil;&atilde;o, Ci&ecirc;ncia e Tecnologia do Rio Grande do Sul), sendo distribu&iacute;do gratuitamente sob a licen&ccedil;a <a href="http://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a> podendo ser utilizado livremente, com acesso ao seu c&oacute;digo fonte e havendo a possibilidade de modific&aacute;-lo se desejar, desde que sua distribui&ccedil;&atilde;o ocorra da mesma forma que este software foi adquirido, ou seja, gratuitamente.</p>
 			</li>
 		</ul>
 	</div>

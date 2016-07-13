@@ -1,8 +1,5 @@
 <?php
-	echo $this->Form->create('MenuItens', array('type' => 'post', 
-												'id' => 'formBuscaAvancada',
-												'url' => array('controller' => 'menu_itens' , 'action' => 'index', $menu_id) ));
-
+	echo $this->Form->create('MenuItens', array('id' => 'formBuscaAvancada','type' => 'get'));
 	echo $this->Form->input('MenuItem.palavras', array('label' => 'Palavras-chave'));
 ?>
 

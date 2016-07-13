@@ -8,8 +8,6 @@ class InstallController extends Controller
     public $name = 'Install';
     public $uses = false;
 
-    const VERSION = 50;
-
     public $components = array('Session');
 
     public $helpers = array(
@@ -58,32 +56,7 @@ class InstallController extends Controller
     {
 
         $db = ConnectionManager::getDataSource('default');
-
-        // Verificação de versão do banco de dados
-        $version = $this->getMySqlVersion($db);
-        if( $version < self::VERSION ){
-            $this->Session->setFlash('Banco de dados não está na versão recomendada. Por favor atualize-o para a versão mais recente', 'error');
-            return false;
-        }
-
-        // Verificação da engine utilizada pelo banco de dados  
-        $engine = $this->getMySqlEngine($db);
-
-        $files = array('inserts.sql', 'mimes1.sql', 'mimes2.sql');
-
-        switch ($engine) {
-            case 'InnoDB':
-                    array_unshift($files, 'cms3.sql');
-                    break;
-
-            case 'MyISAM':
-                    array_unshift($files, 'cms3_myisam.sql');
-                    break;
-            
-            default: 
-                    return false; 
-                    break;
-        }
+        $files = array('cms3.sql', 'inserts.sql');
 
         foreach ($files as $filename)
         {
@@ -99,36 +72,17 @@ class InstallController extends Controller
 
             if ($filename == $files[0])
             {
-                if ($db->query($content) == 0)
+                if (!$db->query($content))
                 {
                     $this->Session->setFlash('Ops, não foi possível criar as tabelas no Banco de Dados. Verifique se o BD está rodando.');
                     return false;
                 }
             }
-
-            if ($filename == $files[1])
+            else
             {   
                if (!$db->execute($content))
                {
                    $this->Session->setFlash('Ops, não foi possível popular o Banco de dados. Verifique se o BD está rodando.'); 
-                   return false;
-               }
-            }
-
-            if ($filename == $files[2])
-            {   
-               if (!$db->execute($content))
-               {
-                   $this->Session->setFlash('Ops, não foi possível popular o Banco de dados com os mimes . Verifique se o BD está rodando.'); 
-                   return false;
-               }
-            }
-
-            if ($filename == $files[3])
-            {   
-               if (!$db->execute($content))
-               {
-                   $this->Session->setFlash('Ops, não foi possível popular o Banco de dados com os mimes2. Verifique se o BD está rodando.'); 
                    return false;
                }
             }
@@ -252,16 +206,16 @@ class InstallController extends Controller
                 {
 
                     // Salvar site modelo
-                    // $file = new File(CONFIG . 'Schema' . DS . 'site_modelo.sql');
+                    $file = new File(CONFIG . 'Schema' . DS . 'site_modelo.sql');
 
-                    // if ($file->exists()) 
-                    // {
-                    //     $db->query($file->read());    
-                    // }
-                    // else
-                    // {
-                    //     $this->setFlash('Ops, ocorreu um erro ao gerar dos dados do site modelo. Verifique os dados e tente novamente.', 'error'); 
-                    // }
+                    if ($file->exists()) 
+                    {
+                        $db->query($file->read());    
+                    }
+                    else
+                    {
+                        $this->setFlash('Ops, ocorreu um erro ao gerar dos dados do site modelo. Verifique os dados e tente novamente.', 'error'); 
+                    }
                     
 
                     $this->redirect(Router::url('/instalar/finish', true));    
@@ -290,43 +244,4 @@ class InstallController extends Controller
             $this->Session->setFlash(__('Ops, não foi possível modificar a chave "Database.installed" no arquivo "app/Plugin/Install/Config/bootstrap.php".'), 'error');
         }
     }
-
-
-    /**
-     *  Está função verifica a versão e a engine padrão do MySQL.
-     *
-     */
-    public function getMySqlVersion($db){
-        $infos = $db->query("SELECT version()");
-
-        if( empty($infos) ){
-            $this->Session->setFlash('Não foi possivel determinar a versão do banco de dados.', 'error');
-            return false;
-        }
-
-        $version = explode('.', $infos[0][0]['version()']);
-        $version = $version[0].$version[1];
-
-        return $version;
-    }
-
-    /**
-     * Retorna engine utilizada no mysql
-     * 
-     */
-    public function getMySqlEngine($db){
-        $engines = $db->query("SHOW STORAGE ENGINES;");
-
-        foreach ($engines as $index => $engine) {
-            if( empty($engine) ){
-                $this->Session->setFlash('Ops, banco de dados não tem nenhuma engine padrão.', 'error');
-                return false;
-            }
-
-            if($engine['ENGINES']['Support'] == 'DEFAULT'){
-                return $engine['ENGINES']['Engine'];                
-            }
-        }
-    }
-
 }

@@ -62,7 +62,7 @@
             <?php } ?>
           </ul>
 
-          <?php echo $this->Midias->thumb($midia['Midia']['arquivo'], $midia['Midia']['tipo_id'], array('alt' => $midia['Midia']['descricao'])); ?>
+          <?php echo $this->Midias->thumb($midia['Midia']['arquivo'], $midia['Midia']['tipo_id']); ?>
 
           <p>
             <?php if(!$midia['Midia']['ativa']) $midia['Midia']['titulo'] = $midia['Midia']['nome_original']; ?>
@@ -117,18 +117,18 @@
 
             } else {
             //vem do banco de imagens
-              echo $this->Html->link('Remover imagem <span class="oculto"> ' . 'Remover ' . $tipos[$midia['Midia']['tipo_id']] . ' ' . $midia['Midia']['titulo'] . ' </span>',
-                                        array('admin'        => true,
-                                             'tipo_conteudo' => $tipo_conteudo,
-                                             'id_conteudo'   => $id_conteudo,
-                                             'controller'    => 'midias_conteudos',
-                                             'action'        => 'delete',
-                                             'id_midia'      => $midia['MidiasConteudo']['id']
-                                            ), 
-                                        array('class' => 'midia_conteudo_delete remove',
-                                             'escape' => false),
-                                        'Você tem certeza que deseja remover ' . $midia['Midia']['titulo'] . ' ?'
-                                      );
+              // echo $this->Html->link('Remover imagem <span class="oculto"> ' . 'Remover ' . $tipos[$midia['Midia']['tipo_id']] . ' ' . $midia['Midia']['titulo'] . ' </span>',
+              //                           array('admin'        => true,
+              //                                'tipo_conteudo' => $tipo_conteudo,
+              //                                'id_conteudo'   => $id_conteudo,
+              //                                'controller'    => 'midias_conteudos',
+              //                                'action'        => 'delete',
+              //                                'id_midia'      => $midia['MidiasConteudo']['id']
+              //                               ), 
+              //                           array('class' => 'midia_conteudo_delete remove',
+              //                                'escape' => false),
+              //                           'Você tem certeza que deseja remover ' . $midia['Midia']['titulo'] . ' ?'
+              //                         );
             }
             ?>
           </li>
@@ -143,16 +143,18 @@
 <div class="imagensBanco">
   <h3>Imagens do <span>Banco de Imagens</span></h3>
   <?php echo $this->element('../Midias/_search'); ?>
+  
   <?php if(count($banco_imagens) == 0) { ?>
   
     <p class="noInfo">Nenhuma imagem encontrada!</p>
   
   <?php } else { ?>
   <ul id="itemContainer" class="banco_imagens_lista">
+  
     <?php foreach($banco_imagens as $midia): ?>
       <li class="ativo parent_li">
         <div class="preview">
-          <?php echo $this->Midias->thumb($midia['Midia']['arquivo'], $midia['Midia']['tipo_id'], array('alt' => $midia['Midia']['descricao'])); ?>
+          <?php echo $this->Midias->thumb($midia['Midia']['arquivo'], $midia['Midia']['tipo_id']); ?>
           <p><span><?php echo $midia['Midia']['titulo']; ?></span></p>
         </div>
 
