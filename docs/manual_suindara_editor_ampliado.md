@@ -86,74 +86,112 @@ Clique duas vezes sobre a figura desejada para adicioná-la, conforme figura 14.
 
 Em seguida preencha o texto alternativo da imagem e clique sobre o botão “ok”, conforme a figura 15.
 
+![Texto alternativo da imagem](img/texto_alternativo_da_imagem.png "Texto alternativo da imagem")
+
 Após clicar no botão “ok” a imagem é inserida no texto, conforme figura 16.
 
+![Imagem inserida no texto](img/imagem_inserida_no_texto.png "Imagem inserida no texto")
+
 Banco de Imagens do Editor
+
+![Banco de imagens do editor](img/banco_de_imagens_do_editor.png "Banco de imagens do editor")
+
 ----------------------------------------------------
 
 Criar Pasta
+
 --------------------------------------
 
 Clique sobre o ícone para criar uma nova pasta, conforme figura 18.
 
+![Criar nova pasta](img/criar_nova_pasta.png "Criar nova pasta")
+
 Pasta de exemplo criada, conforme figura 19.
+
+![Pasta de exemplo criada](img/pasta_de_exemplo_criada.png "Pasta de exemplo criada")
+
+pasta_de_exemplo_criada.png
 
 Excluir Pasta
 ----------------------------------------
 
 Clique com o botão direito sobre a pasta e em seguida sobre a opção “Deletar”, conforme figura 20.
 
+![Excluir pasta](img/excluir_pasta.png "Excluir pasta")
+
 Upload de Imagem para o Banco de Imagens do Editor
 -----------------------------------------------------------------------------
 
 Clique sobre o ícone para realizar o upload de nova imagem, conforme figura 21.
+
+![Upload de nova imagem](img/upload_de_nova_imagem.png "Upload de nova imagem")
 
 Download de Imagem do Banco de Imagens do Editor
 ---------------------------------------------------------------------------
 
 Selecione a imagem que deseja realizar o download e em seguida clique sobre o ícone, conforme figura 22.
 
+![Download de imagem do banco de imagens do Editor](img/download_de_imagem_do_banco_de_imagens_do_Editor.png "Download de imagem do banco de imagens do Editor")
+
 Funcionalidades e opções relacionadas à imagens
 --------------------------------------------------------------------------
 
 Selecione a imagem que deseja realizar o download e em seguida clique sobre o ícone, conforme figura 23.
+
+![Funcionalidades e opções relacionadas à imagens](img/funcionalidades_e_opções_relacionadas_a_imagens.png "Funcionalidades e opções relacionadas à imagens")
 
 Inserir Linha Horizontal
 ---------------------------------------------------
 
 Selecione o ponto desejado no texto para inserção da linha horizontal e em seguida clique sobre o botão “Inserir Linha Horizontal”, conforme figura 24.
 
+![Inserir linha horizontal](img/inserir_linha_horizontal.png "Inserir linha horizontal")
+
 Linha inserida no texto, conforme figura 25.
+
+![Linha inserida no texto](img/linha_inserida_no_texto.png "Linha inserida no texto")
 
 Inserir Lista Numerada
 -------------------------------------------------
 
 Selecione o ponto desejado no texto para inserção de lista numerada e em seguida clique sobre o botão “Lista Numerada”, conforme figura 26.
 
+![Inserir lista numerada](img/inserir_lista_numerada.png "Inserir lista numerada")
+
 Inserir Lista sem Números
 ----------------------------------------------------
 
 Selecione o ponto desejado no texto para inserção de lista sem números e em seguida clique sobre o botão “Lista sem números”, conforme figura 27.
+
+![Inserir lista sem números](img/inserir_lista_sem_numeros.png "Inserir lista sem números")
 
 Diminuir Recuo
 -----------------------------------------
 
 Selecione o ponto desejado no texto para diminuir o recuo e em seguida clique sobre o botão “Diminuir Recuo”, conforme figura 28.
 
+![Diminuir recuo](img/diminuir_recuo.png "Diminuir recuo")
+
 Aumentar Recuo
 -----------------------------------------
 
 Selecione o ponto desejado no texto para aumentar o recuo e em seguida clique sobre o botão “Aumentar Recuo”, conforme figura 29.
+
+![Aumentar recuo](img/aumentar_recuo.png "Aumentar recuo")
 
 Maximizar Editor
 -------------------------------------------
 
 Clique sobre o botão “Maximizar Editor” para maximizar o editor na tela, conforme figura 30.
 
+![Maximizar Editor](img/maximizar_editor.png "Maximizar Editor")
+
 Exibir Código Fonte
 ----------------------------------------------
 
 Clique sobre o botão “Código Fonte” para exibir o código fonte na tela, conforme figura 31.
+
+![Exibir código fonte](img/exibir_codigo_fonte.png "Exibir código fonte")
 
 Conceitos básicos do Painel
 ======================================================
