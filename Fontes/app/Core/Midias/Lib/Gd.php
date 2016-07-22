@@ -141,8 +141,6 @@ class Gd {
             case 'image/png':
                 $this->tipo = 'png';
                 $this->imgSrc = imagecreatefrompng($arquivo);
-                die;
-                pr($this->imgSrc);
                 break;
 
             default:
