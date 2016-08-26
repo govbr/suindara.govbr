@@ -300,8 +300,6 @@ class CategoriasController extends CategoriasAppController {
 			return null;
 		}
 
-		pr($this->site_id);
-
 		$result = $this->Categoria->find('all', array( 'recursive' => 1,
 														'fields' => array('Categoria.id', 'Categoria.titulo', 'Categoria.parent_id', 'Categoria.lft', 'Categoria.rght'),
 														'order' => 'Categoria.lft ASC',
