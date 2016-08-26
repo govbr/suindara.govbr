@@ -54,7 +54,7 @@ class CategoriasController extends CategoriasAppController {
 
 		$options = array(
             'conditions' => $conditions,
-            'order' 	 => array('Categoria.lft' => 'ASC'),
+            'order' 	 => array('Categoria.lft' => 'DESC'),
             'limit' 	 => 15,
             'url' 		 => array('controller' => 'Categorias', 'action' => 'index', 'admin' => true)
         );
@@ -284,7 +284,7 @@ class CategoriasController extends CategoriasAppController {
 					if (isset($opt['conditions'])) {
 						$opt['conditions']['Categoria.site_id'] = $siteAtual['id'];
 					}else{
-						$opt['conditions'] = array('Noticia.site_id' => $siteAtual['id']);
+						$opt['conditions'] = array('Categoria.site_id' => $siteAtual['id']);
 					}
 				}
 				return $this->Categoria->find($type, $opt);
@@ -299,6 +299,8 @@ class CategoriasController extends CategoriasAppController {
 		if(!$this->request->params['requested']){
 			return null;
 		}
+
+		pr($this->site_id);
 
 		$result = $this->Categoria->find('all', array( 'recursive' => 1,
 														'fields' => array('Categoria.id', 'Categoria.titulo', 'Categoria.parent_id', 'Categoria.lft', 'Categoria.rght'),

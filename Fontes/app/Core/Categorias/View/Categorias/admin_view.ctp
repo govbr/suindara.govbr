@@ -17,6 +17,7 @@
 	?>
 	<p>T&iacute;tulo: <span class="w40"><?php echo $categoria['Categoria']['titulo'] ?></span></p>
 	<p>Descri&ccedil;&atilde;o: <span class="w97"><?php echo $categoria['Categoria']['descricao'] ?></span></p>
+	<p>Identificador: <span class="w97"><?php echo $categoria['Categoria']['identificador'] ?></span></p>
 
 	<table id="mytable" class="row">
 		<caption>Perfis com permiss&atilde;o nessa categoria</caption>

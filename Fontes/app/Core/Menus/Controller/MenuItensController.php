@@ -155,6 +155,12 @@ App::uses('MenusAppController', 'Menus.Controller');
 				}else{ 
 					if(!empty($menuPai_id) ){
 						$this->request->data['MenuItem']['menu_id'] = $menuPai_id;
+
+						// define em qual escopo(tree) o dado sera inserido  
+						$this->MenuItem->Behaviors->attach('Tree', array(
+					        'scope' => "MenuItem.menu_id = {$menuPai_id}"
+					    ));
+
 						if($this->MenuItem->save($this->request->data)){
 							$this->Session->setFlash('Item ' . $this->request->data['MenuItem']['nome'] .  ' criado com sucesso', 'success');
 							$this->redirect(array('controller' => 'menu_itens', 'action' => 'index', 'admin' => true, $menuPai_id));
