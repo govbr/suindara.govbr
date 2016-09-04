@@ -216,8 +216,16 @@ class SitesController extends SitesAppController {
 	public function ra_getSiteAtual() {
 		if(!empty($this->request->params['requested'])){
 			//$cond = array('dominio' => $_SERVER['HTTP_HOST']);
-			$cond = array('dominio' => preg_replace("/(^[a-z]*\:\/\/)(.*)(\/$)/", '$2', Router::url('/', true)));
-			$busca = $this->Site->find('first', array('conditions' => $cond));
+
+			// remove www. da raiz caso ouver
+			$raiz = str_replace('www.', "", Router::url('/', true));
+
+			// condicao com www
+			$cond = array('dominio' => preg_replace("/(^[a-z]*\:\/\/)(.*)(\/$)/", 'www.$2', $raiz));
+			// condicao sem www 
+			$cond2 = array('dominio' => preg_replace("/(^[a-z]*\:\/\/)(.*)(\/$)/", '$2', $raiz)); 
+
+			$busca = $this->Site->find('first', array('conditions' => array('OR' => array($cond, $cond2) )));
 
 			return $busca;
 		}
