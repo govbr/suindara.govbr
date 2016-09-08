@@ -108,7 +108,7 @@ class Categoria extends CategoriaAppModel{
 	);
 
 	function checkUniqueTitulo() {
-		$parent = (!$this->data['Categoria']['parent_id']) ? 0 : $this->data['Categoria']['parent_id'];
+		$parent = (!$this->data['Categoria']['parent_id']) ? NULL : $this->data['Categoria']['parent_id'];
 		
 		$count = $this->find('count', array(
 			'conditions' => array(
@@ -142,8 +142,13 @@ class Categoria extends CategoriaAppModel{
 		if(!isset($this->data['Perfil']) ){
 			$this->data['Perfil'] = array(array(''));
 		}
-		$identificador = $this->data['Categoria']['titulo'];
-		$this->data['Categoria']['identificador'] = strtolower ( Inflector::slug($identificador) );
+
+		// verifica se o dado é pai ou é filho
+		$parent = (!$this->data['Categoria']['parent_id']) ? 0 : $this->data['Categoria']['parent_id'];
+		
+		// cria o identificador a partir do titulo + parent  (caso nao tenha pai recebe zero 0) 
+		$identificador = $this->data['Categoria']['titulo'] . '_' . $parent;
+		$this->data['Categoria']['identificador'] = strtolower( Inflector::slug($identificador) );
 	}
  	
 }

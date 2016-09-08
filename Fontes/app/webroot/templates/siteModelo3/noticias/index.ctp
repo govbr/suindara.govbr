@@ -124,7 +124,7 @@
                 <?php 
                     foreach ($filhos as $filho) {
                 ?>
-                        <li><a href="<?php echo $filho->getNoticiasPath(); ?>"> <?php echo $filho->titulo; ?> <?php echo '(' . count($filho->getNoticias()) . ' <span class=\'oculto\'> Postagens </span>' . ')' ?> </a></li>
+                        <li><a href="<?php echo $filho->getNoticiasPath(); ?>"> <?php echo $filho->titulo; ?> <?php echo '(' . count($filho->getNoticias()) . '<span class=\'oculto\'> Postagens </span>' . ')' ?> </a></li>
                 <?php } ?>                   
               </ul>
 
