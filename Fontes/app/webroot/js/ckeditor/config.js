@@ -4,6 +4,8 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+	config.language = "pt-br";
+	
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
@@ -19,16 +21,18 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'others', groups: [ 'others' ] }
 	];
 
-	config.removeButtons = 'Copy,Paste,Undo,Anchor,Redo,Link,Underline,Strike,Subscript,Superscript,Unlink,' + 
-						   'Indent,Outdent,About,Save,Templates,NewPage,Preview,BulletedList,NumberedList,' +
-						   'Print,Cut,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,RemoveFormat,'+
-						   'Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Blockquote,'+
-						   'JustifyLeft,BidiLtr,CreateDiv,JustifyCenter,BidiRtl,Language,JustifyRight,'+
-						   'JustifyBlock,Image,Styles,TextColor,Maximize,ShowBlocks,BGColor,Flash,Table,'+
-						   'Format,HorizontalRule,Smiley,Font,SpecialChar,PageBreak,FontSize,Iframe';
+	// config.removeButtons = 'Copy,Paste,Undo,Anchor,Redo,Link,Underline,Strike,Subscript,Superscript,Unlink,' + 
+	// 					   'Indent,Outdent,About,Save,Templates,NewPage,Preview,BulletedList,NumberedList,' +
+	// 					   'Print,Cut,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,RemoveFormat,'+
+	// 					   'Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Blockquote,'+
+	// 					   'JustifyLeft,BidiLtr,CreateDiv,JustifyCenter,BidiRtl,Language,JustifyRight,'+
+	// 					   'JustifyBlock,Image,Styles,TextColor,Maximize,ShowBlocks,BGColor,Flash,Table,'+
+	// 					   'Format,HorizontalRule,Smiley,Font,SpecialChar,PageBreak,FontSize,Iframe';
 						// Link, BulletedList, NumberedList
 
     //config.allowedContent = 'h5 h6 h7 h8 h9 h10 List';
     config.allowedContent = true;
+
+    config.filebrowserBrowseUrl = '../../../js/elfinder/elfinder.html';
 
 };

@@ -33,7 +33,7 @@
 	<fieldset>
 	<legend class="oculto">Conte&uacute;do Textual</legend>
 	<?php
-		echo $this->Html->script('/js/ckeditor1/ckeditor.js');
+		echo $this->Html->script('/js/ckeditor/ckeditor.js');
 	
 		echo $this->Form->input('titulo',  array('type' => 'text', 'class'=>"w97", 'label' => 'Título'));
 		echo $this->Form->input('resumo',  array('type' => 'text', 'class' => 'ckeditor', 'cols' => '80', 'rows' => '5'));
